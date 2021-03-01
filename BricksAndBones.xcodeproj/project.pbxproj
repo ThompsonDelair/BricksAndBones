@@ -14,6 +14,8 @@
 		7399693E25E1FF0900AE3215 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7399693D25E1FF0900AE3215 /* Assets.xcassets */; };
 		7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7399693F25E1FF0900AE3215 /* LaunchScreen.storyboard */; };
 		7399694A25E208AA00AE3215 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7399694925E208AA00AE3215 /* Vertex.swift */; };
+		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
+		FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE2B12F25E618F2008E38F3 /* stonewall.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		7399694025E1FF0900AE3215 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7399694225E1FF0900AE3215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7399694925E208AA00AE3215 /* Vertex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertex.swift; sourceTree = "<group>"; };
+		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
+		FAE2B12F25E618F2008E38F3 /* stonewall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonewall.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,12 +66,22 @@
 				7399693625E1FF0800AE3215 /* SceneDelegate.swift */,
 				7399693825E1FF0800AE3215 /* ViewController.swift */,
 				7399693A25E1FF0800AE3215 /* Main.storyboard */,
+				FAF15AC225E6D25D00AB4F78 /* Models */,
 				7399693D25E1FF0900AE3215 /* Assets.xcassets */,
 				7399693F25E1FF0900AE3215 /* LaunchScreen.storyboard */,
 				7399694225E1FF0900AE3215 /* Info.plist */,
 				7399694925E208AA00AE3215 /* Vertex.swift */,
 			);
 			path = BricksAndBones;
+			sourceTree = "<group>";
+		};
+		FAF15AC225E6D25D00AB4F78 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FAC70C0925ECC386005B6A38 /* rook.obj */,
+				FAE2B12F25E618F2008E38F3 /* stonewall.png */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,8 +142,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */,
+				FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */,
 				7399693E25E1FF0900AE3215 /* Assets.xcassets in Resources */,
 				7399693C25E1FF0800AE3215 /* Main.storyboard in Resources */,
+				FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
