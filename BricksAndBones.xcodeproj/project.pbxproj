@@ -14,6 +14,8 @@
 		7399693E25E1FF0900AE3215 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7399693D25E1FF0900AE3215 /* Assets.xcassets */; };
 		7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7399693F25E1FF0900AE3215 /* LaunchScreen.storyboard */; };
 		7399694A25E208AA00AE3215 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7399694925E208AA00AE3215 /* Vertex.swift */; };
+		FAB368DB25EDD01D00C076F6 /* rook2.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAB368DA25EDD01D00C076F6 /* rook2.obj */; };
+		FAB368E425EDFB6700C076F6 /* CubeObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FAB368E325EDFB6700C076F6 /* CubeObject.m */; };
 		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
 		FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE2B12F25E618F2008E38F3 /* stonewall.png */; };
 /* End PBXBuildFile section */
@@ -28,6 +30,10 @@
 		7399694025E1FF0900AE3215 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7399694225E1FF0900AE3215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7399694925E208AA00AE3215 /* Vertex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertex.swift; sourceTree = "<group>"; };
+		FA9A768925EED43300C0AE85 /* BricksAndBones-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BricksAndBones-Bridging-Header.h"; sourceTree = "<group>"; };
+		FAB368DA25EDD01D00C076F6 /* rook2.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook2.obj; sourceTree = "<group>"; };
+		FAB368E325EDFB6700C076F6 /* CubeObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CubeObject.m; sourceTree = "<group>"; };
+		FAB368E625EDFB7A00C076F6 /* CubeObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CubeObject.h; sourceTree = "<group>"; };
 		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
 		FAE2B12F25E618F2008E38F3 /* stonewall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonewall.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,6 +77,9 @@
 				7399693F25E1FF0900AE3215 /* LaunchScreen.storyboard */,
 				7399694225E1FF0900AE3215 /* Info.plist */,
 				7399694925E208AA00AE3215 /* Vertex.swift */,
+				FAB368E325EDFB6700C076F6 /* CubeObject.m */,
+				FAB368E625EDFB7A00C076F6 /* CubeObject.h */,
+				FA9A768925EED43300C0AE85 /* BricksAndBones-Bridging-Header.h */,
 			);
 			path = BricksAndBones;
 			sourceTree = "<group>";
@@ -78,6 +87,7 @@
 		FAF15AC225E6D25D00AB4F78 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FAB368DA25EDD01D00C076F6 /* rook2.obj */,
 				FAC70C0925ECC386005B6A38 /* rook.obj */,
 				FAE2B12F25E618F2008E38F3 /* stonewall.png */,
 			);
@@ -115,6 +125,7 @@
 				TargetAttributes = {
 					7399693025E1FF0800AE3215 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -144,6 +155,7 @@
 				7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */,
 				FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */,
 				7399693E25E1FF0900AE3215 /* Assets.xcassets in Resources */,
+				FAB368DB25EDD01D00C076F6 /* rook2.obj in Resources */,
 				7399693C25E1FF0800AE3215 /* Main.storyboard in Resources */,
 				FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */,
 			);
@@ -160,6 +172,7 @@
 				7399694A25E208AA00AE3215 /* Vertex.swift in Sources */,
 				7399693525E1FF0800AE3215 /* AppDelegate.swift in Sources */,
 				7399693725E1FF0800AE3215 /* SceneDelegate.swift in Sources */,
+				FAB368E425EDFB6700C076F6 /* CubeObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,7 +319,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"GLES_SILENCE_DEPRECATION=1",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = BricksAndBones/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -314,6 +332,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ca.btechgames.BricksAndBones;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BricksAndBones/BricksAndBones-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -324,7 +344,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				GCC_PREPROCESSOR_DEFINITIONS = "GLES_SILENCE_DEPRECATION=1";
 				INFOPLIST_FILE = BricksAndBones/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -332,6 +354,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ca.btechgames.BricksAndBones;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BricksAndBones/BricksAndBones-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

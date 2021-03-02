@@ -9,7 +9,6 @@ import GLKit
 
 
 class ViewController: GLKViewController {
-    
     private var context: EAGLContext?
     
     // element buffer object
@@ -27,6 +26,8 @@ class ViewController: GLKViewController {
     private var effect = GLKBaseEffect()
     
     private var rotation: Float = 0.0
+    
+    private var Cubes: [CubeObject] = [];
     
     
     var Vertices = [
@@ -46,7 +47,10 @@ class ViewController: GLKViewController {
     ]
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad();
+        var cubeObj = type(of: CubeObject()).init();
+        print("cube object \(cubeObj.position.x)")
+        Cubes.append(cubeObj);
         
         // to do anything with OpenGL, you need to create an EAGLContext
         context = EAGLContext(api: .openGLES3)
@@ -59,7 +63,24 @@ class ViewController: GLKViewController {
             // set the current class as the GLKViewController's delegate
             delegate = self
         }
+        glGenBuffers(1, &vbo)
+        glBindBuffer(GLenum(GL_ARRAY_BUFFER), vbo)
+        /*
+        // to do anything with OpenGL, you need to create an EAGLContext
+        context = EAGLContext(api: .openGLES3)
+        // specify that the rendering context is the one to use in the current thread
+        EAGLContext.setCurrent(context);
         
+        if let view = self.view as? GLKView, let context = context{
+            //set the GLKView context
+            view.context = context
+            // set the current class as the GLKViewController's delegate
+            delegate = self
+        }
+        glGenBuffers(1, &vbo)
+        glBindBuffer(GLenum(GL_ARRAY_BUFFER), vbo)
+         */
+        /*
         //loadModels()
         loadCubes()
         //setupGL()
@@ -67,20 +88,10 @@ class ViewController: GLKViewController {
         //setupGL_Arg(name: "cube2")
         //setupGL_Arg(name: "cube2")
         print("did load")
+ */
     }
     
     func loadCubes(){
-        /*
-        var CubeVerts = [
-            Vertex(x: 1, y: -1, z: 1, r: 1, g: 0, b: 0, a: 1),
-            Vertex(x: 1, y: 1, z: 1, r: 0, g: 1, b: 0, a: 1),
-            Vertex(x: -1, y: 1, z: 1, r: 0, g: 0, b: 1, a: 1),
-            Vertex(x: -1, y: -1, z: 1, r: 0, g: 0, b: 0, a: 1),
-            Vertex(x: 1, y: -1, z: -1, r: 1, g: 0, b: 0, a: 1),
-            Vertex(x: 1, y: 1, z: -1, r: 0, g: 1, b: 0, a: 1),
-            Vertex(x: -1, y: 1, z: -1, r: 0, g: 0, b: 1, a: 1),
-            Vertex(x: -1, y: -1, z: -1, r: 0, g: 0, b: 0, a: 1)
-        ]*/
         var CubeVerts : [[Float]] =
         [
             [-0.5, -0.5, -0.5],
@@ -163,6 +174,12 @@ class ViewController: GLKViewController {
         
         glClearColor(0.85, 0.85, 0.85, 1)
         glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
+        
+        for c in Cubes{
+            c.draw();
+        }
+        
+        /*
         setupGL_Arg(name: "cube1")
         // binds and compiles shaders for us
         effect.prepareToDraw()
@@ -179,6 +196,7 @@ class ViewController: GLKViewController {
                        GLsizei(IndexDict["cube1", default:[]].count),          // tells OpenGL how many vertices you want to draw
                        GLenum(GL_UNSIGNED_BYTE),          // specifies the type of values contained in each index
                        nil)
+ */
     }
     private func setupGL(){
         // to do anything with OpenGL, you need to create an EAGLContext
@@ -209,8 +227,7 @@ class ViewController: GLKViewController {
         // tell OpenGL to bind the VAO and that upcoming calls to configure vertex attribute pointers should be stored in this VAO
         glBindVertexArrayOES(vao)
         
-        glGenBuffers(1, &vbo)
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), vbo)
+        
         glBufferData(GLenum(GL_ARRAY_BUFFER),   // indicates to what buffer we are passing data
                      VertDict["cube1", default: []].size(),               // specify the size, in bytes, of the data
                      VertDict["cube1"],                      // the data we are going to use
