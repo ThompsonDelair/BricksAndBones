@@ -27,6 +27,12 @@ class ViewController: GLKViewController {
     
     private var rotation: Float = 0.0
     
+    private var buildType = 0
+    
+    private var typeLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    
+    private var scoreLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    
     //private var Cubes: [CubeObject] = [];
     
     /*
@@ -88,6 +94,8 @@ class ViewController: GLKViewController {
     
     var CubeCounter: Int = 0;
     
+    var Score: Int = 0;
+    
     var gameGrid: Grid = Grid(unitSize: 2);
     
     /*
@@ -123,8 +131,21 @@ class ViewController: GLKViewController {
         
         let pan = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(_:)))
         view.addGestureRecognizer(pan)
-        
+        UpdateTypeText()
 
+        typeLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        typeLabel.textColor = .black
+        typeLabel.font = typeLabel.font.withSize(20)
+        typeLabel.center = CGPoint(x:60, y:30)
+        typeLabel.textAlignment = .center
+        self.view.addSubview(typeLabel)
+        
+        scoreLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        scoreLabel.textColor = .black
+        scoreLabel.font = scoreLabel.font.withSize(20)
+        scoreLabel.center = CGPoint(x:220, y:30)
+        scoreLabel.textAlignment = .center
+        self.view.addSubview(scoreLabel)
         
         //loadCubes()
         /*
@@ -202,31 +223,89 @@ class ViewController: GLKViewController {
         return screenPos
     }
     
+    func UpdateTypeText(){
+        if(buildType == 0){
+            typeLabel.text = "selfish cube";
+        } else if (buildType == 1){
+            typeLabel.text = "normal cube";
+        } else if (buildType == 2){
+            typeLabel.text = "friendly cube";
+        }
+    }
+    
     func ScoreNearbyCubes(worldPos: GLKVector3){
+        
+        
+        
         let snapCenter = gameGrid.snapToGrid(x: worldPos.x, y: worldPos.y)
         
-        if(CubeCounter == 0){
-            return
-        }
+
         
-        for index in 0...CubeCounter-1{
-            let vert: Vertex = TranslationDict["cube\(index)"] ?? Vertex(x: 0, y: 0, z: 0, r: 0, g: 0, b: 0, a: 0)
-            let otherSnap = gameGrid.snapToGrid(x: vert.x, y: vert.y)
-            let xDiff = snapCenter.0 - otherSnap.0
-            let yDiff = snapCenter.1 - otherSnap.1
-            if(abs(xDiff) < 3 && abs(yDiff) < 3){
-                let worldPos: GLKVector3 = GLKVector3Make(Float(otherSnap.0),Float(otherSnap.1),0)
-                let screenPos = WorldPosToScreenPos(worldPos: worldPos)
-                displayLabel(locX: CGFloat(screenPos.x),locY: CGFloat(screenPos.y))
+        
+
+        
+        if(buildType == 0){
+            
+            if(CubeCounter != 0){
+                for index in 0...CubeCounter-1{
+                    let vert: Vertex = TranslationDict["cube\(index)"] ?? Vertex(x: 0, y: 0, z: 0, r: 0, g: 0, b: 0, a: 0)
+                    let otherSnap = gameGrid.snapToGrid(x: vert.x, y: vert.y)
+                    let xDiff = snapCenter.0 - otherSnap.0
+                    let yDiff = snapCenter.1 - otherSnap.1
+                    if(abs(xDiff) < 3 && abs(yDiff) < 3){
+                        let worldPos: GLKVector3 = GLKVector3Make(Float(otherSnap.0),Float(otherSnap.1),0)
+                        let screenPos = WorldPosToScreenPos(worldPos: worldPos)
+                        displayLabel(locX: CGFloat(screenPos.x),locY: CGFloat(screenPos.y),text:"-5",color: .red)
+                        Score -= 5
+                    }
+
+                }
             }
             
+
+            
+            let myWorldPos: GLKVector3 = GLKVector3Make(Float(snapCenter.0),Float(snapCenter.1),0)
+            let myScreenPos = WorldPosToScreenPos(worldPos: myWorldPos)
+            displayLabel(locX: CGFloat(myScreenPos.x),locY: CGFloat(myScreenPos.y),text:"+30",color: .green)
+            Score += 30
+        } else if(buildType == 1){
+            let myWorldPos: GLKVector3 = GLKVector3Make(Float(snapCenter.0),Float(snapCenter.1),0)
+            let myScreenPos = WorldPosToScreenPos(worldPos: myWorldPos)
+            displayLabel(locX: CGFloat(myScreenPos.x),locY: CGFloat(myScreenPos.y),text:"+10",color: .green)
+            Score += 10
+        } else if(buildType == 2){
+            
+            if(CubeCounter != 0){
+                for index in 0...CubeCounter-1{
+                    let vert: Vertex = TranslationDict["cube\(index)"] ?? Vertex(x: 0, y: 0, z: 0, r: 0, g: 0, b: 0, a: 0)
+                    let otherSnap = gameGrid.snapToGrid(x: vert.x, y: vert.y)
+                    let xDiff = snapCenter.0 - otherSnap.0
+                    let yDiff = snapCenter.1 - otherSnap.1
+                    if(abs(xDiff) < 3 && abs(yDiff) < 3){
+                        let worldPos: GLKVector3 = GLKVector3Make(Float(otherSnap.0),Float(otherSnap.1),0)
+                        let screenPos = WorldPosToScreenPos(worldPos: worldPos)
+                        displayLabel(locX: CGFloat(screenPos.x),locY: CGFloat(screenPos.y),text:"+10",color: .green)
+                        Score += 10
+                    }
+                }
+            }
+            
+
         }
+        
+        
+        buildType += 1
+        if(buildType == 3){
+            buildType = 0
+        }
+        UpdateTypeText()
+        scoreLabel.text = "Score: \(Score)"
         
     }
     
     func loadNewCube(){
         for vert in CubeVerts{
-            VertDict["cube\(CubeCounter)", default: []].append(Vertex(x: vert[0], y:vert[1], z:vert[2], r: 1, g: 0, b: 0, a: 1))
+            VertDict["cube\(CubeCounter)", default: []].append(Vertex(x: vert[0], y:vert[1], z:vert[2], r: 0.5, g: 0.5, b: 0.5, a: 1))
         }
         for indicies in CubeIndices{
             IndexDict["cube\(CubeCounter)", default:[]].append(indicies)
@@ -572,14 +651,14 @@ class ViewController: GLKViewController {
     }
     
     // Function that creates a label at a certain location. Removes the label after a specified amount of time
-    func displayLabel(locX: CGFloat, locY: CGFloat) {
+    func displayLabel(locX: CGFloat, locY: CGFloat, text: String, color: UIColor) {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
-        label.textColor = .black
+        label.textColor = color
         label.font = label.font.withSize(20)
         label.center = CGPoint(x:locX, y:locY)
         label.textAlignment = .center
-        label.text = "+100"
+        label.text = text
         self.view.addSubview(label)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
