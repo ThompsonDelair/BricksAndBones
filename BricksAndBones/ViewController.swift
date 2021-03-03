@@ -88,6 +88,8 @@ class ViewController: GLKViewController {
     
     var CubeCounter: Int = 0;
     
+    var gameGrid: Grid = Grid(unitSize: 2);
+    
     /*
     var Indices: [GLubyte] = [
         0,1,2,
@@ -114,17 +116,15 @@ class ViewController: GLKViewController {
         glGenBuffers(1, &vbo)
         glBindBuffer(GLenum(GL_ARRAY_BUFFER), vbo)
         
-        loadNewCube();
-        loadNewCube();
-        loadNewCube();
-        
-        print(VertDict["cube1"]![0].x);
+        //print(VertDict["cube1"]![0].x);
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         view.addGestureRecognizer(tap)
         
         let pan = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(_:)))
         view.addGestureRecognizer(pan)
+        
+
         
         //loadCubes()
         /*
@@ -157,7 +157,15 @@ class ViewController: GLKViewController {
         var screenPos: GLKVector3 = GLKVector3Make(Float(touchPoint.x), Float(touchPoint.y), Float(0))
         var worldPos = ScreenPosToWorldPos(screenPos: screenPos)
         
-        TranslationDict["cube0"] = Vertex(x: Float(worldPos.x), y: Float(worldPos.y), z: Float(0), r: 0, g: 0, b: 0, a: 0)
+        var snappedPosition = gameGrid.snapToGrid(x: worldPos.x, y: worldPos.y)
+        
+        
+        ScoreNearbyCubes(worldPos: worldPos)
+        
+        loadNewCube()
+        
+        
+        TranslationDict["cube\(CubeCounter-1)"] = Vertex(x: Float(snappedPosition.0), y: Float(snappedPosition.1), z: Float(0), r: 0, g: 0, b: 0, a: 0)
         
     }
     
@@ -192,6 +200,28 @@ class ViewController: GLKViewController {
         screenPos.y *= 23.5
         
         return screenPos
+    }
+    
+    func ScoreNearbyCubes(worldPos: GLKVector3){
+        let snapCenter = gameGrid.snapToGrid(x: worldPos.x, y: worldPos.y)
+        
+        if(CubeCounter == 0){
+            return
+        }
+        
+        for index in 0...CubeCounter-1{
+            let vert: Vertex = TranslationDict["cube\(index)"] ?? Vertex(x: 0, y: 0, z: 0, r: 0, g: 0, b: 0, a: 0)
+            let otherSnap = gameGrid.snapToGrid(x: vert.x, y: vert.y)
+            let xDiff = snapCenter.0 - otherSnap.0
+            let yDiff = snapCenter.1 - otherSnap.1
+            if(abs(xDiff) < 3 && abs(yDiff) < 3){
+                let worldPos: GLKVector3 = GLKVector3Make(Float(otherSnap.0),Float(otherSnap.1),0)
+                let screenPos = WorldPosToScreenPos(worldPos: worldPos)
+                displayLabel(locX: CGFloat(screenPos.x),locY: CGFloat(screenPos.y))
+            }
+            
+        }
+        
     }
     
     func loadNewCube(){
