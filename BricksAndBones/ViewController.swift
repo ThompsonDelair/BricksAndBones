@@ -385,12 +385,12 @@ class ViewController: GLKViewController {
         tearDownGL()
     }
     
-    func displayLabel() {
+    func displayLabel(locX: CGFloat, locY: CGFloat) {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
         label.textColor = .black
         label.font = label.font.withSize(20)
-        label.center = CGPoint(x: 160, y: 484)
+        label.center = CGPoint(x:locX, y:locY)
         label.textAlignment = .center
         label.text = "+100"
         self.view.addSubview(label)
@@ -405,13 +405,20 @@ class ViewController: GLKViewController {
         button.backgroundColor = .blue
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Score", for: .normal)
-        button.addTarget(self, action: #selector(scoreAction), for: .touchUpInside)
+        //button.addTarget(self, action: #selector(scoreAction), for: .touchUpInside)
         
         self.view.addSubview(button)
     }
     
-    @objc func scoreAction(sender: UIButton!) {
-        displayLabel()
+    //@objc func scoreAction(sender: UIButton!) {
+        //displayLabel()
+    //}
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = event?.allTouches?.first {
+            let loc:CGPoint = touch.location(in: touch.view)
+            displayLabel(locX:loc.x, locY:loc.y)
+        }
     }
 
 }
