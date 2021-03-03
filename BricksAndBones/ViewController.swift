@@ -385,6 +385,7 @@ class ViewController: GLKViewController {
         tearDownGL()
     }
     
+    // Function that creates a label at a certain location. Removes the label after a specified amount of time
     func displayLabel(locX: CGFloat, locY: CGFloat) {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
@@ -400,7 +401,7 @@ class ViewController: GLKViewController {
         }
     }
     
-    func drawButton() {
+    /*func drawButton() {
         let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
         button.backgroundColor = .blue
         button.setTitleColor(.white, for: .normal)
@@ -410,9 +411,9 @@ class ViewController: GLKViewController {
         self.view.addSubview(button)
     }
     
-    //@objc func scoreAction(sender: UIButton!) {
+    @objc func scoreAction(sender: UIButton!) {
         //displayLabel()
-    //}
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = event?.allTouches?.first {
@@ -420,6 +421,7 @@ class ViewController: GLKViewController {
             displayLabel(locX:loc.x, locY:loc.y)
         }
     }
+ */
 
 }
 
