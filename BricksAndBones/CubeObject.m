@@ -75,6 +75,7 @@ static GLKBaseEffect *effect;
 
 - (void)draw
 {
+    NSLog(@"drawing");
     GLKMatrix4 yRotMatrix = GLKMatrix4MakeYRotation(rotation.x);
     GLKMatrix4 xRotMatrix = GLKMatrix4MakeXRotation(rotation.y);
     GLKMatrix4 zRotMatrix = GLKMatrix4MakeXRotation(rotation.z);
