@@ -120,6 +120,12 @@ class ViewController: GLKViewController {
         
         print(VertDict["cube1"]![0].x);
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
+        view.addGestureRecognizer(tap)
+        
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(_:)))
+        view.addGestureRecognizer(pan)
+        
         //loadCubes()
         /*
         //loadModels()
@@ -129,6 +135,34 @@ class ViewController: GLKViewController {
         //setupGL_Arg(name: "cube2")
         print("did load")
  */
+    }
+    
+    @objc func handleTap(_ sender: UITapGestureRecognizer){
+        let touchPoint = sender.location(in: self.view)
+        var screenPos: GLKVector3 = GLKVector3Make(Float(touchPoint.x), Float(touchPoint.y), Float(0))
+        var worldPos = ScreenPosToWorldPos(screenPos: screenPos)
+        
+        TranslationDict["cube0"] = Vertex(x: Float(worldPos.x), y: Float(worldPos.y), z: Float(0), r: 0, g: 0, b: 0, a: 0)
+        
+    }
+    
+    @objc func handlePan(_ sender: UIPanGestureRecognizer){
+        let translation = sender.translation(in: self.view)
+    }
+    
+    func ScreenPosToWorldPos(screenPos: GLKVector3) -> GLKVector3 {
+        var worldPos: GLKVector3 = GLKVector3Make(screenPos.x, screenPos.y, 0)
+        
+       
+        worldPos.x /= 40
+        worldPos.y /= 40
+        
+        worldPos.x -= 8
+        worldPos.y -= 10
+        
+        worldPos.y *= -1
+        
+        return worldPos
     }
     
     func loadNewCube(){
