@@ -67,6 +67,19 @@ class ViewController: GLKViewController {
         //setupGL_Arg(name: "cube2")
         //setupGL_Arg(name: "cube2")
         print("did load")
+    
+        
+//        var grid = Grid(unitSize:4)
+//        var position:(Float, Float) = (2.5, 11)
+//        var position2:(Float, Float) = (12.5, 14.5)
+//
+//        print("snapping numbers x: \(position.0) y: \(position.1)")
+//        var snappedPosition = grid.snapToGrid(x: position.0, y: position.1)
+//        print("snapped position x: \(snappedPosition.0) y:  \(snappedPosition.1)")
+//        print("snapping numbers x: \(position2.0) y: \(position2.1)")
+//        var snappedPosition2 = grid.snapToGrid(x:position2.0, y:position2.1)
+//        print("snapped position2 x: \(snappedPosition2.0) y:  \(snappedPosition2.1)")
+    
     }
     
     func loadCubes(){

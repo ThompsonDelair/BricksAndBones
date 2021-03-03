@@ -14,6 +14,7 @@
 		7399693E25E1FF0900AE3215 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7399693D25E1FF0900AE3215 /* Assets.xcassets */; };
 		7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7399693F25E1FF0900AE3215 /* LaunchScreen.storyboard */; };
 		7399694A25E208AA00AE3215 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7399694925E208AA00AE3215 /* Vertex.swift */; };
+		B9E81C4625EF2E8C00176E20 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E81C4525EF2E8C00176E20 /* Grid.swift */; };
 		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
 		FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE2B12F25E618F2008E38F3 /* stonewall.png */; };
 /* End PBXBuildFile section */
@@ -28,6 +29,7 @@
 		7399694025E1FF0900AE3215 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7399694225E1FF0900AE3215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7399694925E208AA00AE3215 /* Vertex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertex.swift; sourceTree = "<group>"; };
+		B9E81C4525EF2E8C00176E20 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
 		FAE2B12F25E618F2008E38F3 /* stonewall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonewall.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,6 +73,7 @@
 				7399693F25E1FF0900AE3215 /* LaunchScreen.storyboard */,
 				7399694225E1FF0900AE3215 /* Info.plist */,
 				7399694925E208AA00AE3215 /* Vertex.swift */,
+				B9E81C4525EF2E8C00176E20 /* Grid.swift */,
 			);
 			path = BricksAndBones;
 			sourceTree = "<group>";
@@ -159,6 +162,7 @@
 				7399693925E1FF0800AE3215 /* ViewController.swift in Sources */,
 				7399694A25E208AA00AE3215 /* Vertex.swift in Sources */,
 				7399693525E1FF0800AE3215 /* AppDelegate.swift in Sources */,
+				B9E81C4625EF2E8C00176E20 /* Grid.swift in Sources */,
 				7399693725E1FF0800AE3215 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
