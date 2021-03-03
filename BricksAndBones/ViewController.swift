@@ -136,14 +136,14 @@ class ViewController: GLKViewController {
         typeLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         typeLabel.textColor = .black
         typeLabel.font = typeLabel.font.withSize(20)
-        typeLabel.center = CGPoint(x:60, y:30)
+        typeLabel.center = CGPoint(x:60, y:35)
         typeLabel.textAlignment = .center
         self.view.addSubview(typeLabel)
         
         scoreLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         scoreLabel.textColor = .black
         scoreLabel.font = scoreLabel.font.withSize(20)
-        scoreLabel.center = CGPoint(x:220, y:30)
+        scoreLabel.center = CGPoint(x:220, y:35)
         scoreLabel.textAlignment = .center
         self.view.addSubview(scoreLabel)
         
