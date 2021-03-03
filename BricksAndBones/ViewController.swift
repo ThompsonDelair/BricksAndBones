@@ -305,7 +305,7 @@ class ViewController: GLKViewController {
     
     func loadNewCube(){
         for vert in CubeVerts{
-            VertDict["cube\(CubeCounter)", default: []].append(Vertex(x: vert[0], y:vert[1], z:vert[2], r: 0.5, g: 0.5, b: 0.5, a: 1))
+            VertDict["cube\(CubeCounter)", default: []].append(Vertex(x: vert[0], y:vert[1], z:vert[2], r: 0.7, g: 0.7, b: 0.7, a: 1))
         }
         for indicies in CubeIndices{
             IndexDict["cube\(CubeCounter)", default:[]].append(indicies)
