@@ -67,6 +67,8 @@ class ViewController: GLKViewController {
         //setupGL_Arg(name: "cube2")
         //setupGL_Arg(name: "cube2")
         print("did load")
+        
+        drawButton()
     }
     
     func loadCubes(){
@@ -381,6 +383,35 @@ class ViewController: GLKViewController {
     
     deinit{
         tearDownGL()
+    }
+    
+    func displayLabel() {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.textColor = .black
+        label.font = label.font.withSize(20)
+        label.center = CGPoint(x: 160, y: 484)
+        label.textAlignment = .center
+        label.text = "+100"
+        self.view.addSubview(label)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            label.removeFromSuperview()
+        }
+    }
+    
+    func drawButton() {
+        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+        button.backgroundColor = .blue
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Score", for: .normal)
+        button.addTarget(self, action: #selector(scoreAction), for: .touchUpInside)
+        
+        self.view.addSubview(button)
+    }
+    
+    @objc func scoreAction(sender: UIButton!) {
+        displayLabel()
     }
 
 }
