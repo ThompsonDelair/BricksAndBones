@@ -134,6 +134,21 @@ class ViewController: GLKViewController {
         //setupGL_Arg(name: "cube2")
         //setupGL_Arg(name: "cube2")
         print("did load")
+       
+        drawButton()
+        
+//        var grid = Grid(unitSize:4)
+//        var position:(Float, Float) = (2.5, 11)
+//        var position2:(Float, Float) = (12.5, 14.5)
+//
+//        print("snapping numbers x: \(position.0) y: \(position.1)")
+//        var snappedPosition = grid.snapToGrid(x: position.0, y: position.1)
+//        print("snapped position x: \(snappedPosition.0) y:  \(snappedPosition.1)")
+//        print("snapping numbers x: \(position2.0) y: \(position2.1)")
+//        var snappedPosition2 = grid.snapToGrid(x:position2.0, y:position2.1)
+//        print("snapped position2 x: \(snappedPosition2.0) y:  \(snappedPosition2.1)")
+    
+
  */
     }
     
@@ -162,6 +177,7 @@ class ViewController: GLKViewController {
         worldPos.y *= -1
         
         return worldPos
+
     }
     
     func WorldPosToScreenPos(worldPos: GLKVector3) -> GLKVector3 {
@@ -525,6 +541,44 @@ class ViewController: GLKViewController {
         tearDownGL()
     }
     
+    // Function that creates a label at a certain location. Removes the label after a specified amount of time
+    func displayLabel(locX: CGFloat, locY: CGFloat) {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.textColor = .black
+        label.font = label.font.withSize(20)
+        label.center = CGPoint(x:locX, y:locY)
+        label.textAlignment = .center
+        label.text = "+100"
+        self.view.addSubview(label)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            label.removeFromSuperview()
+        }
+    }
+    
+    /*func drawButton() {
+        let button = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+        button.backgroundColor = .blue
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Score", for: .normal)
+        //button.addTarget(self, action: #selector(scoreAction), for: .touchUpInside)
+        
+        self.view.addSubview(button)
+    }
+    
+    @objc func scoreAction(sender: UIButton!) {
+        //displayLabel()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = event?.allTouches?.first {
+            let loc:CGPoint = touch.location(in: touch.view)
+            displayLabel(locX:loc.x, locY:loc.y)
+        }
+    }
+ */
+
 }
 
 
