@@ -154,15 +154,28 @@ class ViewController: GLKViewController {
         var worldPos: GLKVector3 = GLKVector3Make(screenPos.x, screenPos.y, 0)
         
        
-        worldPos.x /= 40
-        worldPos.y /= 40
+        worldPos.x /= 23.5
+        worldPos.y /= 23.5
         
-        worldPos.x -= 8
-        worldPos.y -= 10
-        
+        worldPos.x -= 6.5
+        worldPos.y -= 11.75
         worldPos.y *= -1
         
         return worldPos
+    }
+    
+    func WorldPosToScreenPos(worldPos: GLKVector3) -> GLKVector3 {
+        var screenPos: GLKVector3 = GLKVector3Make(worldPos.x, worldPos.y, 0)
+        
+        screenPos.y *= -1
+        
+        screenPos.x += 6.5
+        screenPos.y += 11.75
+        
+        screenPos.x *= 23.5
+        screenPos.y *= 23.5
+        
+        return screenPos
     }
     
     func loadNewCube(){
