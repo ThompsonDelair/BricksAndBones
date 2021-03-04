@@ -137,11 +137,13 @@ class ViewController: GLKViewController {
         
         var snappedPosition = gameGrid.snapToGrid(x: worldPos.x, y: worldPos.y)
         
+        ScorePoints(worldPos: worldPos)
         
-        ScoreNearbyCubes(worldPos: worldPos)
+        buildType += 1
+        buildType %= 3
+        UpdateTypeText()
         
         loadNewCube()
-        
         
         TranslationDict["cube\(CubeCounter-1)"] = Vertex(x: Float(snappedPosition.0), y: Float(snappedPosition.1), z: Float(0), r: 0, g: 0, b: 0, a: 0)
         
@@ -190,16 +192,9 @@ class ViewController: GLKViewController {
         }
     }
     
-    func ScoreNearbyCubes(worldPos: GLKVector3){
-        
-        
-        
+    func ScorePoints(worldPos: GLKVector3){
+
         let snapCenter = gameGrid.snapToGrid(x: worldPos.x, y: worldPos.y)
-        
-
-        
-        
-
         
         if(buildType == 0){
             
@@ -215,12 +210,8 @@ class ViewController: GLKViewController {
                         displayLabel(locX: CGFloat(screenPos.x),locY: CGFloat(screenPos.y),text:"-5",color: .red)
                         Score -= 5
                     }
-
                 }
             }
-            
-
-            
             let myWorldPos: GLKVector3 = GLKVector3Make(Float(snapCenter.0),Float(snapCenter.1),0)
             let myScreenPos = WorldPosToScreenPos(worldPos: myWorldPos)
             displayLabel(locX: CGFloat(myScreenPos.x),locY: CGFloat(myScreenPos.y),text:"+30",color: .green)
@@ -246,16 +237,9 @@ class ViewController: GLKViewController {
                     }
                 }
             }
-            
+        }
+        
 
-        }
-        
-        
-        buildType += 1
-        if(buildType == 3){
-            buildType = 0
-        }
-        UpdateTypeText()
         scoreLabel.text = "Score: \(Score)"
         
     }
@@ -440,7 +424,6 @@ class ViewController: GLKViewController {
  */
 
 }
-
 
 
 extension ViewController: GLKViewControllerDelegate{
