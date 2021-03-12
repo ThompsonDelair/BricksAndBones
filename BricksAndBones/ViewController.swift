@@ -33,6 +33,8 @@ class ViewController: GLKViewController {
     
     private var scoreLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
+    private var cameraLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    
     var CubeVerts : [[Float]] =
     [
         [-0.5, -0.5, -0.5],
@@ -128,24 +130,36 @@ class ViewController: GLKViewController {
         scoreLabel.textAlignment = .center
         self.view.addSubview(scoreLabel)
         
+
+        loadNewCube()
+        
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
         let touchPoint = sender.location(in: self.view)
-        var screenPos: GLKVector3 = GLKVector3Make(Float(touchPoint.x), Float(touchPoint.y), Float(0))
-        var worldPos = ScreenPosToWorldPos(screenPos: screenPos)
+        let screenPos: GLKVector3 = GLKVector3Make(Float(touchPoint.x), Float(touchPoint.y), Float(0))
         
-        var snappedPosition = gameGrid.snapToGrid(x: worldPos.x, y: worldPos.y)
+        let worldPos2 = ScreenPosToWorldPlane(mouseX: CGFloat(screenPos.x), mouseY: CGFloat(screenPos.y))
+                
+        if(worldPos2.hit == false){
+            print("no hit for screen-to-world ray")
+        }
         
-        ScorePoints(worldPos: worldPos)
+        TranslationDict["cube\(CubeCounter-1)"] = Vertex(x: Float(worldPos2.hitPos.x), y: Float(worldPos2.hitPos.y), z: Float(0), r: 0, g: 0, b: 0, a: 0)
         
-        buildType += 1
-        buildType %= 3
-        UpdateTypeText()
-        
-        loadNewCube()
-        
-        TranslationDict["cube\(CubeCounter-1)"] = Vertex(x: Float(snappedPosition.0), y: Float(snappedPosition.1), z: Float(0), r: 0, g: 0, b: 0, a: 0)
+//        var worldPos = ScreenPosToWorldPos(screenPos: screenPos)
+//
+//        var snappedPosition = gameGrid.snapToGrid(x: worldPos.x, y: worldPos.y)
+//
+//        ScorePoints(worldPos: worldPos)
+//
+//        buildType += 1
+//        buildType %= 3
+//        UpdateTypeText()
+//
+//        loadNewCube()
+//
+//        TranslationDict["cube\(CubeCounter-1)"] = Vertex(x: Float(snappedPosition.0), y: Float(snappedPosition.1), z: Float(0), r: 0, g: 0, b: 0, a: 0)
         
     }
     
@@ -242,6 +256,114 @@ class ViewController: GLKViewController {
 
         scoreLabel.text = "Score: \(Score)"
         
+    }
+    
+    func ScreenPosToWorldPlane(mouseX: CGFloat, mouseY: CGFloat) -> WorldPosReturn {
+        let screenPos = GLKVector2Make(Float(mouseX),Float(mouseY))
+        print("ray cast from screen position: "+NSStringFromGLKVector2(screenPos))
+        // the direction of our ray
+        let rayDirection = ScreenPosToWorldRay(mouseX: mouseX, mouseY: mouseY)
+        // the origin of our ray is the camera position
+        let cameraPos = GLKMatrix4GetColumn(effect.transform.modelviewMatrix, 3)
+        let rayOrigin = GLKVector3Make(cameraPos.x,cameraPos.y,cameraPos.z)
+        print("ray cast from camera position: "+NSStringFromGLKVector3(rayOrigin))
+
+        
+        let planeNormal = GLKVector3Make(0,0,1)
+        let planePoint = GLKVector3Make(0,0,0)
+        
+        var hitReturn = WorldPosReturn(hit: false, hitPos: GLKVector3Make(0,0,0))
+        
+        // ray doesnt intersect plane
+        if(GLKVector3DotProduct(planeNormal, rayDirection) == 0){
+            hitReturn.hit = false
+            return hitReturn
+        }
+        
+        let t: Float = (GLKVector3DotProduct(planeNormal, planePoint) - GLKVector3DotProduct(planeNormal, rayOrigin)) / GLKVector3DotProduct(planeNormal, rayDirection)
+        var hitPos = GLKVector3MultiplyScalar(rayDirection, t)
+        hitPos = GLKVector3Add(hitPos, rayOrigin)
+        hitReturn.hitPos = hitPos
+        hitReturn.hit = true
+        
+        return hitReturn
+    }
+    
+    struct WorldPosReturn {
+        var hit: Bool
+        var hitPos: GLKVector3
+    }
+    
+    func ScreenPosToWorldRay2(mouseX: CGFloat, mouseY: CGFloat) -> GLKVector3{
+        let screen = view.bounds
+        let width = screen.width
+        let height = screen.height
+        let x = (2.0 * mouseX) / width - 1.0
+        let y = 1.0 - (2.0 * mouseY) / height
+        let z = 1.0
+        let screenPos: GLKVector4 = GLKVector4Make(Float(x),Float(y),Float(z),1)
+        
+        var viewProj = GLKMatrix4Multiply(effect.transform.modelviewMatrix, effect.transform.projectionMatrix)
+        //viewProj = GLKMatrix4Multiply(viewProj)
+        //effect.transform.
+        let isInvertible: UnsafeMutablePointer<Bool> = UnsafeMutablePointer<Bool>.allocate(capacity: 1)
+        let viewProjInverse = GLKMatrix4Invert(viewProj, isInvertible)
+        
+        if(isInvertible.pointee == false){
+            print("cannot invert viewProjection matrix")
+        }
+        isInvertible.deallocate()
+        
+        var worldRay4 = GLKMatrix4MultiplyVector4(viewProjInverse, screenPos)
+        worldRay4.w = 1.0 / worldRay4.w
+        
+        var worldRay3 = GLKVector3Make(
+            Float(worldRay4.x * worldRay4.w),
+            Float(worldRay4.y * worldRay4.w),
+            Float(worldRay4.z * worldRay4.w))
+        
+        worldRay3 = GLKVector3Normalize(worldRay3)
+        
+        return worldRay3
+    }
+    
+    func ScreenPosToWorldRay(mouseX: CGFloat, mouseY: CGFloat) ->GLKVector3{
+        let screen = UIScreen.main.bounds
+        let width = screen.width
+        let height = screen.height
+        let x = (2.0 * mouseX) / width - 1.0
+        let y = 1.0 - (2.0 * mouseY) / height
+        let z = 1.0
+        let ray_nds: GLKVector3 = GLKVector3Make(Float(x), Float(y), Float(z)) // nds = normalized device coordinate space
+        let ray_clip: GLKVector4 = GLKVector4Make(Float(ray_nds.x),Float(ray_nds.y),-1.0,1.0)
+        
+        let isInvertible: UnsafeMutablePointer<Bool> = UnsafeMutablePointer<Bool>.allocate(capacity: 1)
+        
+        let aspect = fabsf(Float(view.bounds.size.width)/Float(view.bounds.size.height))
+        var proj = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0),aspect,1,40)
+        proj = GLKMatrix4Multiply(proj, GLKMatrix4Identity)
+        let proj_invert: GLKMatrix4 = GLKMatrix4Invert(proj, isInvertible)
+
+        if(isInvertible.pointee == false){
+            print("projection matrix not invertible")
+        }
+        
+        var ray_cameraSpace: GLKVector4  = GLKMatrix4MultiplyVector4(proj_invert, ray_clip)
+        ray_cameraSpace = GLKVector4Make(ray_cameraSpace.x, ray_cameraSpace.y, -1.0, 0)
+        
+        let view_invert = GLKMatrix4Invert(effect.transform.modelviewMatrix,isInvertible)
+        var ray_worldSpace = GLKMatrix4MultiplyVector4(view_invert, ray_cameraSpace)
+        
+        if(isInvertible.pointee == false){
+            print("model view matrix not invertible")
+        }
+        
+        ray_worldSpace = GLKVector4Normalize(ray_worldSpace)
+        let rayVector3 = GLKVector3Make(ray_worldSpace.x * -1,ray_worldSpace.y * -1,ray_worldSpace.z)
+        
+        isInvertible.deallocate()
+        
+        return rayVector3
     }
     
     func loadNewCube(){
@@ -423,6 +545,40 @@ class ViewController: GLKViewController {
     }
  */
 
+    func PrintModeViewMatrix(){
+        print("modelViewMatrix:")
+        for num in 0...3 {
+            let row = GLKMatrix4GetRow(effect.transform.modelviewMatrix, Int32(num))
+            print(NSStringFromGLKVector4(row))
+        }
+    }
+    
+    func MakeCameraLabel(locX: CGFloat, locY: CGFloat){
+        cameraLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+        cameraLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        cameraLabel.font = cameraLabel.font.withSize(20)
+        cameraLabel.textColor = .black
+        cameraLabel.center = CGPoint(x:locX, y:locY)
+        cameraLabel.textAlignment = .center
+        
+        var text = ""
+        
+        for num in 0...3 {
+            let row = GLKMatrix4GetRow(effect.transform.modelviewMatrix, Int32(num))
+            text += NSStringFromGLKVector4(row) + "\n"
+            print("loop " + String(num))
+        }
+        
+        print(text)
+        
+        cameraLabel.text = text
+        
+        self.view.addSubview(cameraLabel)
+    }
+    
+    func UpdateCameraLabel(){
+        
+    }
 }
 
 
@@ -437,11 +593,15 @@ extension ViewController: GLKViewControllerDelegate{
         effect.transform.projectionMatrix = projectionMatrix
         
         // translation
-        var modelViewMatrix = GLKMatrix4MakeTranslation(0.0, 0.0, -20.0)
+        var modelViewMatrix = GLKMatrix4MakeTranslation(0, 0, -20.0)
         // set the model view matrix on the effect's transform property
         effect.transform.modelviewMatrix = modelViewMatrix
+        
+        //PrintModeViewMatrix()
     }
 }
+
+
 
 extension Array{
     func size() -> Int{
