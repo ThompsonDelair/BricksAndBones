@@ -11,6 +11,9 @@ import GLKit
 class ViewController: GLKViewController {
     private var context: EAGLContext?
     
+    //private var renderer: Renderer = Renderer()
+    private var glesRenderer: Renderer!
+    
     // element buffer object
     // keeps track of indicies that define triangles
     private var ebo = GLuint()
@@ -90,22 +93,45 @@ class ViewController: GLKViewController {
     
     var gameGrid: Grid = Grid(unitSize: 2);
     
+    var cursorType: Int = 0;
+    var cursorInstanceId: Int = 0;
+    
+    var panStartScreen: CGPoint = CGPoint();
+    var panTrack: GLKVector3 = GLKVector3Make(0, 0, 0);
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        // to do anything with OpenGL, you need to create an EAGLContext
-        context = EAGLContext(api: .openGLES3)
-        // specify that the rendering context is the one to use in the current thread
-        EAGLContext.setCurrent(context);
+//        if let view = self.view as? GLKView {
+//            renderer.setup(view: view)
+//        }
         
-        if let view = self.view as? GLKView, let context = context{
-            //set the GLKView context
+        
+//        // to do anything with OpenGL, you need to create an EAGLContext
+        context = EAGLContext(api: .openGLES3)
+//        // specify that the rendering context is the one to use in the current thread
+        EAGLContext.setCurrent(context);
+//
+//        if let view = self.view as? GLKView, let context = context{
+//            //set the GLKView context
+//            view.context = context
+//            // set the current class as the GLKViewController's delegate
+//            delegate = self
+//        }
+        
+        if let view = self.view as? GLKView, let context = context {
             view.context = context
-            // set the current class as the GLKViewController's delegate
-            delegate = self
+            delegate = self as! GLKViewControllerDelegate
+            glesRenderer = Renderer()
+            glesRenderer.setup(view)
+            glesRenderer.loadModels()
         }
-        glGenBuffers(1, &vbo)
-        glBindBuffer(GLenum(GL_ARRAY_BUFFER), vbo)
+        
+//
+//        delegate = self
+        
+//        glGenBuffers(1, &vbo)
+//        glBindBuffer(GLenum(GL_ARRAY_BUFFER), vbo)
         
         //print(VertDict["cube1"]![0].x);
         
@@ -130,6 +156,8 @@ class ViewController: GLKViewController {
         scoreLabel.textAlignment = .center
         self.view.addSubview(scoreLabel)
         
+        cursorType = 1;
+        cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(1, 1, 1)))
 
         loadNewCube()
         
@@ -139,13 +167,16 @@ class ViewController: GLKViewController {
         let touchPoint = sender.location(in: self.view)
         let screenPos: GLKVector3 = GLKVector3Make(Float(touchPoint.x), Float(touchPoint.y), Float(0))
         
-        let worldPos2 = ScreenPosToWorldPlane(mouseX: CGFloat(screenPos.x), mouseY: CGFloat(screenPos.y))
+        let worldPos = ScreenPosToWorldPlane(mouseX: CGFloat(screenPos.x), mouseY: CGFloat(screenPos.y))
                 
-        if(worldPos2.hit == false){
+        if(worldPos.hit == false){
             print("no hit for screen-to-world ray")
+        } else{
+            print("world pos: "+NSStringFromGLKVector3(worldPos.hitPos))
+            glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: worldPos.hitPos)
         }
         
-        TranslationDict["cube\(CubeCounter-1)"] = Vertex(x: Float(worldPos2.hitPos.x), y: Float(worldPos2.hitPos.y), z: Float(0), r: 0, g: 0, b: 0, a: 0)
+        //TranslationDict["cube\(CubeCounter-1)"] = Vertex(x: Float(worldPos2.hitPos.x), y: Float(worldPos2.hitPos.y), z: Float(0), r: 0, g: 0, b: 0, a: 0)
         
 //        var worldPos = ScreenPosToWorldPos(screenPos: screenPos)
 //
@@ -165,35 +196,19 @@ class ViewController: GLKViewController {
     
     @objc func handlePan(_ sender: UIPanGestureRecognizer){
         let translation = sender.translation(in: self.view)
-    }
-    
-    func ScreenPosToWorldPos(screenPos: GLKVector3) -> GLKVector3 {
-        var worldPos: GLKVector3 = GLKVector3Make(screenPos.x, screenPos.y, 0)
         
-       
-        worldPos.x /= 23.5
-        worldPos.y /= 23.5
-        
-        worldPos.x -= 6.5
-        worldPos.y -= 11.75
-        worldPos.y *= -1
-        
-        return worldPos
-
-    }
-    
-    func WorldPosToScreenPos(worldPos: GLKVector3) -> GLKVector3 {
-        var screenPos: GLKVector3 = GLKVector3Make(worldPos.x, worldPos.y, 0)
-        
-        screenPos.y *= -1
-        
-        screenPos.x += 6.5
-        screenPos.y += 11.75
-        
-        screenPos.x *= 23.5
-        screenPos.y *= 23.5
-        
-        return screenPos
+        if(sender.state == UIGestureRecognizer.State.began){
+            let worldPos = ScreenPosToWorldPlane(mouseX: translation.x, mouseY: translation.y);
+            panTrack = worldPos.hitPos;
+            panStartScreen = translation;
+        } else{
+            let inst = glesRenderer.getModelInstanceData(Int32(cursorType),instance:Int32(cursorInstanceId))
+            let worldPos = ScreenPosToWorldPlane(mouseX: translation.x, mouseY: translation.y)
+            let movement = GLKVector3Subtract(worldPos.hitPos, panTrack);
+            let newPos: GLKVector3 = GLKVector3Make(inst.position.x + movement.x,0,inst.position.z + movement.z )
+            glesRenderer.setInstancePos(Int32(cursorType),instance:Int32(cursorInstanceId),pos:newPos);
+            print("world pos: "+NSStringFromGLKVector3(newPos));
+        }
     }
     
     func UpdateTypeText(){
@@ -245,8 +260,8 @@ class ViewController: GLKViewController {
                     let yDiff = snapCenter.1 - otherSnap.1
                     if(abs(xDiff) < 3 && abs(yDiff) < 3){
                         let worldPos: GLKVector3 = GLKVector3Make(Float(otherSnap.0),Float(otherSnap.1),0)
-                        let screenPos = WorldPosToScreenPos(worldPos: worldPos)
-                        displayLabel(locX: CGFloat(screenPos.x),locY: CGFloat(screenPos.y),text:"+10",color: .green)
+                        //let screenPos = WorldPosToScreenPos(worldPos: worldPos)
+                        //displayLabel(locX: CGFloat(screenPos.x),locY: CGFloat(screenPos.y),text:"+10",color: .green)
                         Score += 10
                     }
                 }
@@ -258,18 +273,37 @@ class ViewController: GLKViewController {
         
     }
     
+    func WorldPosToScreenPos(worldPos: GLKVector3) -> GLKVector2{
+        let clipPos = GLKMatrix4MultiplyVector4(
+            glesRenderer._projectionMatrix,
+            GLKMatrix4MultiplyVector4(glesRenderer._viewMatrix, GLKVector4MakeWithVector3(worldPos, 1)));
+        
+        let normPos = GLKVector3DivideScalar(GLKVector3Make(clipPos.x, clipPos.y, clipPos.z), clipPos.w);
+        let screen = UIScreen.main.bounds
+        let screenSize = GLKVector2Make(Float(screen.width), Float(screen.height))
+        let screenOffset = GLKVector2Make(0, Float(-screen.height))
+        var screenPos = GLKVector2Make((normPos.x + 1.0)/2.0, (normPos.y + 1.0)/2.0);
+        screenPos = GLKVector2Multiply(screenPos, screenSize)
+        screenPos = GLKVector2Add(screenPos, screenOffset)
+        return screenPos
+    }
+    
     func ScreenPosToWorldPlane(mouseX: CGFloat, mouseY: CGFloat) -> WorldPosReturn {
-        let screenPos = GLKVector2Make(Float(mouseX),Float(mouseY))
-        print("ray cast from screen position: "+NSStringFromGLKVector2(screenPos))
+        //let screenPos = GLKVector2Make(Float(mouseX),Float(mouseY))
+        //print("ray cast from screen position: "+NSStringFromGLKVector2(screenPos))
         // the direction of our ray
         let rayDirection = ScreenPosToWorldRay(mouseX: mouseX, mouseY: mouseY)
+        
+        print("Ray dir: "+NSStringFromGLKVector3(rayDirection))
+        
         // the origin of our ray is the camera position
-        let cameraPos = GLKMatrix4GetColumn(effect.transform.modelviewMatrix, 3)
-        let rayOrigin = GLKVector3Make(cameraPos.x,cameraPos.y,cameraPos.z)
+        let cameraPos = GLKMatrix4GetColumn(glesRenderer._viewMatrix, 2)
+        let rayOrigin = GLKVector3Make(0,5,0)
         print("ray cast from camera position: "+NSStringFromGLKVector3(rayOrigin))
+        PrintModeViewMatrix()
 
         
-        let planeNormal = GLKVector3Make(0,0,1)
+        let planeNormal = GLKVector3Make(0,1,0)
         let planePoint = GLKVector3Make(0,0,0)
         
         var hitReturn = WorldPosReturn(hit: false, hitPos: GLKVector3Make(0,0,0))
@@ -293,39 +327,7 @@ class ViewController: GLKViewController {
         var hit: Bool
         var hitPos: GLKVector3
     }
-    
-    func ScreenPosToWorldRay2(mouseX: CGFloat, mouseY: CGFloat) -> GLKVector3{
-        let screen = view.bounds
-        let width = screen.width
-        let height = screen.height
-        let x = (2.0 * mouseX) / width - 1.0
-        let y = 1.0 - (2.0 * mouseY) / height
-        let z = 1.0
-        let screenPos: GLKVector4 = GLKVector4Make(Float(x),Float(y),Float(z),1)
-        
-        var viewProj = GLKMatrix4Multiply(effect.transform.modelviewMatrix, effect.transform.projectionMatrix)
-        //viewProj = GLKMatrix4Multiply(viewProj)
-        //effect.transform.
-        let isInvertible: UnsafeMutablePointer<Bool> = UnsafeMutablePointer<Bool>.allocate(capacity: 1)
-        let viewProjInverse = GLKMatrix4Invert(viewProj, isInvertible)
-        
-        if(isInvertible.pointee == false){
-            print("cannot invert viewProjection matrix")
-        }
-        isInvertible.deallocate()
-        
-        var worldRay4 = GLKMatrix4MultiplyVector4(viewProjInverse, screenPos)
-        worldRay4.w = 1.0 / worldRay4.w
-        
-        var worldRay3 = GLKVector3Make(
-            Float(worldRay4.x * worldRay4.w),
-            Float(worldRay4.y * worldRay4.w),
-            Float(worldRay4.z * worldRay4.w))
-        
-        worldRay3 = GLKVector3Normalize(worldRay3)
-        
-        return worldRay3
-    }
+
     
     func ScreenPosToWorldRay(mouseX: CGFloat, mouseY: CGFloat) ->GLKVector3{
         let screen = UIScreen.main.bounds
@@ -339,9 +341,9 @@ class ViewController: GLKViewController {
         
         let isInvertible: UnsafeMutablePointer<Bool> = UnsafeMutablePointer<Bool>.allocate(capacity: 1)
         
-        let aspect = fabsf(Float(view.bounds.size.width)/Float(view.bounds.size.height))
-        var proj = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0),aspect,1,40)
-        proj = GLKMatrix4Multiply(proj, GLKMatrix4Identity)
+//        let aspect = fabsf(Float(view.bounds.size.width)/Float(view.bounds.size.height))
+//        var proj = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0),aspect,1,40)
+        let proj = GLKMatrix4Multiply(glesRenderer._projectionMatrix, GLKMatrix4Identity)
         let proj_invert: GLKMatrix4 = GLKMatrix4Invert(proj, isInvertible)
 
         if(isInvertible.pointee == false){
@@ -351,7 +353,7 @@ class ViewController: GLKViewController {
         var ray_cameraSpace: GLKVector4  = GLKMatrix4MultiplyVector4(proj_invert, ray_clip)
         ray_cameraSpace = GLKVector4Make(ray_cameraSpace.x, ray_cameraSpace.y, -1.0, 0)
         
-        let view_invert = GLKMatrix4Invert(effect.transform.modelviewMatrix,isInvertible)
+        let view_invert = GLKMatrix4Invert(glesRenderer._viewMatrix,isInvertible)
         var ray_worldSpace = GLKMatrix4MultiplyVector4(view_invert, ray_cameraSpace)
         
         if(isInvertible.pointee == false){
@@ -359,7 +361,7 @@ class ViewController: GLKViewController {
         }
         
         ray_worldSpace = GLKVector4Normalize(ray_worldSpace)
-        let rayVector3 = GLKVector3Make(ray_worldSpace.x * -1,ray_worldSpace.y * -1,ray_worldSpace.z)
+        let rayVector3 = GLKVector3Make(ray_worldSpace.x * -1,ray_worldSpace.y * -1,ray_worldSpace.z * -1)
         
         isInvertible.deallocate()
         
@@ -401,27 +403,28 @@ class ViewController: GLKViewController {
     }
 
     override func glkView(_ view: GLKView, drawIn rect: CGRect){
-        
-        glClearColor(0.85, 0.85, 0.85, 1)
-        glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
-        
-        /*
-        for c in Cubes{
-            c.draw();
-        }
-        */
-        var i: GLint = 0;
-        while(i < CubeCounter){
-            setupGL_Arg(name: "cube\(i)")
-            // binds and compiles shaders for us
-            effect.prepareToDraw()
-            glBindVertexArrayOES(vao)
-            glDrawElements(GLenum(GL_TRIANGLES),        // tells OpenGL what you want to draw (we wanna draw triangles)
-                           GLsizei(IndexDict["cube\(i)", default:[]].count),          // tells OpenGL how many vertices you want to draw
-                           GLenum(GL_UNSIGNED_BYTE),          // specifies the type of values contained in each index
-                           nil)
-            i += 1;
-        }
+        glesRenderer.draw(rect);
+//        //renderer.draw(view, drawIn: rect)
+//        glClearColor(0.85, 0.85, 0.85, 1)
+//        glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
+//
+//        /*
+//        for c in Cubes{
+//            c.draw();
+//        }
+//        */
+//        var i: GLint = 0;
+//        while(i < CubeCounter){
+//            setupGL_Arg(name: "cube\(i)")
+//            // binds and compiles shaders for us
+//            effect.prepareToDraw()
+//            glBindVertexArrayOES(vao)
+//            glDrawElements(GLenum(GL_TRIANGLES),        // tells OpenGL what you want to draw (we wanna draw triangles)
+//                           GLsizei(IndexDict["cube\(i)", default:[]].count),          // tells OpenGL how many vertices you want to draw
+//                           GLenum(GL_UNSIGNED_BYTE),          // specifies the type of values contained in each index
+//                           nil)
+//            i += 1;
+//        }
     }
     private func TranslateVerts(inputVert: [Vertex], inputTranslation: Vertex) -> [Vertex]{
         var outputVert :[Vertex] = inputVert;
@@ -492,7 +495,7 @@ class ViewController: GLKViewController {
     }
     
     private func tearDownGL(){
-        CVEAGLContext.setCurrent(context)
+        //CVEAGLContext.setCurrent(context)
         
         glDeleteBuffers(1, &vao)
         glDeleteBuffers(1, &vbo)
@@ -500,7 +503,7 @@ class ViewController: GLKViewController {
         
         EAGLContext.setCurrent(nil)
         
-        context = nil
+        //context = nil
     }
     
     deinit{
@@ -548,7 +551,7 @@ class ViewController: GLKViewController {
     func PrintModeViewMatrix(){
         print("modelViewMatrix:")
         for num in 0...3 {
-            let row = GLKMatrix4GetRow(effect.transform.modelviewMatrix, Int32(num))
+            let row = GLKMatrix4GetRow(glesRenderer._viewMatrix, Int32(num))
             print(NSStringFromGLKVector4(row))
         }
     }

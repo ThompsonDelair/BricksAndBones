@@ -15,6 +15,14 @@
 		7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7399693F25E1FF0900AE3215 /* LaunchScreen.storyboard */; };
 		7399694A25E208AA00AE3215 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7399694925E208AA00AE3215 /* Vertex.swift */; };
 		B9E81C4625EF2E8C00176E20 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E81C4525EF2E8C00176E20 /* Grid.swift */; };
+		FA2DEC3B26159CBD003138BA /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA2DEC3626159CBD003138BA /* Renderer.mm */; };
+		FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FA2DEC3726159CBD003138BA /* Shader.fsh */; };
+		FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FA2DEC3826159CBD003138BA /* Shader.vsh */; };
+		FA2DEC3E26159CBD003138BA /* GLESRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA2DEC3A26159CBD003138BA /* GLESRenderer.cpp */; };
+		FA8811E82616865E0045B752 /* texRed.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E52616865E0045B752 /* texRed.png */; };
+		FA8811E92616865E0045B752 /* texBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E62616865E0045B752 /* texBlue.png */; };
+		FA8811EA2616865E0045B752 /* texGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E72616865E0045B752 /* texGreen.png */; };
+		FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC69F62614EC370021BB95 /* SRenderer.swift */; };
 		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
 		FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE2B12F25E618F2008E38F3 /* stonewall.png */; };
 /* End PBXBuildFile section */
@@ -30,6 +38,17 @@
 		7399694225E1FF0900AE3215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7399694925E208AA00AE3215 /* Vertex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertex.swift; sourceTree = "<group>"; };
 		B9E81C4525EF2E8C00176E20 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		FA2DEC3526159CBD003138BA /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
+		FA2DEC3626159CBD003138BA /* Renderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
+		FA2DEC3726159CBD003138BA /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
+		FA2DEC3826159CBD003138BA /* Shader.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.vsh; sourceTree = "<group>"; };
+		FA2DEC3926159CBD003138BA /* GLESRenderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLESRenderer.hpp; sourceTree = "<group>"; };
+		FA2DEC3A26159CBD003138BA /* GLESRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLESRenderer.cpp; sourceTree = "<group>"; };
+		FA2DEC4026159CFA003138BA /* BricksAndBones-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BricksAndBones-Bridging-Header.h"; sourceTree = "<group>"; };
+		FA8811E52616865E0045B752 /* texRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texRed.png; sourceTree = "<group>"; };
+		FA8811E62616865E0045B752 /* texBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texBlue.png; sourceTree = "<group>"; };
+		FA8811E72616865E0045B752 /* texGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texGreen.png; sourceTree = "<group>"; };
+		FABC69F62614EC370021BB95 /* SRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRenderer.swift; sourceTree = "<group>"; };
 		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
 		FAE2B12F25E618F2008E38F3 /* stonewall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonewall.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -64,6 +83,16 @@
 		7399693325E1FF0800AE3215 /* BricksAndBones */ = {
 			isa = PBXGroup;
 			children = (
+				FA8811E62616865E0045B752 /* texBlue.png */,
+				FA8811E72616865E0045B752 /* texGreen.png */,
+				FA8811E52616865E0045B752 /* texRed.png */,
+				FA2DEC4026159CFA003138BA /* BricksAndBones-Bridging-Header.h */,
+				FA2DEC3A26159CBD003138BA /* GLESRenderer.cpp */,
+				FA2DEC3926159CBD003138BA /* GLESRenderer.hpp */,
+				FA2DEC3526159CBD003138BA /* Renderer.h */,
+				FA2DEC3626159CBD003138BA /* Renderer.mm */,
+				FA2DEC3726159CBD003138BA /* Shader.fsh */,
+				FA2DEC3826159CBD003138BA /* Shader.vsh */,
 				7399693425E1FF0800AE3215 /* AppDelegate.swift */,
 				7399693625E1FF0800AE3215 /* SceneDelegate.swift */,
 				7399693825E1FF0800AE3215 /* ViewController.swift */,
@@ -74,6 +103,7 @@
 				7399694225E1FF0900AE3215 /* Info.plist */,
 				7399694925E208AA00AE3215 /* Vertex.swift */,
 				B9E81C4525EF2E8C00176E20 /* Grid.swift */,
+				FABC69F62614EC370021BB95 /* SRenderer.swift */,
 			);
 			path = BricksAndBones;
 			sourceTree = "<group>";
@@ -118,6 +148,7 @@
 				TargetAttributes = {
 					7399693025E1FF0800AE3215 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -144,10 +175,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */,
+				FA8811E82616865E0045B752 /* texRed.png in Resources */,
+				FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */,
+				FA8811EA2616865E0045B752 /* texGreen.png in Resources */,
 				7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */,
 				FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */,
 				7399693E25E1FF0900AE3215 /* Assets.xcassets in Resources */,
 				7399693C25E1FF0800AE3215 /* Main.storyboard in Resources */,
+				FA8811E92616865E0045B752 /* texBlue.png in Resources */,
 				FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,7 +198,10 @@
 				7399693925E1FF0800AE3215 /* ViewController.swift in Sources */,
 				7399694A25E208AA00AE3215 /* Vertex.swift in Sources */,
 				7399693525E1FF0800AE3215 /* AppDelegate.swift in Sources */,
+				FA2DEC3E26159CBD003138BA /* GLESRenderer.cpp in Sources */,
 				B9E81C4625EF2E8C00176E20 /* Grid.swift in Sources */,
+				FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */,
+				FA2DEC3B26159CBD003138BA /* Renderer.mm in Sources */,
 				7399693725E1FF0800AE3215 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,6 +349,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"GLES_SILENCE_DEPRECATION=1",
@@ -323,6 +363,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ca.btechgames.BricksAndBones;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BricksAndBones/BricksAndBones-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -333,6 +375,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				GCC_PREPROCESSOR_DEFINITIONS = "GLES_SILENCE_DEPRECATION=1";
 				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "";
@@ -343,6 +386,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = ca.btechgames.BricksAndBones;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BricksAndBones/BricksAndBones-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
