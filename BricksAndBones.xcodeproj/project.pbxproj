@@ -19,11 +19,13 @@
 		FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FA2DEC3726159CBD003138BA /* Shader.fsh */; };
 		FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FA2DEC3826159CBD003138BA /* Shader.vsh */; };
 		FA2DEC3E26159CBD003138BA /* GLESRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA2DEC3A26159CBD003138BA /* GLESRenderer.cpp */; };
+		FA3292EE261AEC480074D8CC /* ObjLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA3292EC261AEC480074D8CC /* ObjLoader.cpp */; };
+		FA83DF8D261B9CE20087A66C /* glm in Resources */ = {isa = PBXBuildFile; fileRef = FA83DF8C261B9CE20087A66C /* glm */; };
+		FA83DF91261BD0270087A66C /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FA83DF90261BD0270087A66C /* rook.obj */; };
 		FA8811E82616865E0045B752 /* texRed.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E52616865E0045B752 /* texRed.png */; };
 		FA8811E92616865E0045B752 /* texBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E62616865E0045B752 /* texBlue.png */; };
 		FA8811EA2616865E0045B752 /* texGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E72616865E0045B752 /* texGreen.png */; };
 		FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC69F62614EC370021BB95 /* SRenderer.swift */; };
-		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
 		FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE2B12F25E618F2008E38F3 /* stonewall.png */; };
 /* End PBXBuildFile section */
 
@@ -45,11 +47,14 @@
 		FA2DEC3926159CBD003138BA /* GLESRenderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLESRenderer.hpp; sourceTree = "<group>"; };
 		FA2DEC3A26159CBD003138BA /* GLESRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLESRenderer.cpp; sourceTree = "<group>"; };
 		FA2DEC4026159CFA003138BA /* BricksAndBones-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BricksAndBones-Bridging-Header.h"; sourceTree = "<group>"; };
+		FA3292EC261AEC480074D8CC /* ObjLoader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ObjLoader.cpp; sourceTree = "<group>"; };
+		FA3292ED261AEC480074D8CC /* ObjLoader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ObjLoader.hpp; sourceTree = "<group>"; };
+		FA83DF8C261B9CE20087A66C /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glm; sourceTree = "<group>"; };
+		FA83DF90261BD0270087A66C /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
 		FA8811E52616865E0045B752 /* texRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texRed.png; sourceTree = "<group>"; };
 		FA8811E62616865E0045B752 /* texBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texBlue.png; sourceTree = "<group>"; };
 		FA8811E72616865E0045B752 /* texGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texGreen.png; sourceTree = "<group>"; };
 		FABC69F62614EC370021BB95 /* SRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRenderer.swift; sourceTree = "<group>"; };
-		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
 		FAE2B12F25E618F2008E38F3 /* stonewall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonewall.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -83,6 +88,7 @@
 		7399693325E1FF0800AE3215 /* BricksAndBones */ = {
 			isa = PBXGroup;
 			children = (
+				FA83DF8C261B9CE20087A66C /* glm */,
 				FA8811E62616865E0045B752 /* texBlue.png */,
 				FA8811E72616865E0045B752 /* texGreen.png */,
 				FA8811E52616865E0045B752 /* texRed.png */,
@@ -104,6 +110,8 @@
 				7399694925E208AA00AE3215 /* Vertex.swift */,
 				B9E81C4525EF2E8C00176E20 /* Grid.swift */,
 				FABC69F62614EC370021BB95 /* SRenderer.swift */,
+				FA3292EC261AEC480074D8CC /* ObjLoader.cpp */,
+				FA3292ED261AEC480074D8CC /* ObjLoader.hpp */,
 			);
 			path = BricksAndBones;
 			sourceTree = "<group>";
@@ -111,7 +119,7 @@
 		FAF15AC225E6D25D00AB4F78 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FAC70C0925ECC386005B6A38 /* rook.obj */,
+				FA83DF90261BD0270087A66C /* rook.obj */,
 				FAE2B12F25E618F2008E38F3 /* stonewall.png */,
 			);
 			path = Models;
@@ -176,11 +184,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */,
+				FA83DF8D261B9CE20087A66C /* glm in Resources */,
+				FA83DF91261BD0270087A66C /* rook.obj in Resources */,
 				FA8811E82616865E0045B752 /* texRed.png in Resources */,
 				FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */,
 				FA8811EA2616865E0045B752 /* texGreen.png in Resources */,
 				7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */,
-				FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */,
 				7399693E25E1FF0900AE3215 /* Assets.xcassets in Resources */,
 				7399693C25E1FF0800AE3215 /* Main.storyboard in Resources */,
 				FA8811E92616865E0045B752 /* texBlue.png in Resources */,
@@ -202,6 +211,7 @@
 				B9E81C4625EF2E8C00176E20 /* Grid.swift in Sources */,
 				FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */,
 				FA2DEC3B26159CBD003138BA /* Renderer.mm in Sources */,
+				FA3292EE261AEC480074D8CC /* ObjLoader.cpp in Sources */,
 				7399693725E1FF0800AE3215 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

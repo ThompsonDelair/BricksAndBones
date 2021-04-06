@@ -7,6 +7,7 @@
 #import <GLKit/GLKit.h>
 #include <chrono>
 #include "GLESRenderer.hpp"
+#import "ObjLoader.hpp"
 
 
 
@@ -49,12 +50,13 @@ enum
 enum ModelType{
     TEST_CUBE_RED,
     TEST_CUBE_BLUE,
+    ROOK,
     NUM_MODEL_TYPES
 };
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
-NSArray *textureNames = @[@"texRed.png",@"texBlue.png"];
+NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"texBlue.png"];
 NSArray *modelNames = @[@"nothingRightNow.wut"];
 
 //===========================================================================
@@ -237,7 +239,15 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 
         // Generate vertex attribute values from model
         //int numVerts;
-        m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        if(i == ROOK){
+            ObjLoader rook;
+            
+            m.numIndices = rook.loadOBJ("./Models/rook.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            
+        }else{
+            m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }
+        
 
         // Set up VBOs...
         
@@ -279,11 +289,9 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
    // for testing
     for(int x = 0; x < 5;x++){
         for(int z = 0; z < 5;z++){
-            [self createModelInstance:0 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
+            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
         }
     }
-
-
 }
 
 
