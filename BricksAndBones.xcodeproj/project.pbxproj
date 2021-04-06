@@ -15,6 +15,7 @@
 		7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7399693F25E1FF0900AE3215 /* LaunchScreen.storyboard */; };
 		7399694A25E208AA00AE3215 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7399694925E208AA00AE3215 /* Vertex.swift */; };
 		B9E81C4625EF2E8C00176E20 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E81C4525EF2E8C00176E20 /* Grid.swift */; };
+		FA13484F261C1B4500B8BA2C /* Collision.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA13484E261C1B4500B8BA2C /* Collision.swift */; };
 		FA2DEC3B26159CBD003138BA /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA2DEC3626159CBD003138BA /* Renderer.mm */; };
 		FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FA2DEC3726159CBD003138BA /* Shader.fsh */; };
 		FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FA2DEC3826159CBD003138BA /* Shader.vsh */; };
@@ -38,6 +39,7 @@
 		7399694225E1FF0900AE3215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7399694925E208AA00AE3215 /* Vertex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertex.swift; sourceTree = "<group>"; };
 		B9E81C4525EF2E8C00176E20 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		FA13484E261C1B4500B8BA2C /* Collision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collision.swift; sourceTree = "<group>"; };
 		FA2DEC3526159CBD003138BA /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
 		FA2DEC3626159CBD003138BA /* Renderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
 		FA2DEC3726159CBD003138BA /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				7399694925E208AA00AE3215 /* Vertex.swift */,
 				B9E81C4525EF2E8C00176E20 /* Grid.swift */,
 				FABC69F62614EC370021BB95 /* SRenderer.swift */,
+				FA13484E261C1B4500B8BA2C /* Collision.swift */,
 			);
 			path = BricksAndBones;
 			sourceTree = "<group>";
@@ -196,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7399693925E1FF0800AE3215 /* ViewController.swift in Sources */,
+				FA13484F261C1B4500B8BA2C /* Collision.swift in Sources */,
 				7399694A25E208AA00AE3215 /* Vertex.swift in Sources */,
 				7399693525E1FF0800AE3215 /* AppDelegate.swift in Sources */,
 				FA2DEC3E26159CBD003138BA /* GLESRenderer.cpp in Sources */,

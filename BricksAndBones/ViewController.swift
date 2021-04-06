@@ -82,7 +82,10 @@ class ViewController: GLKViewController {
         if(worldPos.hit == false){
             print("no hit for screen-to-world ray")
         } else{
-            //print("world pos: "+NSStringFromGLKVector3(worldPos.hitPos))
+            
+            // for each other building
+            
+            
             glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: worldPos.hitPos)
         }
     }
