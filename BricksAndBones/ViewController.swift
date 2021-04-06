@@ -32,6 +32,8 @@ class ViewController: GLKViewController {
     var panStartScreen: CGPoint = CGPoint();
     var panTrack: GLKVector3 = GLKVector3Make(0, 0, 0);
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -71,6 +73,10 @@ class ViewController: GLKViewController {
         
         cursorType = 1;
         cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(1, 1, 1)))
+        
+        var firstBuilding :SelfishBuilding = SelfishBuilding(posX:1, posY:1);
+        
+        print("hello");
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
