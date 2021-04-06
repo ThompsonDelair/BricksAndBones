@@ -22,6 +22,8 @@
 		FA8811E82616865E0045B752 /* texRed.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E52616865E0045B752 /* texRed.png */; };
 		FA8811E92616865E0045B752 /* texBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E62616865E0045B752 /* texBlue.png */; };
 		FA8811EA2616865E0045B752 /* texGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E72616865E0045B752 /* texGreen.png */; };
+		FA9E641C261D293F0066C985 /* bleep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E641A261D25B20066C985 /* bleep.mp3 */; };
+		FAAC03AC261C455200A6277F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAC03AB261C455200A6277F /* AudioToolbox.framework */; };
 		FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC69F62614EC370021BB95 /* SRenderer.swift */; };
 		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
 		FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE2B12F25E618F2008E38F3 /* stonewall.png */; };
@@ -48,6 +50,8 @@
 		FA8811E52616865E0045B752 /* texRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texRed.png; sourceTree = "<group>"; };
 		FA8811E62616865E0045B752 /* texBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texBlue.png; sourceTree = "<group>"; };
 		FA8811E72616865E0045B752 /* texGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texGreen.png; sourceTree = "<group>"; };
+		FA9E641A261D25B20066C985 /* bleep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bleep.mp3; sourceTree = "<group>"; };
+		FAAC03AB261C455200A6277F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FABC69F62614EC370021BB95 /* SRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRenderer.swift; sourceTree = "<group>"; };
 		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
 		FAE2B12F25E618F2008E38F3 /* stonewall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonewall.png; sourceTree = "<group>"; };
@@ -58,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAAC03AC261C455200A6277F /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +74,7 @@
 			children = (
 				7399693325E1FF0800AE3215 /* BricksAndBones */,
 				7399693225E1FF0800AE3215 /* Products */,
+				FAAC03AA261C455200A6277F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -104,8 +110,25 @@
 				7399694925E208AA00AE3215 /* Vertex.swift */,
 				B9E81C4525EF2E8C00176E20 /* Grid.swift */,
 				FABC69F62614EC370021BB95 /* SRenderer.swift */,
+				FA9E6419261D25B20066C985 /* Sounds */,
 			);
 			path = BricksAndBones;
+			sourceTree = "<group>";
+		};
+		FA9E6419261D25B20066C985 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				FA9E641A261D25B20066C985 /* bleep.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		FAAC03AA261C455200A6277F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAAC03AB261C455200A6277F /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FAF15AC225E6D25D00AB4F78 /* Models */ = {
@@ -175,6 +198,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA9E641C261D293F0066C985 /* bleep.mp3 in Resources */,
 				FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */,
 				FA8811E82616865E0045B752 /* texRed.png in Resources */,
 				FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */,

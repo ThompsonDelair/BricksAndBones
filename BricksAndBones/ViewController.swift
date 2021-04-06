@@ -85,6 +85,7 @@ class ViewController: GLKViewController {
             //print("world pos: "+NSStringFromGLKVector3(worldPos.hitPos))
             glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: worldPos.hitPos)
         }
+        glesRenderer.playSoundFile("bleep");
     }
     
     @objc func handlePan(_ sender: UIPanGestureRecognizer){
