@@ -1,5 +1,5 @@
 //
-//  SelfishBuilding.swift
+//  DebuffBuilding.swift
 //  BricksAndBones
 //
 //  Created by Erik Ho on 2021-04-05.
@@ -7,19 +7,16 @@
 
 import Foundation
 
-class SelfishBuilding : Building {
+class DebuffBuilding : Building {
     
     override init(posX:Int, posY:Int){
         super.init(posX: posX, posY: posY)
         
-        
-        selfValue = 1;
+        selfValue = 10;
         type = "Normal"
-        classification = "Normal"
-        relationValue = 0
-        radius = 0
+        classification = "Influencer"
+        relationValue = -2
+        radius = 2
         influencedValue = 0
     }
-    
-    
 }

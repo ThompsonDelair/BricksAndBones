@@ -8,32 +8,30 @@
 import Foundation
 
 
-struct pointDictionary{
-    var selfValue:Int;
-    var type:String; // Normal, Medieval, Tribal, Alternate
-    var classification:String; // normal, buffer/debuffer/, replace, destroy
-    var relationValue:Int;
-}
-
 class Building{
     
-    var posX, posY:Int;
-    var score:Int;
+    var posX, posY:Int; // position of building in grid
     
-    var pointProps:pointDictionary;
+    
+    var selfValue:Int; // value for placing this down
+    var type:String; // Normal, Medieval, Tribal, Alternate
+    var classification:String; // normal, buffer/debuffer/, replace, destroy
+    var relationValue:Int; // value gain or loss
+    var radius:Int; //detection radius
+    var influencedValue:Int;
     
     init(posX:Int, posY:Int){
         self.posX = posX;
         self.posY = posY;
-        score = 0;
         
-        pointProps = pointDictionary(selfValue: 1, type: "Normal", classification: "Normal", relationValue: 0);
+        selfValue = 1;
+        type = "Normal"
+        classification = "Normal"
+        relationValue = 0
+        radius = 1
+        influencedValue = 0
     }
     
-    func  getSelfValue() -> Int
-    {
-        return pointProps.selfValue;
-    }
-    
+  
     
 }

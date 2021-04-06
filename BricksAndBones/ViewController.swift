@@ -76,7 +76,9 @@ class ViewController: GLKViewController {
         
         var firstBuilding :SelfishBuilding = SelfishBuilding(posX:1, posY:1);
         
-        print("hello");
+        //hello();
+        
+        //print("hello");
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
@@ -237,6 +239,32 @@ class ViewController: GLKViewController {
             let row = GLKMatrix4GetRow(glesRenderer._viewMatrix, Int32(num))
             print(NSStringFromGLKVector4(row))
         }
+    }
+    
+    func relationshipSolver(thisBuilding:Building, otherBuilding:Building)->Int{
+        //assuming both buildings exist
+        switch thisBuilding.classification {
+        case "Normal":
+            //suports selfish, loner, leader
+            return thisBuilding.selfValue + thisBuilding.relationValue + otherBuilding.influencedValue;
+        case "Influencer":
+            //supports both influencers
+            otherBuilding.influencedValue = otherBuilding.influencedValue + thisBuilding.relationValue;
+            return thisBuilding.selfValue + otherBuilding.influencedValue;
+        case "Replace":
+            //currently only supports copy building
+            
+            //iterate over buildings in radius relationshipSolver(otherBuilding, otherBuildingsinRaidus)
+            
+            return 0;
+        case "Destroy":
+            //destroy adjacent buildings and put thisbuilding down where clicked not here tho
+            return 0;
+        default:
+            return 0;
+        }
+        
+        return 0;
     }
     
 //    func MakeCameraLabel(locX: CGFloat, locY: CGFloat){
