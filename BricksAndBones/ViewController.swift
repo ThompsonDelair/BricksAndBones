@@ -34,8 +34,9 @@ class ViewController: GLKViewController {
     var panX: CGFloat = 0.0
     var panY: CGFloat = 0.0
     var panTrack: GLKVector3 = GLKVector3Make(0, 0, 0);
+
     let cameraSpeed: CGFloat = 0.04;
-    
+
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -75,9 +76,25 @@ class ViewController: GLKViewController {
         
         cursorType = 1;
         cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(1, 1, 1)))
+       
+        
+        var testManager = BuildingsManager(buildingSize: 8)
+        print(testManager.addBuilding(buildingName:"Leader", xPos:2, yPos:2))
+        print(testManager.addBuilding(buildingName:"Empower", xPos:2, yPos:3))
+        print(testManager.addBuilding(buildingName:"Leader", xPos:2, yPos:4))
+        
+        //print(testBuilding.selfValue)
+        
+        
+       
+        //print("width" + String(UIScreen.main.bounds.size.width.description));
+        //print("height" + String(UIScreen.main.bounds.size.height.description));
+        
+
         
         //plays background music on start
         glesRenderer.playBackgroundMusic();
+
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
@@ -256,6 +273,7 @@ class ViewController: GLKViewController {
             print(NSStringFromGLKVector4(row))
         }
     }
+  
     
 //    func MakeCameraLabel(locX: CGFloat, locY: CGFloat){
 //        cameraLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 300))

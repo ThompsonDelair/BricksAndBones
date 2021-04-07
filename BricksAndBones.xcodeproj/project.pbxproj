@@ -14,6 +14,15 @@
 		7399693E25E1FF0900AE3215 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7399693D25E1FF0900AE3215 /* Assets.xcassets */; };
 		7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7399693F25E1FF0900AE3215 /* LaunchScreen.storyboard */; };
 		7399694A25E208AA00AE3215 /* Vertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7399694925E208AA00AE3215 /* Vertex.swift */; };
+		B91F39FE261BC1D20039FCBE /* Building.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F39FD261BC1D20039FCBE /* Building.swift */; };
+		B91F3A01261BE9000039FCBE /* SelfishBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F3A00261BE9000039FCBE /* SelfishBuilding.swift */; };
+		B91F3A04261BFEC20039FCBE /* LonerBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F3A03261BFEC20039FCBE /* LonerBuilding.swift */; };
+		B91F3A07261BFED90039FCBE /* LeaderBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F3A06261BFED90039FCBE /* LeaderBuilding.swift */; };
+		B91F3A0A261BFFD10039FCBE /* EmpowerBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F3A09261BFFD10039FCBE /* EmpowerBuilding.swift */; };
+		B91F3A0D261C01E60039FCBE /* DebuffBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F3A0C261C01E60039FCBE /* DebuffBuilding.swift */; };
+		B91F3A10261C03C70039FCBE /* CopyBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F3A0F261C03C70039FCBE /* CopyBuilding.swift */; };
+		B91F3A13261C04150039FCBE /* DemolishBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F3A12261C04150039FCBE /* DemolishBuilding.swift */; };
+		B946C0A1261D499C002A33BB /* BuildingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B946C0A0261D499C002A33BB /* BuildingsManager.swift */; };
 		B9E81C4625EF2E8C00176E20 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E81C4525EF2E8C00176E20 /* Grid.swift */; };
 		FA13484F261C1B4500B8BA2C /* Collision.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA13484E261C1B4500B8BA2C /* Collision.swift */; };
 		FA2DEC3B26159CBD003138BA /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA2DEC3626159CBD003138BA /* Renderer.mm */; };
@@ -39,6 +48,15 @@
 		7399694025E1FF0900AE3215 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7399694225E1FF0900AE3215 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7399694925E208AA00AE3215 /* Vertex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vertex.swift; sourceTree = "<group>"; };
+		B91F39FD261BC1D20039FCBE /* Building.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Building.swift; sourceTree = "<group>"; };
+		B91F3A00261BE9000039FCBE /* SelfishBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfishBuilding.swift; sourceTree = "<group>"; };
+		B91F3A03261BFEC20039FCBE /* LonerBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LonerBuilding.swift; sourceTree = "<group>"; };
+		B91F3A06261BFED90039FCBE /* LeaderBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBuilding.swift; sourceTree = "<group>"; };
+		B91F3A09261BFFD10039FCBE /* EmpowerBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmpowerBuilding.swift; sourceTree = "<group>"; };
+		B91F3A0C261C01E60039FCBE /* DebuffBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebuffBuilding.swift; sourceTree = "<group>"; };
+		B91F3A0F261C03C70039FCBE /* CopyBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyBuilding.swift; sourceTree = "<group>"; };
+		B91F3A12261C04150039FCBE /* DemolishBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemolishBuilding.swift; sourceTree = "<group>"; };
+		B946C0A0261D499C002A33BB /* BuildingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingsManager.swift; sourceTree = "<group>"; };
 		B9E81C4525EF2E8C00176E20 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		FA13484E261C1B4500B8BA2C /* Collision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collision.swift; sourceTree = "<group>"; };
 		FA2DEC3526159CBD003138BA /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
@@ -101,6 +119,7 @@
 				7399693425E1FF0800AE3215 /* AppDelegate.swift */,
 				7399693625E1FF0800AE3215 /* SceneDelegate.swift */,
 				7399693825E1FF0800AE3215 /* ViewController.swift */,
+				B946C0A0261D499C002A33BB /* BuildingsManager.swift */,
 				7399693A25E1FF0800AE3215 /* Main.storyboard */,
 				FAF15AC225E6D25D00AB4F78 /* Models */,
 				7399693D25E1FF0900AE3215 /* Assets.xcassets */,
@@ -108,6 +127,14 @@
 				7399694225E1FF0900AE3215 /* Info.plist */,
 				7399694925E208AA00AE3215 /* Vertex.swift */,
 				B9E81C4525EF2E8C00176E20 /* Grid.swift */,
+				B91F39FD261BC1D20039FCBE /* Building.swift */,
+				B91F3A00261BE9000039FCBE /* SelfishBuilding.swift */,
+				B91F3A03261BFEC20039FCBE /* LonerBuilding.swift */,
+				B91F3A06261BFED90039FCBE /* LeaderBuilding.swift */,
+				B91F3A09261BFFD10039FCBE /* EmpowerBuilding.swift */,
+				B91F3A0F261C03C70039FCBE /* CopyBuilding.swift */,
+				B91F3A12261C04150039FCBE /* DemolishBuilding.swift */,
+				B91F3A0C261C01E60039FCBE /* DebuffBuilding.swift */,
 				FABC69F62614EC370021BB95 /* SRenderer.swift */,
 				FA13484E261C1B4500B8BA2C /* Collision.swift */,
 			);
@@ -204,10 +231,19 @@
 			files = (
 				7399693925E1FF0800AE3215 /* ViewController.swift in Sources */,
 				FA13484F261C1B4500B8BA2C /* Collision.swift in Sources */,
+				B91F3A04261BFEC20039FCBE /* LonerBuilding.swift in Sources */,
+				B91F39FE261BC1D20039FCBE /* Building.swift in Sources */,
+				B91F3A01261BE9000039FCBE /* SelfishBuilding.swift in Sources */,
+				B91F3A13261C04150039FCBE /* DemolishBuilding.swift in Sources */,
+				B91F3A0A261BFFD10039FCBE /* EmpowerBuilding.swift in Sources */,
+				B91F3A0D261C01E60039FCBE /* DebuffBuilding.swift in Sources */,
 				7399694A25E208AA00AE3215 /* Vertex.swift in Sources */,
+				B91F3A10261C03C70039FCBE /* CopyBuilding.swift in Sources */,
 				7399693525E1FF0800AE3215 /* AppDelegate.swift in Sources */,
+				B91F3A07261BFED90039FCBE /* LeaderBuilding.swift in Sources */,
 				FA2DEC3E26159CBD003138BA /* GLESRenderer.cpp in Sources */,
 				B9E81C4625EF2E8C00176E20 /* Grid.swift in Sources */,
+				B946C0A1261D499C002A33BB /* BuildingsManager.swift in Sources */,
 				FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */,
 				FA2DEC3B26159CBD003138BA /* Renderer.mm in Sources */,
 				7399693725E1FF0800AE3215 /* SceneDelegate.swift in Sources */,
