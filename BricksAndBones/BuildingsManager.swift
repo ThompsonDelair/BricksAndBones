@@ -169,8 +169,16 @@ class BuildingsManager{
         return calculatePointsBetweenBuildings(thisBuilding: buildingArray[thisBuildingYPos][thisBuildingXPos], otherBuilding: buildingArray[otherBuildingYPos][otherBuildingXPos])
     }
     
-    func getPointsFromPosition(thisBuildingXPos:Int, thisBuildingYPos:Int)->Int{
+    func calcPointsFromPosition(thisBuildingXPos:Int, thisBuildingYPos:Int)->Int{
         return buildingArray[thisBuildingYPos][thisBuildingXPos].selfValue;
     }
     
+    func getRadius(thisBuildingXPos:Int, thisBuildingYPos:Int)->Int{
+        return buildingArray[thisBuildingYPos][thisBuildingXPos].radius;
+    }
+    
+    func getActive(thisBuildingXPos:Int, thisBuildingYPos:Int)->Bool{
+        return buildingArray[thisBuildingYPos][thisBuildingXPos].active;
+    }
+
 }
