@@ -33,6 +33,7 @@
 		FA9E6430261D7B450066C985 /* sadBG.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E642F261D7B450066C985 /* sadBG.mp3 */; };
 		FA9E6434261D7DDD0066C985 /* gameover.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E6432261D7DDD0066C985 /* gameover.mp3 */; };
 		FA9E6435261D7DDD0066C985 /* upbeatBG.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E6433261D7DDD0066C985 /* upbeatBG.mp3 */; };
+		FA9E6438261D7F6F0066C985 /* victory.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E6437261D7F6F0066C985 /* victory.mp3 */; };
 		FAAC03AC261C455200A6277F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAC03AB261C455200A6277F /* AudioToolbox.framework */; };
 		FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC69F62614EC370021BB95 /* SRenderer.swift */; };
 		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
@@ -71,6 +72,7 @@
 		FA9E642F261D7B450066C985 /* sadBG.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sadBG.mp3; path = ../../../../Sounds/sadBG.mp3; sourceTree = "<group>"; };
 		FA9E6432261D7DDD0066C985 /* gameover.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = gameover.mp3; path = ../../../../Sounds/gameover.mp3; sourceTree = "<group>"; };
 		FA9E6433261D7DDD0066C985 /* upbeatBG.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = upbeatBG.mp3; path = ../../../../Sounds/upbeatBG.mp3; sourceTree = "<group>"; };
+		FA9E6437261D7F6F0066C985 /* victory.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = victory.mp3; path = ../../../../Sounds/victory.mp3; sourceTree = "<group>"; };
 		FAAC03AB261C455200A6277F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FABC69F62614EC370021BB95 /* SRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRenderer.swift; sourceTree = "<group>"; };
 		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 		FA9E6419261D25B20066C985 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				FA9E6437261D7F6F0066C985 /* victory.mp3 */,
 				FA9E6432261D7DDD0066C985 /* gameover.mp3 */,
 				FA9E6433261D7DDD0066C985 /* upbeatBG.mp3 */,
 				FA9E642F261D7B450066C985 /* sadBG.mp3 */,
@@ -246,6 +249,7 @@
 				FA9E6434261D7DDD0066C985 /* gameover.mp3 in Resources */,
 				FA9E6424261D53EE0066C985 /* whoosh.mp3 in Resources */,
 				7399693C25E1FF0800AE3215 /* Main.storyboard in Resources */,
+				FA9E6438261D7F6F0066C985 /* victory.mp3 in Resources */,
 				FA9E642D261D7A730066C985 /* skyBG.mp3 in Resources */,
 				FA8811E92616865E0045B752 /* texBlue.png in Resources */,
 				FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */,
