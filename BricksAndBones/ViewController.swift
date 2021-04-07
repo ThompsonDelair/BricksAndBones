@@ -98,7 +98,7 @@ class ViewController: GLKViewController {
 
     }
     
-    func previewPoints(xPos:Int, yPos:Int){
+    func previewPoints(buildingName:String, xPos:Int, yPos:Int){
         var columnCounts = 0;
         //top half including middle
         
