@@ -8,6 +8,7 @@
 import GLKit
 
 class ViewController: GLKViewController {
+        
     private var context: EAGLContext?
 
     private var glesRenderer: Renderer!
@@ -74,6 +75,9 @@ class ViewController: GLKViewController {
         
         cursorType = 1;
         cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(1, 1, 1)))
+        
+        //plays background music on start
+        glesRenderer.playBackgroundMusic();
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
@@ -91,6 +95,7 @@ class ViewController: GLKViewController {
             
             glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: worldPos.hitPos)
         }
+        glesRenderer.playSoundFile("boop");
     }
     
     @objc func handlePan(_ sender: UIPanGestureRecognizer){
@@ -111,13 +116,16 @@ class ViewController: GLKViewController {
             //let newPos: GLKVector3 = GLKVector3Make(inst.position.x + movement.x,0,inst.position.z + movement.z )
             //glesRenderer.setInstancePos(Int32(cursorType),instance:Int32(cursorInstanceId),pos:newPos);
             //print("world pos: "+NSStringFromGLKVector3(newPos));
+
             //let move = CGPoint(x:panStartScreen.x - translation.x,y:panStartScreen.y - translation.y)
             let x = (panStartScreen.x - translation.x) * cameraSpeed * -1.0
             let z = (panStartScreen.y - translation.y) * cameraSpeed * -1.0
             panStartScreen = translation
             glesRenderer.moveCamera(GLKVector3Make(Float(x), Float(0.0), Float(z)))
             //panStartScreen = translation
+
         }
+        
     }
     
     func UpdateTypeText(){
