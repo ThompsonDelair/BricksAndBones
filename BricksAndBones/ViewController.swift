@@ -116,7 +116,7 @@ class ViewController: GLKViewController {
                 let indexRow = xPos-row
                 let indexCol = yPos+column
                 if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
-                    if(testManager.getActive(thisBuildingXPos: xPos, thisBuildingYPos: yPos)){
+                    if(testManager.getActive(thisBuildingXPos: indexRow, thisBuildingYPos: indexCol)){
                         var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
                         //add display code here
                         
@@ -141,8 +141,8 @@ class ViewController: GLKViewController {
             for column in -columnCounts...columnCounts{
                 let indexRow = xPos+row
                 let indexCol = yPos+column
-                if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
-                    if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
+                if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){ // check other building if it is in grid
+                    if(testManager.getActive(thisBuildingXPos: indexRow, thisBuildingYPos: indexCol)){ //check other building if it is an active building
                         var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
                         //add display code here
                         
