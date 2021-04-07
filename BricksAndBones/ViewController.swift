@@ -20,7 +20,15 @@ class ViewController: GLKViewController {
     
     private var scoreLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
+    private var highScoreLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    
     private var cameraLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+    
+    private var defaults = UserDefaults.standard
+        
+    var currScore: Int = 0;
+    
+    var oldHighScore: Int = 0;
     
     var Score: Int = 0;
     
@@ -54,7 +62,7 @@ class ViewController: GLKViewController {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(_:)))
         view.addGestureRecognizer(pan)
         UpdateTypeText()
-
+        
         typeLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         typeLabel.textColor = .black
         typeLabel.font = typeLabel.font.withSize(20)
@@ -69,8 +77,25 @@ class ViewController: GLKViewController {
         scoreLabel.textAlignment = .center
         self.view.addSubview(scoreLabel)
         
+        highScoreLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        highScoreLabel.textColor = .black
+        highScoreLabel.font = scoreLabel.font.withSize(20)
+        highScoreLabel.center = CGPoint(x:220, y:36)
+        highScoreLabel.textAlignment = .center
+        self.view.addSubview(scoreLabel)
+        
         cursorType = 1;
         cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(1, 1, 1)))
+        
+        
+        currScore = 0;
+        //defaults.set(100, forKey: "High Score");
+        oldHighScore = defaults.integer(forKey: "High Score");
+        print(oldHighScore);
+        
+        scoreLabel.text = "0";
+        highScoreLabel.text = String(oldHighScore);
+
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
@@ -78,12 +103,16 @@ class ViewController: GLKViewController {
         let screenPos: GLKVector3 = GLKVector3Make(Float(touchPoint.x), Float(touchPoint.y), Float(0))
         
         let worldPos = ScreenPosToWorldPlane(mouseX: CGFloat(screenPos.x), mouseY: CGFloat(screenPos.y))
-                
+        
+        defaults.set(0, forKey:"Score");
         if(worldPos.hit == false){
             print("no hit for screen-to-world ray")
         } else{
             //print("world pos: "+NSStringFromGLKVector3(worldPos.hitPos))
             glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: worldPos.hitPos)
+            
+            UpdateScoreText();
+            UpdateHighScoreText();
         }
     }
     
@@ -111,6 +140,28 @@ class ViewController: GLKViewController {
             typeLabel.text = "normal cube";
         } else if (buildType == 2){
             typeLabel.text = "friendly cube";
+        }
+    }
+    
+    func UpdateScoreText(){
+        /*
+        if (buildType == 0) {
+            if (!(currScore <= 0)) {
+                currScore -= 100;
+            }
+        } else if (buildType == 1) {
+            currScore += 100;
+        } else if (buildType == 2) {
+            currScore += 200;
+        }*/
+        currScore += 100;
+        scoreLabel.text = String(currScore);
+    }
+    
+    func UpdateHighScoreText(){
+        if(currScore > oldHighScore) {
+            highScoreLabel.text = String(currScore);
+            defaults.set(currScore, forKey: "High Score");
         }
     }
 
