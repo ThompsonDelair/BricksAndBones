@@ -117,7 +117,7 @@ class ViewController: GLKViewController {
                         //add display code here
                         
                         let lx: Float = Float(indexRow) + 0.5
-                        let lz: Float = Float(indexRow) + 0.5
+                        let lz: Float = Float(indexCol) + 0.5
                         
                         let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
                         
@@ -143,7 +143,7 @@ class ViewController: GLKViewController {
                         //add display code here
                         
                         let lx: Float = Float(indexRow) + 0.5
-                        let lz: Float = Float(indexRow) + 0.5
+                        let lz: Float = Float(indexCol) + 0.5
                         
                         let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
                         
