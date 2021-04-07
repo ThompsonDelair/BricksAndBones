@@ -80,7 +80,7 @@ class ViewController: GLKViewController {
         highScoreLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         highScoreLabel.textColor = .black
         highScoreLabel.font = scoreLabel.font.withSize(20)
-        highScoreLabel.center = CGPoint(x:220, y:36)
+        highScoreLabel.center = CGPoint(x:220, y:40)
         highScoreLabel.textAlignment = .center
         self.view.addSubview(scoreLabel)
         
