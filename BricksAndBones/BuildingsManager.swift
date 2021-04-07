@@ -23,7 +23,7 @@ class BuildingsManager{
     
     // check if the position is in the array
     func checkPosition(xPos:Int, yPos:Int) ->Bool{
-        if(xPos >= 0 && yPos <= buildingSize-1 && yPos >= 0 && yPos <= buildingSize-1){
+        if(xPos >= 0 && xPos <= buildingSize-1 && yPos >= 0 && yPos <= buildingSize-1){
             
             return true;
         }
@@ -57,7 +57,13 @@ class BuildingsManager{
                 buildingArray[yPos][xPos] = EmpowerBuilding(posX: xPos, posY: yPos)
                 return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
             case "Copy":
-                return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
+                if(buildingArray[yPos][xPos].active){
+                    return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
+                }else{
+                    print("there is no building here to activate")
+                    return 0;
+                }
+                //return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
             case "Demolish":
                 print("implement removal of rendered object first")
                 //buildingArray[yPos][xPos] = DemolishBuilding(posX: xPos, posY: yPos)
