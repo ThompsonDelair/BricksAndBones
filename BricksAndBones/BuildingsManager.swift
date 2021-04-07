@@ -12,6 +12,7 @@ class BuildingsManager{
     
     private var buildingArray=[[Building]]()
     private var buildingSize:Int;
+    private var previewBuilding:Building;
     
     init(buildingSize: Int){
         self.buildingSize = buildingSize;
@@ -19,6 +20,7 @@ class BuildingsManager{
         var firstBuilding :Building = Building(posX:0, posY:0);
         //initialize buildings
         buildingArray = Array(repeating: Array(repeating: firstBuilding , count:buildingSize), count: buildingSize)
+        previewBuilding = Building(posX:0,posY:0)
     }
     
     // check if the position is in the array
@@ -171,8 +173,8 @@ class BuildingsManager{
         }
     }
     
-    func calcPointsFromPositions(thisBuildingXPos:Int, thisBuildingYPos:Int, otherBuildingXPos:Int, otherBuildingYPos:Int)->Int{
-        return calculatePointsBetweenBuildings(thisBuilding: buildingArray[thisBuildingYPos][thisBuildingXPos], otherBuilding: buildingArray[otherBuildingYPos][otherBuildingXPos])
+    func calcPointsFromPreview(otherBuildingXPos:Int, otherBuildingYPos:Int)->Int{
+        return calculatePointsBetweenBuildings(thisBuilding:previewBuilding, otherBuilding: buildingArray[otherBuildingYPos][otherBuildingXPos])
     }
     
     func calcPointsFromPosition(thisBuildingXPos:Int, thisBuildingYPos:Int)->Int{
@@ -185,6 +187,28 @@ class BuildingsManager{
     
     func getActive(thisBuildingXPos:Int, thisBuildingYPos:Int)->Bool{
         return buildingArray[thisBuildingYPos][thisBuildingXPos].active;
+    }
+    
+    func getRadiusFromPreview()->Int{
+        return previewBuilding.radius
+    }
+    
+    func setPreviewBuilding(buildingName:String, xPos:Int, yPos:Int)
+    {
+        switch buildingName {
+        case "Selfish":
+            previewBuilding = SelfishBuilding(posX: xPos, posY: yPos)
+        case "Loner":
+            previewBuilding = LonerBuilding(posX: xPos, posY: yPos)
+        case "Leader":
+            previewBuilding = LeaderBuilding(posX: xPos, posY: yPos)
+        case "Empower":
+            previewBuilding = EmpowerBuilding(posX: xPos, posY: yPos)
+        case "Debuff":
+            previewBuilding = DebuffBuilding(posX: xPos, posY: yPos)
+        default:
+            print("building doesnt exist")
+        }
     }
 
 }
