@@ -16,6 +16,7 @@ class ViewController: GLKViewController {
     private var rotation: Float = 0.0
     
     private var buildType = 0
+    private let buildTypes = 5
     
     private var typeLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
@@ -23,7 +24,7 @@ class ViewController: GLKViewController {
     
     private var cameraLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
-    var Score: Int = 0;
+    var score: Int = 0;
     
     var gameGrid: Grid = Grid(unitSize: 2);
     var testManager = BuildingsManager(buildingSize: 10)
@@ -31,12 +32,17 @@ class ViewController: GLKViewController {
     var cursorType: Int = 0;
     var cursorInstanceId: Int = 0;
     
+    var currType: Int = 0;
+    var currID: Int32 = 0;
+    
     var panStartScreen: CGPoint = CGPoint();
     var panX: CGFloat = 0.0
     var panY: CGFloat = 0.0
     var panTrack: GLKVector3 = GLKVector3Make(0, 0, 0);
 
     let cameraSpeed: CGFloat = 0.04;
+    
+    //var buildingArray
 
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -76,10 +82,18 @@ class ViewController: GLKViewController {
         self.view.addSubview(scoreLabel)
         
         cursorType = 1;
-        cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(1, 1, 1)))
+
+        cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3)))
+        
+        glesRenderer.createModelInstance(Int32(6),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
+      
+        nextBuilding();
+
+        //print(testBuilding.selfValue)               
        
-        
-        
+        //print("width" + String(UIScreen.main.bounds.size.width.description));
+        //print("height" + String(UIScreen.main.bounds.size.height.description));
+
 
         //plays background music on start
         glesRenderer.playBackgroundMusic();
@@ -97,18 +111,26 @@ class ViewController: GLKViewController {
                 //print(row != 0)
                 //print(column != 0)
                 //print(type(of:column))
-                if(!(row == 0 && column == 0)){ // dont check current building,
-                    let indexRow = xPos-row
-                    let indexCol = yPos+column
-                    if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
-                        if(testManager.getActive(thisBuildingXPos: xPos, thisBuildingYPos: yPos)){
-                            var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
-                            //add display code here
-                        }
-                            //print(String(indexRow) + " " + String(indexCol))
+
+                if(!(row == 0 && column == 0)){//dont check current buildings
+                let indexRow = xPos-row
+                let indexCol = yPos+column
+                if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
+                    if(testManager.getActive(thisBuildingXPos: xPos, thisBuildingYPos: yPos)){
+                        var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
+                        //add display code here
+                        
+                        let lx: Float = Float(indexRow) + 0.5
+                        let lz: Float = Float(indexRow) + 0.5
+                        
+                        let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
+                        
+                        displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplay), color: UIColor.cyan)
+
                     }
                 }
                 
+                }
             
             }
             columnCounts+=1;
@@ -123,6 +145,13 @@ class ViewController: GLKViewController {
                     if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
                         var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
                         //add display code here
+                        
+                        let lx: Float = Float(indexRow) + 0.5
+                        let lz: Float = Float(indexRow) + 0.5
+                        
+                        let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
+                        
+                        displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplay), color: UIColor.cyan)
                     }
                     //print(String(indexRow) + " " + String(indexCol))
                 }
@@ -132,26 +161,73 @@ class ViewController: GLKViewController {
         
         var pointsToDisplaySelf = testManager.calcPointsFromPosition(thisBuildingXPos:xPos, thisBuildingYPos:yPos)
         //add display code here
+        
+        let lx: Float = Float(xPos) + 0.5
+        let lz: Float = Float(yPos) + 0.5
+        
+        let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
+        
+        displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplaySelf), color: UIColor.cyan)
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
         let touchPoint = sender.location(in: self.view)
         let screenPos: GLKVector3 = GLKVector3Make(Float(touchPoint.x), Float(touchPoint.y), Float(0))
         
-        let worldPos = ScreenPosToWorldPlane(mouseX: CGFloat(screenPos.x), mouseY: CGFloat(screenPos.y))
+        if(sender.state == UIGestureRecognizer.State.ended){
+            let worldPos = ScreenPosToWorldPlane(mouseX: CGFloat(screenPos.x), mouseY: CGFloat(screenPos.y))
+                    
+            if(worldPos.hit == false){
+                print("no hit for screen-to-world ray")
+            } else{
                 
-        if(worldPos.hit == false){
-            print("no hit for screen-to-world ray")
-        } else{
+                // for each other building
+                
+                
+                //glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: worldPos.hitPos)
+            }
             
-            // for each other building
+            var x: Float = Float(Int(glesRenderer.cameraFocusPos.x))
+            var z: Float = Float(Int(glesRenderer.cameraFocusPos.z))
+            let gridPosX: Int = Int(x * -1)
+            let gridPosY: Int = Int(z * -1)
+            x = x * -1 + 0.5
+            z = z * -1 + 0.5
             
-            
-            glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: worldPos.hitPos)
+            if(!testManager.checkActive(xPos: gridPosY, yPos: gridPosY)){
+                let buildPos = GLKVector3Make(x, 0, z)
+                
+                glesRenderer.createModelInstance(Int32(buildType),pos:buildPos,rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
+                buildType+=1
+                buildType %= buildTypes
+                
+                var buildingName: String = ""
+                if(buildType == 0){
+                    buildingName = "Selfish"
+                } else if (buildType == 1){
+                    buildingName = "Loner"
+                } else if (buildType == 2){
+                    buildingName = "Leader"
+                } else if (buildType == 3){
+                    buildingName = "Empower"
+                } else if (buildType == 4){
+                    buildingName = "Copy"
+                }
+                
+                
+                
+                var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
+                score += points;
+                scoreLabel.text = "Score:" + String(score)
+                nextBuilding()
+                previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
+                glesRenderer.playSoundFile("boop");
+                
+                print("built "+String(buildType))
+            }
         }
-        glesRenderer.playSoundFile("boop");
     }
-    
+        
     @objc func handlePan(_ sender: UIPanGestureRecognizer){
         let translation = sender.translation(in: self.view)
         
@@ -172,23 +248,50 @@ class ViewController: GLKViewController {
             //print("world pos: "+NSStringFromGLKVector3(newPos));
 
             //let move = CGPoint(x:panStartScreen.x - translation.x,y:panStartScreen.y - translation.y)
+            
+            
+            
             let x = (panStartScreen.x - translation.x) * cameraSpeed * -1.0
             let z = (panStartScreen.y - translation.y) * cameraSpeed * -1.0
+            
+            positionBuildPreview()
+            
             panStartScreen = translation
             glesRenderer.moveCamera(GLKVector3Make(Float(x), Float(0.0), Float(z)))
             //panStartScreen = translation
+            //let cursorPos = GLKVector3Make(glesre)
+            var pos: GLKVector3 = glesRenderer.cameraFocusPos
+            pos = GLKVector3MultiplyScalar(pos, -1)
+            glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: pos)
 
         }
+    }
+    
+    func nextBuilding(){
+        currID = glesRenderer.createModelInstance(Int32(buildType),pos:GLKVector3Make(0,0,0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
+        positionBuildPreview()
+        UpdateTypeText()
+    }
+    
+    func positionBuildPreview(){
+        let gridX:Float = Float(Int(glesRenderer.cameraFocusPos.x)) * -1.0 + 0.5
+        let gridZ:Float = Float(Int(glesRenderer.cameraFocusPos.z)) * -1.0 + 0.5
+        let gridPos = GLKVector3Make(gridX,0,gridZ)
         
+        glesRenderer.setInstancePos(Int32(buildType), instance: Int32(currID), pos: gridPos)
     }
     
     func UpdateTypeText(){
         if(buildType == 0){
-            typeLabel.text = "selfish cube";
+            typeLabel.text = "Selfish";
         } else if (buildType == 1){
-            typeLabel.text = "normal cube";
+            typeLabel.text = "Loner";
         } else if (buildType == 2){
-            typeLabel.text = "friendly cube";
+            typeLabel.text = "Leader";
+        } else if (buildType == 3){
+            typeLabel.text = "Empower";
+        } else if (buildType == 4){
+            typeLabel.text = "Copy";
         }
     }
 
@@ -297,6 +400,9 @@ class ViewController: GLKViewController {
         label.textAlignment = .center
         label.text = text
         self.view.addSubview(label)
+        
+        let log: String = "making label at: " + String(Float(locX))  + ", " + String(Float(locY))
+        print(log)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             label.removeFromSuperview()

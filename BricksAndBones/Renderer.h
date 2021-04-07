@@ -54,7 +54,7 @@ typedef struct ModelInstance{
 @property (readonly) GLKMatrix4 _viewMatrix;
 //@property GLKMatrix4 _modelViewMatrix;
 @property (readonly) GLKMatrix4 _projectionMatrix;
-
+@property (readonly) GLKVector3 cameraFocusPos;
 
 
 - (void)setup:(GLKView *)view;      // Set up GL using the current View
