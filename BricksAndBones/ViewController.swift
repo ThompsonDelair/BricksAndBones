@@ -98,7 +98,7 @@ class ViewController: GLKViewController {
 
     }
     
-    func previewPoints(buildingName:String, xPos:Int, yPos:Int){
+    func previewPoints(xPos:Int, yPos:Int){
         var columnCounts = 0;
         //top half including middle
         
@@ -219,7 +219,9 @@ class ViewController: GLKViewController {
                 previewPoints(xPos: gridPosX, yPos: gridPosY)
                 glesRenderer.playSoundFile("boop");
                 
-                print("built "+String(buildType))
+                print("built " + String(buildType) + " at: " + String(gridPosX) + ", " + String(gridPosY))
+            } else {
+                print("building already active here?")
             }
         }
     }
@@ -397,8 +399,8 @@ class ViewController: GLKViewController {
         label.text = text
         self.view.addSubview(label)
         
-        let log: String = "making label at: " + String(Float(locX))  + ", " + String(Float(locY))
-        print(log)
+        //let log: String = "making label at: " + String(Float(locX))  + ", " + String(Float(locY))
+        //print(log)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             label.removeFromSuperview()
@@ -450,4 +452,9 @@ extension Array{
     func size() -> Int{
         return MemoryLayout<Element>.stride * self.count
     }
+}
+
+struct WorldBoundUI{
+    var worldPos: GLKVector3
+    var label: UILabel
 }
