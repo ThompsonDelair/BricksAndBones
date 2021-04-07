@@ -85,6 +85,12 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     GLKMatrix4 _modelViewMatrix;
     //GLKMatrix4 _viewMatrix;
     
+    // Camera details
+    GLKVector3 cameraFocusPos;
+    GLKVector3 cameraOffset;
+    float cameraAngle;
+    float cameraDist;
+    
     //GLKMatrix4 projectionMatrix;
     
     // Lighting parameters
@@ -150,6 +156,18 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     lastTime = std::chrono::steady_clock::now();
     
     _viewMatrix = GLKMatrix4MakeLookAt(0, 5, 0, 0, 0, 0, 0, 0, 1);
+    
+    cameraFocusPos = GLKVector3Make(0.0,0.0,0.0);
+    
+    cameraAngle = 75.0;
+    cameraDist = -8.0;
+    cameraOffset = GLKVector3Make(0.0, sinf(GLKMathDegreesToRadians(cameraAngle)), cosf(GLKMathDegreesToRadians(cameraAngle)));
+    //cameraOffset = GLKVector3Make(0.0, cosf(cameraAngle), sin(cameraAngle));
+    printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
+    cameraOffset = GLKVector3MultiplyScalar(cameraOffset, cameraDist);
+    printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
+    
+    //cameraOffset = GLKVector3Make(0.0, -3.0, -3.0);
     
     //printf("Number of model types is %d",NUM_MODEL_TYPES);
 }
@@ -277,8 +295,8 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     glActiveTexture(GL_TEXTURE0);
    
    // for testing
-    for(int x = 0; x < 5;x++){
-        for(int z = 0; z < 5;z++){
+    for(int x = -5; x < 5;x++){
+        for(int z = -5; z < 5;z++){
             [self createModelInstance:0 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
         }
     }
@@ -403,6 +421,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     
     float aspect = fabsf(theView.bounds.size.width / theView.bounds.size.height);
     _projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 1.0, 1000.0);;
+    [self updateViewMatrix];
     
     // select shader
     glUseProgram(_program);
@@ -499,6 +518,26 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 - (void) setInstancePos:(int)type instance:(int)instance pos:(GLKVector3)pos{
     modelInstances[type][instance].position = pos;
     modelInstances[type][instance].modelMatrix = [self calculateModelMatrix:modelInstances[type][instance]];
+}
+
+- (void) updateViewMatrix{
+    
+//    _viewMatrix = GLKMatrix4MakeTranslation(-4, 0, 2);
+//    _viewMatrix = GLKMatrix4Translate(_viewMatrix, cameraOffset.x, cameraOffset.y, cameraOffset.z);
+//    _viewMatrix = GLKMatrix4Rotate(_viewMatrix, GLKMathDegreesToRadians(cameraAngle),1.0, 0.0, 0.0);
+    
+//    _viewMatrix = GLKMatrix4MakeTranslation(cameraFocusPos.x, cameraFocusPos.y, cameraFocusPos.x);
+//    _viewMatrix = GLKMatrix4Translate(_viewMatrix, cameraOffset.x, cameraOffset.y, cameraOffset.z);
+//    _viewMatrix = GLKMatrix4Rotate(_viewMatrix, GLKMathDegreesToRadians(cameraAngle),1.0, 0.0, 0.0);
+    
+    
+    _viewMatrix = GLKMatrix4MakeRotation(GLKMathDegreesToRadians(cameraAngle),1.0, 0.0, 0.0);
+    _viewMatrix = GLKMatrix4Translate(_viewMatrix, cameraFocusPos.x, cameraFocusPos.y, cameraFocusPos.z);
+    _viewMatrix = GLKMatrix4Translate(_viewMatrix, cameraOffset.x, cameraOffset.y, cameraOffset.z);
+}
+
+- (void) moveCamera:(GLKVector3)move{
+    cameraFocusPos = GLKVector3Add(cameraFocusPos, move);
 }
 
 @end

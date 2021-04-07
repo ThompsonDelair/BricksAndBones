@@ -65,6 +65,7 @@ typedef struct ModelInstance{
 //- (GLKVector2) worldPosToScreenPos:(GLKVector3)worldPos;
 - (struct ModelInstance) getModelInstanceData:(int)type instance:(int)instance;
 - (void) setInstancePos:(int)type instance:(int)instance pos:(GLKVector3)pos;
+- (void) moveCamera:(GLKVector3)move;
 
 @end
 

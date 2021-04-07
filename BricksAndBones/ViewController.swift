@@ -30,7 +30,10 @@ class ViewController: GLKViewController {
     var cursorInstanceId: Int = 0;
     
     var panStartScreen: CGPoint = CGPoint();
+    var panX: CGFloat = 0.0
+    var panY: CGFloat = 0.0
     var panTrack: GLKVector3 = GLKVector3Make(0, 0, 0);
+    let cameraSpeed: CGFloat = 0.04;
     
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -94,16 +97,26 @@ class ViewController: GLKViewController {
         let translation = sender.translation(in: self.view)
         
         if(sender.state == UIGestureRecognizer.State.began){
-            let worldPos = ScreenPosToWorldPlane(mouseX: translation.x, mouseY: translation.y);
-            panTrack = worldPos.hitPos;
+            //let worldPos = ScreenPosToWorldPlane(mouseX: translation.x, mouseY: translation.y);
+            //panTrack = worldPos.hitPos;
             panStartScreen = translation;
-        } else{
-            let inst = glesRenderer.getModelInstanceData(Int32(cursorType),instance:Int32(cursorInstanceId))
-            let worldPos = ScreenPosToWorldPlane(mouseX: translation.x, mouseY: translation.y)
-            let movement = GLKVector3Subtract(worldPos.hitPos, panTrack);
-            let newPos: GLKVector3 = GLKVector3Make(inst.position.x + movement.x,0,inst.position.z + movement.z )
-            glesRenderer.setInstancePos(Int32(cursorType),instance:Int32(cursorInstanceId),pos:newPos);
+//            panX = translation.x;
+//            panY = translation.y;
+        } else if (sender.state == UIGestureRecognizer.State.ended){
+            
+        } else {
+            //let inst = glesRenderer.getModelInstanceData(Int32(cursorType),instance:Int32(cursorInstanceId))
+            //let worldPos = ScreenPosToWorldPlane(mouseX: translation.x, mouseY: translation.y)
+            //let movement = GLKVector3Subtract(worldPos.hitPos, panTrack);
+            //let newPos: GLKVector3 = GLKVector3Make(inst.position.x + movement.x,0,inst.position.z + movement.z )
+            //glesRenderer.setInstancePos(Int32(cursorType),instance:Int32(cursorInstanceId),pos:newPos);
             //print("world pos: "+NSStringFromGLKVector3(newPos));
+            //let move = CGPoint(x:panStartScreen.x - translation.x,y:panStartScreen.y - translation.y)
+            let x = (panStartScreen.x - translation.x) * cameraSpeed * -1.0
+            let z = (panStartScreen.y - translation.y) * cameraSpeed * -1.0
+            panStartScreen = translation
+            glesRenderer.moveCamera(GLKVector3Make(Float(x), Float(0.0), Float(z)))
+            //panStartScreen = translation
         }
     }
     
