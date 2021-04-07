@@ -80,12 +80,25 @@ GLuint ObjLoader::loadOBJ(
     GLfloat temp_normals[normalIndices.size()*3];
     
     for(unsigned int i=0; i<vertexIndices.size(); i++){
-        GLuint curI = vertexIndices[i] + 1;
+        GLuint curI = vertexIndices[i]-1;
         temp_vertices[(i*3)] = vertVect[curI].x;
         temp_vertices[(i*3)+1] = vertVect[curI].y;
         temp_vertices[(i*3)+2] = vertVect[curI].z;
-        printf("\n-->%d: %f %f %f", curI, temp_vertices[(i*3)],temp_vertices[(i*3)+1],temp_vertices[(i*3)+2]);
+        printf("\n-->%d: %f %f %f", curI+1, temp_vertices[(i*3)],temp_vertices[(i*3)+1],temp_vertices[(i*3)+2]);
+        
+        curI = uvIndices[i]-1;
+        temp_uvs[(i*2)] = uvVect[curI].x;
+        temp_uvs[(i*2)+1] = uvVect[curI].y;
+        printf("\n->>%d: %f %f", curI+1, temp_uvs[(i*2)],temp_uvs[(i*2)+1]);
+        
+        curI = normalIndices[i]-1;
+        temp_normals[(i*3)] = normalVect[curI].x;
+        temp_normals[(i*3)+1] = normalVect[curI].y;
+        temp_normals[(i*3)+2] = normalVect[curI].z;
+        printf("%f", normalVect[curI].z);
+        printf("\n>>>%d: %f %f %f", curI+1, temp_normals[(i*3)],temp_normals[(i*3)+1],temp_normals[(i*3)+2]);
     }
+    /*
     for(unsigned int i=0; i<uvIndices.size(); i++){
         GLuint curI = uvIndices[i];
         temp_uvs[(i*2)] = uvVect[curI].x;
@@ -99,6 +112,7 @@ GLuint ObjLoader::loadOBJ(
         temp_normals[(i*3)+2] = normalVect[curI].z;
         printf("\n>>>%d: %f %f %f", curI, temp_normals[(i*3)],temp_normals[(i*3)+1],temp_normals[(i*3)+2]);
     }
+     */
     
     /*
     for(unsigned int i=0; i<vertVect.size(); i++){
@@ -157,8 +171,8 @@ GLuint ObjLoader::loadOBJ(
         vertexIndexArr[i] = vertexIndices[i];
     }
     
-    *numVerts = vertVect.size()*3;
-    printf("\nVertex indices count: %d", vertexIndices.size());
+    *numVerts = vertexIndices.size()*3;
+    printf("\nVertex indices count: %lu", vertexIndices.size());
     *indices = (GLuint *)malloc ( sizeof ( GLuint ) * vertexIndices.size());
     
     std::memcpy(*indices, vertexIndexArr, sizeof(vertexIndexArr));

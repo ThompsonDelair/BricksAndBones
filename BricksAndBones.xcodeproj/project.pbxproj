@@ -20,6 +20,7 @@
 		FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FA2DEC3826159CBD003138BA /* Shader.vsh */; };
 		FA2DEC3E26159CBD003138BA /* GLESRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA2DEC3A26159CBD003138BA /* GLESRenderer.cpp */; };
 		FA3292EE261AEC480074D8CC /* ObjLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA3292EC261AEC480074D8CC /* ObjLoader.cpp */; };
+		FA8280E9261DA3A4009D0F58 /* plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = FA8280E8261DA3A4009D0F58 /* plane.obj */; };
 		FA83DF8D261B9CE20087A66C /* glm in Resources */ = {isa = PBXBuildFile; fileRef = FA83DF8C261B9CE20087A66C /* glm */; };
 		FA83DF91261BD0270087A66C /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FA83DF90261BD0270087A66C /* rook.obj */; };
 		FA8811E82616865E0045B752 /* texRed.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E52616865E0045B752 /* texRed.png */; };
@@ -50,6 +51,7 @@
 		FA3292EC261AEC480074D8CC /* ObjLoader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ObjLoader.cpp; sourceTree = "<group>"; };
 		FA3292ED261AEC480074D8CC /* ObjLoader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ObjLoader.hpp; sourceTree = "<group>"; };
 		FA663DCA261CD819009A8D78 /* rook.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = rook.obj; path = BricksAndBones/Models/rook.obj; sourceTree = "<group>"; };
+		FA8280E8261DA3A4009D0F58 /* plane.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plane.obj; sourceTree = "<group>"; };
 		FA83DF8C261B9CE20087A66C /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glm; sourceTree = "<group>"; };
 		FA83DF90261BD0270087A66C /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
 		FA8811E52616865E0045B752 /* texRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texRed.png; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 		FAF15AC225E6D25D00AB4F78 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FA8280E8261DA3A4009D0F58 /* plane.obj */,
 				FA83DF90261BD0270087A66C /* rook.obj */,
 				FAE2B12F25E618F2008E38F3 /* stonewall.png */,
 			);
@@ -187,6 +190,7 @@
 			files = (
 				FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */,
 				FA83DF8D261B9CE20087A66C /* glm in Resources */,
+				FA8280E9261DA3A4009D0F58 /* plane.obj in Resources */,
 				FA83DF91261BD0270087A66C /* rook.obj in Resources */,
 				FA8811E82616865E0045B752 /* texRed.png in Resources */,
 				FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */,
