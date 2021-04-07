@@ -90,23 +90,26 @@ class ViewController: GLKViewController {
         var columnCounts = 0;
         //top half including middle
         
-        var radius = testManager.getRadius(thisBuildingXPos: xPos, thisBuildingYPos: yPos)
+        var radius = testManager.getRadiusFromName(buildingName: "String")
         for row in stride(from: radius, through: 0, by: -1){
             //for column in -columnCounts...columnCounts{
             for column in stride(from: -columnCounts, through: columnCounts, by: 1){
                 //print(row != 0)
                 //print(column != 0)
                 //print(type(of:column))
-                let indexRow = xPos-row
-                let indexCol = yPos+column
-                if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
-                    if(testManager.getActive(thisBuildingXPos: xPos, thisBuildingYPos: yPos)){
-                        var pointsToDisplay = testManager.calcPointsFromPositions(thisBuildingXPos:xPos, thisBuildingYPos:yPos, otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
-                        //add display code here
+                if(!(row == 0 && column == 0)){ // dont check current building,
+                    let indexRow = xPos-row
+                    let indexCol = yPos+column
+                    if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
+                        if(testManager.getActive(thisBuildingXPos: xPos, thisBuildingYPos: yPos)){
+                            var pointsToDisplay = testManager.calcPointsFromPositions(thisBuildingXPos:xPos, thisBuildingYPos:yPos, otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
+                            //add display code here
+                        }
+                            //print(String(indexRow) + " " + String(indexCol))
                     }
-                        //print(String(indexRow) + " " + String(indexCol))
                 }
                 
+            
             }
             columnCounts+=1;
         }
