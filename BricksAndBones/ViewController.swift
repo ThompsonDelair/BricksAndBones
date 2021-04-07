@@ -31,6 +31,8 @@ class ViewController: GLKViewController {
     var cursorType: Int = 0;
     var cursorInstanceId: Int = 0;
     
+    var currType: Int = 0;
+    var currID: Int32 = 0;
     
     var panStartScreen: CGPoint = CGPoint();
     var panX: CGFloat = 0.0
@@ -77,10 +79,11 @@ class ViewController: GLKViewController {
         self.view.addSubview(scoreLabel)
         
         cursorType = 1;
-        //cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(1, 1, 1)))
+        cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3)))
         
         glesRenderer.createModelInstance(Int32(6),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
       
+        nextBuilding();
         
         var testManager = BuildingsManager(buildingSize: 8)
         print(testManager.addBuilding(buildingName:"Leader", xPos:2, yPos:2))
@@ -115,20 +118,22 @@ class ViewController: GLKViewController {
         }
         
         var x: Float = Float(Int(glesRenderer.cameraFocusPos.x))
-        var y: Float = Float(Int(glesRenderer.cameraFocusPos.y))
-        x = x + 0.5
-        y = y + 0.5
+        var z: Float = Float(Int(glesRenderer.cameraFocusPos.z))
+        x = x * -1 + 0.5
+        z = z * -1 + 0.5
         
         
-        let buildPos = GLKVector3Make(x, 0, y)
+        let buildPos = GLKVector3Make(x, 0, z)
         
         glesRenderer.createModelInstance(Int32(buildType),pos:buildPos,rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
         buildType+=1
         buildType %= buildTypes
         
+        nextBuilding()
+        
         glesRenderer.playSoundFile("boop");
     }
-    
+        
     @objc func handlePan(_ sender: UIPanGestureRecognizer){
         let translation = sender.translation(in: self.view)
         
@@ -149,14 +154,36 @@ class ViewController: GLKViewController {
             //print("world pos: "+NSStringFromGLKVector3(newPos));
 
             //let move = CGPoint(x:panStartScreen.x - translation.x,y:panStartScreen.y - translation.y)
+            
+            
+            
             let x = (panStartScreen.x - translation.x) * cameraSpeed * -1.0
             let z = (panStartScreen.y - translation.y) * cameraSpeed * -1.0
+            
+            positionBuildPreview()
+            
             panStartScreen = translation
             glesRenderer.moveCamera(GLKVector3Make(Float(x), Float(0.0), Float(z)))
             //panStartScreen = translation
+            //let cursorPos = GLKVector3Make(glesre)
+            var pos: GLKVector3 = glesRenderer.cameraFocusPos
+            pos = GLKVector3MultiplyScalar(pos, -1)
+            glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: pos)
 
         }
+    }
+    
+    func nextBuilding(){
+        currID = glesRenderer.createModelInstance(Int32(buildType),pos:GLKVector3Make(0,0,0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
+        positionBuildPreview()
+    }
+    
+    func positionBuildPreview(){
+        let gridX:Float = Float(Int(glesRenderer.cameraFocusPos.x)) * -1.0 + 0.5
+        let gridZ:Float = Float(Int(glesRenderer.cameraFocusPos.z)) * -1.0 + 0.5
+        let gridPos = GLKVector3Make(gridX,0,gridZ)
         
+        glesRenderer.setInstancePos(Int32(buildType), instance: Int32(currID), pos: gridPos)
     }
     
     func UpdateTypeText(){
