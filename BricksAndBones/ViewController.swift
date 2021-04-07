@@ -82,6 +82,7 @@ class ViewController: GLKViewController {
         self.view.addSubview(scoreLabel)
         
         cursorType = 1;
+
         cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3)))
         
         glesRenderer.createModelInstance(Int32(6),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
@@ -93,6 +94,7 @@ class ViewController: GLKViewController {
         //print("width" + String(UIScreen.main.bounds.size.width.description));
         //print("height" + String(UIScreen.main.bounds.size.height.description));
 
+
         //plays background music on start
         glesRenderer.playBackgroundMusic();
 
@@ -101,19 +103,21 @@ class ViewController: GLKViewController {
     func previewPoints(xPos:Int, yPos:Int){
         var columnCounts = 0;
         //top half including middle
-        
-        var radius = testManager.getRadius(thisBuildingXPos: xPos, thisBuildingYPos: yPos)
+        testManager.setPreviewBuilding(buildingName: buildingName, xPos: xPos, yPos: yPos)
+        let radius = testManager.getRadiusFromPreview()
         for row in stride(from: radius, through: 0, by: -1){
             //for column in -columnCounts...columnCounts{
             for column in stride(from: -columnCounts, through: columnCounts, by: 1){
                 //print(row != 0)
                 //print(column != 0)
                 //print(type(of:column))
+
+                if(!(row == 0 && column == 0)){//dont check current buildings
                 let indexRow = xPos-row
                 let indexCol = yPos+column
                 if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
                     if(testManager.getActive(thisBuildingXPos: xPos, thisBuildingYPos: yPos)){
-                        var pointsToDisplay = testManager.calcPointsFromPositions(thisBuildingXPos:xPos, thisBuildingYPos:yPos, otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
+                        var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
                         //add display code here
                         
                         let lx: Float = Float(indexRow) + 0.5
@@ -122,12 +126,12 @@ class ViewController: GLKViewController {
                         let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
                         
                         displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplay), color: UIColor.cyan)
-                        
-                        
+
                     }
-                        //print(String(indexRow) + " " + String(indexCol))
                 }
                 
+                }
+            
             }
             columnCounts+=1;
         }
@@ -135,11 +139,11 @@ class ViewController: GLKViewController {
         columnCounts = 0;
         for row in stride(from:radius, to: 0, by: -1){
             for column in -columnCounts...columnCounts{
-                var indexRow = xPos+row
-                var indexCol = yPos+column
+                let indexRow = xPos+row
+                let indexCol = yPos+column
                 if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
                     if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
-                        var pointsToDisplay = testManager.calcPointsFromPositions(thisBuildingXPos:xPos, thisBuildingYPos:yPos, otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
+                        var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
                         //add display code here
                         
                         let lx: Float = Float(indexRow) + 0.5
@@ -216,7 +220,12 @@ class ViewController: GLKViewController {
                 score += points;
                 scoreLabel.text = "Score:" + String(score)
                 nextBuilding()
-                previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
+                if(testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
+                    previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
+                } else{
+                    print("position not in grid")
+                }
+                
                 glesRenderer.playSoundFile("boop");
                 
                 print("built " + String(buildType) + " at: " + String(gridPosX) + ", " + String(gridPosY))
