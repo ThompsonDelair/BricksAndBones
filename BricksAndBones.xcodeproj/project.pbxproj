@@ -49,6 +49,7 @@
 		FA2DEC4026159CFA003138BA /* BricksAndBones-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BricksAndBones-Bridging-Header.h"; sourceTree = "<group>"; };
 		FA3292EC261AEC480074D8CC /* ObjLoader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ObjLoader.cpp; sourceTree = "<group>"; };
 		FA3292ED261AEC480074D8CC /* ObjLoader.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ObjLoader.hpp; sourceTree = "<group>"; };
+		FA663DCA261CD819009A8D78 /* rook.obj */ = {isa = PBXFileReference; lastKnownFileType = text; name = rook.obj; path = BricksAndBones/Models/rook.obj; sourceTree = "<group>"; };
 		FA83DF8C261B9CE20087A66C /* glm */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glm; sourceTree = "<group>"; };
 		FA83DF90261BD0270087A66C /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
 		FA8811E52616865E0045B752 /* texRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texRed.png; sourceTree = "<group>"; };
@@ -72,6 +73,7 @@
 		7399692825E1FF0800AE3215 = {
 			isa = PBXGroup;
 			children = (
+				FA663DCA261CD819009A8D78 /* rook.obj */,
 				7399693325E1FF0800AE3215 /* BricksAndBones */,
 				7399693225E1FF0800AE3215 /* Products */,
 			);
