@@ -27,6 +27,7 @@ class ViewController: GLKViewController {
     var Score: Int = 0;
     
     var gameGrid: Grid = Grid(unitSize: 2);
+    var testManager = BuildingsManager(buildingSize: 10)
     
     var cursorType: Int = 0;
     var cursorInstanceId: Int = 0;
@@ -84,21 +85,60 @@ class ViewController: GLKViewController {
         glesRenderer.createModelInstance(Int32(6),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
       
         nextBuilding();
-        
-        var testManager = BuildingsManager(buildingSize: 8)
-        print(testManager.addBuilding(buildingName:"Leader", xPos:2, yPos:2))
-        print(testManager.addBuilding(buildingName:"Empower", xPos:2, yPos:3))
-        print(testManager.addBuilding(buildingName:"Leader", xPos:2, yPos:4))
-        
-        //print(testBuilding.selfValue)
-               
+
+        //print(testBuilding.selfValue)               
        
         //print("width" + String(UIScreen.main.bounds.size.width.description));
         //print("height" + String(UIScreen.main.bounds.size.height.description));
-               
+
         //plays background music on start
         glesRenderer.playBackgroundMusic();
 
+    }
+    
+    func previewPoints(xPos:Int, yPos:Int){
+        var columnCounts = 0;
+        //top half including middle
+        
+        var radius = testManager.getRadius(thisBuildingXPos: xPos, thisBuildingYPos: yPos)
+        for row in stride(from: radius, through: 0, by: -1){
+            //for column in -columnCounts...columnCounts{
+            for column in stride(from: -columnCounts, through: columnCounts, by: 1){
+                //print(row != 0)
+                //print(column != 0)
+                //print(type(of:column))
+                let indexRow = xPos-row
+                let indexCol = yPos+column
+                if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
+                    if(testManager.getActive(thisBuildingXPos: xPos, thisBuildingYPos: yPos)){
+                        var pointsToDisplay = testManager.calcPointsFromPositions(thisBuildingXPos:xPos, thisBuildingYPos:yPos, otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
+                        //add display code here
+                    }
+                        //print(String(indexRow) + " " + String(indexCol))
+                }
+                
+            }
+            columnCounts+=1;
+        }
+        //bottom half excluding center row
+        columnCounts = 0;
+        for row in stride(from:radius, to: 0, by: -1){
+            for column in -columnCounts...columnCounts{
+                var indexRow = xPos+row
+                var indexCol = yPos+column
+                if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
+                    if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
+                        var pointsToDisplay = testManager.calcPointsFromPositions(thisBuildingXPos:xPos, thisBuildingYPos:yPos, otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
+                        //add display code here
+                    }
+                    //print(String(indexRow) + " " + String(indexCol))
+                }
+            }
+            columnCounts+=1;
+        }
+        
+        var pointsToDisplaySelf = testManager.calcPointsFromPosition(thisBuildingXPos:xPos, thisBuildingYPos:yPos)
+        //add display code here
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){

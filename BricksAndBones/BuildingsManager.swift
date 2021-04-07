@@ -165,8 +165,20 @@ class BuildingsManager{
         }
     }
     
-    func changeInfluenceValue(){
-        
+    func calcPointsFromPositions(thisBuildingXPos:Int, thisBuildingYPos:Int, otherBuildingXPos:Int, otherBuildingYPos:Int)->Int{
+        return calculatePointsBetweenBuildings(thisBuilding: buildingArray[thisBuildingYPos][thisBuildingXPos], otherBuilding: buildingArray[otherBuildingYPos][otherBuildingXPos])
     }
     
+    func calcPointsFromPosition(thisBuildingXPos:Int, thisBuildingYPos:Int)->Int{
+        return buildingArray[thisBuildingYPos][thisBuildingXPos].selfValue;
+    }
+    
+    func getRadius(thisBuildingXPos:Int, thisBuildingYPos:Int)->Int{
+        return buildingArray[thisBuildingYPos][thisBuildingXPos].radius;
+    }
+    
+    func getActive(thisBuildingXPos:Int, thisBuildingYPos:Int)->Bool{
+        return buildingArray[thisBuildingYPos][thisBuildingXPos].active;
+    }
+
 }
