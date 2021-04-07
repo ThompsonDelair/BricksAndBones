@@ -12,11 +12,13 @@ class DemolishBuilding : Building {
     override init(posX:Int, posY:Int){
         super.init(posX: posX, posY: posY)
         
-        selfValue = 0;
+        buildingName = "Demolish"
+        selfValue = 0
         type = "Normal"
         classification = "Destroy"
         relationValue = 0
         radius = 1
         influencedValue = 0
+        active = true;
     }
 }

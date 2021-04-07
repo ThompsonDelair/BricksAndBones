@@ -22,6 +22,7 @@
 		B91F3A0D261C01E60039FCBE /* DebuffBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F3A0C261C01E60039FCBE /* DebuffBuilding.swift */; };
 		B91F3A10261C03C70039FCBE /* CopyBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F3A0F261C03C70039FCBE /* CopyBuilding.swift */; };
 		B91F3A13261C04150039FCBE /* DemolishBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F3A12261C04150039FCBE /* DemolishBuilding.swift */; };
+		B946C0A1261D499C002A33BB /* BuildingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B946C0A0261D499C002A33BB /* BuildingsManager.swift */; };
 		B9E81C4625EF2E8C00176E20 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E81C4525EF2E8C00176E20 /* Grid.swift */; };
 		FA2DEC3B26159CBD003138BA /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA2DEC3626159CBD003138BA /* Renderer.mm */; };
 		FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FA2DEC3726159CBD003138BA /* Shader.fsh */; };
@@ -53,6 +54,7 @@
 		B91F3A0C261C01E60039FCBE /* DebuffBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebuffBuilding.swift; sourceTree = "<group>"; };
 		B91F3A0F261C03C70039FCBE /* CopyBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyBuilding.swift; sourceTree = "<group>"; };
 		B91F3A12261C04150039FCBE /* DemolishBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemolishBuilding.swift; sourceTree = "<group>"; };
+		B946C0A0261D499C002A33BB /* BuildingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingsManager.swift; sourceTree = "<group>"; };
 		B9E81C4525EF2E8C00176E20 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		FA2DEC3526159CBD003138BA /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
 		FA2DEC3626159CBD003138BA /* Renderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				7399693425E1FF0800AE3215 /* AppDelegate.swift */,
 				7399693625E1FF0800AE3215 /* SceneDelegate.swift */,
 				7399693825E1FF0800AE3215 /* ViewController.swift */,
+				B946C0A0261D499C002A33BB /* BuildingsManager.swift */,
 				7399693A25E1FF0800AE3215 /* Main.storyboard */,
 				FAF15AC225E6D25D00AB4F78 /* Models */,
 				7399693D25E1FF0900AE3215 /* Assets.xcassets */,
@@ -232,6 +235,7 @@
 				B91F3A07261BFED90039FCBE /* LeaderBuilding.swift in Sources */,
 				FA2DEC3E26159CBD003138BA /* GLESRenderer.cpp in Sources */,
 				B9E81C4625EF2E8C00176E20 /* Grid.swift in Sources */,
+				B946C0A1261D499C002A33BB /* BuildingsManager.swift in Sources */,
 				FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */,
 				FA2DEC3B26159CBD003138BA /* Renderer.mm in Sources */,
 				7399693725E1FF0800AE3215 /* SceneDelegate.swift in Sources */,

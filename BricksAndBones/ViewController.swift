@@ -31,9 +31,7 @@ class ViewController: GLKViewController {
     
     var panStartScreen: CGPoint = CGPoint();
     var panTrack: GLKVector3 = GLKVector3Make(0, 0, 0);
-    
-    
-    
+ 
     override func viewDidLoad() {
         super.viewDidLoad();
         
@@ -73,12 +71,20 @@ class ViewController: GLKViewController {
         
         cursorType = 1;
         cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(1, 1, 1)))
+       
         
-        var firstBuilding :SelfishBuilding = SelfishBuilding(posX:1, posY:1);
+        var testManager = BuildingsManager(buildingSize: 8)
+        print(testManager.addBuilding(buildingName:"Leader", xPos:2, yPos:2))
+        print(testManager.addBuilding(buildingName:"Empower", xPos:2, yPos:3))
+        print(testManager.addBuilding(buildingName:"Leader", xPos:2, yPos:4))
         
-        //hello();
+        //print(testBuilding.selfValue)
         
-        //print("hello");
+        
+       
+        //print("width" + String(UIScreen.main.bounds.size.width.description));
+        //print("height" + String(UIScreen.main.bounds.size.height.description));
+        
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
@@ -240,32 +246,7 @@ class ViewController: GLKViewController {
             print(NSStringFromGLKVector4(row))
         }
     }
-    
-    func relationshipSolver(thisBuilding:Building, otherBuilding:Building)->Int{
-        //assuming both buildings exist
-        switch thisBuilding.classification {
-        case "Normal":
-            //suports selfish, loner, leader
-            return thisBuilding.selfValue + thisBuilding.relationValue + otherBuilding.influencedValue;
-        case "Influencer":
-            //supports both influencers
-            otherBuilding.influencedValue = otherBuilding.influencedValue + thisBuilding.relationValue;
-            return thisBuilding.selfValue + otherBuilding.influencedValue;
-        case "Replace":
-            //currently only supports copy building
-            
-            //iterate over buildings in radius relationshipSolver(otherBuilding, otherBuildingsinRaidus)
-            
-            return 0;
-        case "Destroy":
-            //destroy adjacent buildings and put thisbuilding down where clicked not here tho
-            return 0;
-        default:
-            return 0;
-        }
-        
-        return 0;
-    }
+  
     
 //    func MakeCameraLabel(locX: CGFloat, locY: CGFloat){
 //        cameraLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 300))

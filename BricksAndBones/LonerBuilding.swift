@@ -12,13 +12,13 @@ class LonerBuilding : Building {
     override init(posX:Int, posY:Int){
         super.init(posX: posX, posY: posY)
         
-       
-        
-        selfValue = 10;
+        buildingName = "Loner"
+        selfValue = 20
         type = "Normal"
         classification = "Normal"
         relationValue = -5
-        radius = 4
+        radius = 3
         influencedValue = 0
+        active = true
     }
 }
