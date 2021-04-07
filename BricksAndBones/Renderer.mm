@@ -504,6 +504,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     modelInstances[type][instance].modelMatrix = [self calculateModelMatrix:modelInstances[type][instance]];
 }
 
+// Plays a oneshot of the sound file. Passes the filename as a string to search for.
 - (void) playSoundFile:(NSString*)fileName {
     SystemSoundID soundID;
     NSString *soundFile = [[NSBundle mainBundle]
@@ -512,9 +513,9 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)
                                      [NSURL fileURLWithPath:soundFile], & soundID);
     AudioServicesPlaySystemSound(soundID);
-    
 }
 
+// Plays the background music and loops it.
 - (void) playBackgroundMusic {
     NSString *musicFile = [[NSBundle mainBundle] pathForResource:@"skyBG" ofType:@"mp3"];
     NSURL *url = [NSURL URLWithString:musicFile];
