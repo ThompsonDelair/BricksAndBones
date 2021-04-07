@@ -173,8 +173,8 @@ class BuildingsManager{
         }
     }
     
-    func calcPointsFromPositions(thisBuildingXPos:Int, thisBuildingYPos:Int, otherBuildingXPos:Int, otherBuildingYPos:Int)->Int{
-        return calculatePointsBetweenBuildings(thisBuilding: buildingArray[thisBuildingYPos][thisBuildingXPos], otherBuilding: buildingArray[otherBuildingYPos][otherBuildingXPos])
+    func calcPointsFromPreview(otherBuildingXPos:Int, otherBuildingYPos:Int)->Int{
+        return calculatePointsBetweenBuildings(thisBuilding:previewBuilding, otherBuilding: buildingArray[otherBuildingYPos][otherBuildingXPos])
     }
     
     func calcPointsFromPosition(thisBuildingXPos:Int, thisBuildingYPos:Int)->Int{
@@ -189,12 +189,8 @@ class BuildingsManager{
         return buildingArray[thisBuildingYPos][thisBuildingXPos].active;
     }
     
-    func getRadiusFromName(buildingName:String)->Int{
-        if(buildingName == "Selfish"){
-            return 0
-        } else{
-            return 3 // loner, leader, empower, debuff
-        }
+    func getRadiusFromPreview()->Int{
+        return previewBuilding.radius
     }
     
     func setPreviewBuilding(buildingName:String, xPos:Int, yPos:Int)

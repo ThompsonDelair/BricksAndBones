@@ -80,7 +80,7 @@ class ViewController: GLKViewController {
        
         
         
-        
+
         //plays background music on start
         glesRenderer.playBackgroundMusic();
 
@@ -89,8 +89,8 @@ class ViewController: GLKViewController {
     func previewPoints(buildingName:String, xPos:Int, yPos:Int){
         var columnCounts = 0;
         //top half including middle
-        
-        var radius = testManager.getRadiusFromName(buildingName: "String")
+        testManager.setPreviewBuilding(buildingName: buildingName, xPos: xPos, yPos: yPos)
+        let radius = testManager.getRadiusFromPreview()
         for row in stride(from: radius, through: 0, by: -1){
             //for column in -columnCounts...columnCounts{
             for column in stride(from: -columnCounts, through: columnCounts, by: 1){
@@ -102,7 +102,7 @@ class ViewController: GLKViewController {
                     let indexCol = yPos+column
                     if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
                         if(testManager.getActive(thisBuildingXPos: xPos, thisBuildingYPos: yPos)){
-                            var pointsToDisplay = testManager.calcPointsFromPositions(thisBuildingXPos:xPos, thisBuildingYPos:yPos, otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
+                            var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
                             //add display code here
                         }
                             //print(String(indexRow) + " " + String(indexCol))
@@ -117,11 +117,11 @@ class ViewController: GLKViewController {
         columnCounts = 0;
         for row in stride(from:radius, to: 0, by: -1){
             for column in -columnCounts...columnCounts{
-                var indexRow = xPos+row
-                var indexCol = yPos+column
+                let indexRow = xPos+row
+                let indexCol = yPos+column
                 if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
                     if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
-                        var pointsToDisplay = testManager.calcPointsFromPositions(thisBuildingXPos:xPos, thisBuildingYPos:yPos, otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
+                        var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
                         //add display code here
                     }
                     //print(String(indexRow) + " " + String(indexCol))
