@@ -8,6 +8,7 @@
 import GLKit
 
 class ViewController: GLKViewController {
+        
     private var context: EAGLContext?
 
     private var glesRenderer: Renderer!
@@ -71,6 +72,9 @@ class ViewController: GLKViewController {
         
         cursorType = 1;
         cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(1, 1, 1)))
+        
+        //plays background music on start
+        glesRenderer.playBackgroundMusic();
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
