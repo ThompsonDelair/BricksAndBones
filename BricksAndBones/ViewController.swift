@@ -85,7 +85,7 @@ class ViewController: GLKViewController {
             //print("world pos: "+NSStringFromGLKVector3(worldPos.hitPos))
             glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: worldPos.hitPos)
         }
-        glesRenderer.playSoundFile("bleep");
+        glesRenderer.playSoundFile("boop");
     }
     
     @objc func handlePan(_ sender: UIPanGestureRecognizer){
@@ -102,7 +102,9 @@ class ViewController: GLKViewController {
             let newPos: GLKVector3 = GLKVector3Make(inst.position.x + movement.x,0,inst.position.z + movement.z )
             glesRenderer.setInstancePos(Int32(cursorType),instance:Int32(cursorInstanceId),pos:newPos);
             //print("world pos: "+NSStringFromGLKVector3(newPos));
+        
         }
+        
     }
     
     func UpdateTypeText(){

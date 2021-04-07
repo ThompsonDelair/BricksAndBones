@@ -23,6 +23,10 @@
 		FA8811E92616865E0045B752 /* texBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E62616865E0045B752 /* texBlue.png */; };
 		FA8811EA2616865E0045B752 /* texGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E72616865E0045B752 /* texGreen.png */; };
 		FA9E641C261D293F0066C985 /* bleep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E641A261D25B20066C985 /* bleep.mp3 */; };
+		FA9E6422261D53EE0066C985 /* boop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E641E261D53EE0066C985 /* boop.mp3 */; };
+		FA9E6423261D53EE0066C985 /* boing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E641F261D53EE0066C985 /* boing.mp3 */; };
+		FA9E6424261D53EE0066C985 /* whoosh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E6420261D53EE0066C985 /* whoosh.mp3 */; };
+		FA9E6425261D53EE0066C985 /* bubble.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E6421261D53EE0066C985 /* bubble.mp3 */; };
 		FAAC03AC261C455200A6277F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAC03AB261C455200A6277F /* AudioToolbox.framework */; };
 		FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC69F62614EC370021BB95 /* SRenderer.swift */; };
 		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
@@ -51,6 +55,10 @@
 		FA8811E62616865E0045B752 /* texBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texBlue.png; sourceTree = "<group>"; };
 		FA8811E72616865E0045B752 /* texGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texGreen.png; sourceTree = "<group>"; };
 		FA9E641A261D25B20066C985 /* bleep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bleep.mp3; sourceTree = "<group>"; };
+		FA9E641E261D53EE0066C985 /* boop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = boop.mp3; path = ../../../../Sounds/boop.mp3; sourceTree = "<group>"; };
+		FA9E641F261D53EE0066C985 /* boing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = boing.mp3; path = ../../../../Sounds/boing.mp3; sourceTree = "<group>"; };
+		FA9E6420261D53EE0066C985 /* whoosh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = whoosh.mp3; path = ../../../../Sounds/whoosh.mp3; sourceTree = "<group>"; };
+		FA9E6421261D53EE0066C985 /* bubble.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bubble.mp3; path = ../../../../Sounds/bubble.mp3; sourceTree = "<group>"; };
 		FAAC03AB261C455200A6277F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FABC69F62614EC370021BB95 /* SRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRenderer.swift; sourceTree = "<group>"; };
 		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
@@ -118,6 +126,10 @@
 		FA9E6419261D25B20066C985 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				FA9E641F261D53EE0066C985 /* boing.mp3 */,
+				FA9E641E261D53EE0066C985 /* boop.mp3 */,
+				FA9E6421261D53EE0066C985 /* bubble.mp3 */,
+				FA9E6420261D53EE0066C985 /* whoosh.mp3 */,
 				FA9E641A261D25B20066C985 /* bleep.mp3 */,
 			);
 			path = Sounds;
@@ -200,12 +212,16 @@
 			files = (
 				FA9E641C261D293F0066C985 /* bleep.mp3 in Resources */,
 				FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */,
+				FA9E6425261D53EE0066C985 /* bubble.mp3 in Resources */,
+				FA9E6422261D53EE0066C985 /* boop.mp3 in Resources */,
 				FA8811E82616865E0045B752 /* texRed.png in Resources */,
 				FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */,
 				FA8811EA2616865E0045B752 /* texGreen.png in Resources */,
 				7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */,
+				FA9E6423261D53EE0066C985 /* boing.mp3 in Resources */,
 				FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */,
 				7399693E25E1FF0900AE3215 /* Assets.xcassets in Resources */,
+				FA9E6424261D53EE0066C985 /* whoosh.mp3 in Resources */,
 				7399693C25E1FF0800AE3215 /* Main.storyboard in Resources */,
 				FA8811E92616865E0045B752 /* texBlue.png in Resources */,
 				FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */,
