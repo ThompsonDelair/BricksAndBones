@@ -190,7 +190,7 @@ class ViewController: GLKViewController {
             x = x * -1 + 0.5
             z = z * -1 + 0.5
             
-            if(!testManager.checkActive(xPos: gridPosY, yPos: gridPosY)){
+            if(!testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
                 let buildPos = GLKVector3Make(x, 0, z)
                 
                 glesRenderer.createModelInstance(Int32(buildType),pos:buildPos,rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
@@ -209,19 +209,17 @@ class ViewController: GLKViewController {
                 } else if (buildType == 4){
                     buildingName = "Copy"
                 }
-                
-                
-                
+                                
                 var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
                 score += points;
                 scoreLabel.text = "Score:" + String(score)
                 nextBuilding()
-                previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
+                previewPoints(xPos: gridPosX, yPos: gridPosY)
                 glesRenderer.playSoundFile("boop");
                 
                 print("built " + String(buildType) + " at: " + String(gridPosX) + ", " + String(gridPosY))
             } else {
-                print("building already active here?")
+                print("building already active at: " + String(gridPosX) + ", " + String(gridPosY) + "?")
             }
         }
     }
