@@ -157,6 +157,13 @@ class ViewController: GLKViewController {
         
         var pointsToDisplaySelf = testManager.calcPointsFromPosition(thisBuildingXPos:xPos, thisBuildingYPos:yPos)
         //add display code here
+        
+        let lx: Float = Float(xPos) + 0.5
+        let lz: Float = Float(yPos) + 0.5
+        
+        let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
+        
+        displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplaySelf), color: UIColor.cyan)
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
