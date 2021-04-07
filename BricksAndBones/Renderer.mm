@@ -7,7 +7,7 @@
 #import <GLKit/GLKit.h>
 #include <chrono>
 #include "GLESRenderer.hpp"
-
+#import <AudioToolbox/AudioToolbox.h>
 
 
 //===========================================================================
@@ -110,6 +110,9 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     
     // Misc UI variables
     std::chrono::time_point<std::chrono::steady_clock> lastTime;
+    
+    AVAudioPlayer *backgroundMusic;
+    
 }
 
 @end
@@ -499,6 +502,28 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 - (void) setInstancePos:(int)type instance:(int)instance pos:(GLKVector3)pos{
     modelInstances[type][instance].position = pos;
     modelInstances[type][instance].modelMatrix = [self calculateModelMatrix:modelInstances[type][instance]];
+}
+
+- (void) playSoundFile:(NSString*)fileName {
+    SystemSoundID soundID;
+    NSString *soundFile = [[NSBundle mainBundle]
+                           pathForResource:fileName ofType:@"mp3"];
+    
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)
+                                     [NSURL fileURLWithPath:soundFile], & soundID);
+    AudioServicesPlaySystemSound(soundID);
+    
+}
+
+- (void) playBackgroundMusic {
+    NSString *musicFile = [[NSBundle mainBundle] pathForResource:@"skyBG" ofType:@"mp3"];
+    NSURL *url = [NSURL URLWithString:musicFile];
+    backgroundMusic = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:nil];
+    
+    backgroundMusic.numberOfLoops = -1;
+    backgroundMusic.volume = 0.8;
+    [backgroundMusic play];
+    
 }
 
 @end

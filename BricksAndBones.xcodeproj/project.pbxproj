@@ -31,6 +31,19 @@
 		FA8811E82616865E0045B752 /* texRed.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E52616865E0045B752 /* texRed.png */; };
 		FA8811E92616865E0045B752 /* texBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E62616865E0045B752 /* texBlue.png */; };
 		FA8811EA2616865E0045B752 /* texGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E72616865E0045B752 /* texGreen.png */; };
+		FA9E641C261D293F0066C985 /* bleep.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E641A261D25B20066C985 /* bleep.mp3 */; };
+		FA9E6422261D53EE0066C985 /* boop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E641E261D53EE0066C985 /* boop.mp3 */; };
+		FA9E6423261D53EE0066C985 /* boing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E641F261D53EE0066C985 /* boing.mp3 */; };
+		FA9E6424261D53EE0066C985 /* whoosh.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E6420261D53EE0066C985 /* whoosh.mp3 */; };
+		FA9E6425261D53EE0066C985 /* bubble.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E6421261D53EE0066C985 /* bubble.mp3 */; };
+		FA9E6428261D72480066C985 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9E6427261D72480066C985 /* AVFoundation.framework */; };
+		FA9E642A261D75740066C985 /* pianoBG.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E6429261D75740066C985 /* pianoBG.mp3 */; };
+		FA9E642D261D7A730066C985 /* skyBG.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E642C261D7A730066C985 /* skyBG.mp3 */; };
+		FA9E6430261D7B450066C985 /* sadBG.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E642F261D7B450066C985 /* sadBG.mp3 */; };
+		FA9E6434261D7DDD0066C985 /* gameover.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E6432261D7DDD0066C985 /* gameover.mp3 */; };
+		FA9E6435261D7DDD0066C985 /* upbeatBG.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E6433261D7DDD0066C985 /* upbeatBG.mp3 */; };
+		FA9E6438261D7F6F0066C985 /* victory.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = FA9E6437261D7F6F0066C985 /* victory.mp3 */; };
+		FAAC03AC261C455200A6277F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAAC03AB261C455200A6277F /* AudioToolbox.framework */; };
 		FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC69F62614EC370021BB95 /* SRenderer.swift */; };
 		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
 		FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE2B12F25E618F2008E38F3 /* stonewall.png */; };
@@ -66,6 +79,19 @@
 		FA8811E52616865E0045B752 /* texRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texRed.png; sourceTree = "<group>"; };
 		FA8811E62616865E0045B752 /* texBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texBlue.png; sourceTree = "<group>"; };
 		FA8811E72616865E0045B752 /* texGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texGreen.png; sourceTree = "<group>"; };
+		FA9E641A261D25B20066C985 /* bleep.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bleep.mp3; sourceTree = "<group>"; };
+		FA9E641E261D53EE0066C985 /* boop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = boop.mp3; path = ../../../../Sounds/boop.mp3; sourceTree = "<group>"; };
+		FA9E641F261D53EE0066C985 /* boing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = boing.mp3; path = ../../../../Sounds/boing.mp3; sourceTree = "<group>"; };
+		FA9E6420261D53EE0066C985 /* whoosh.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = whoosh.mp3; path = ../../../../Sounds/whoosh.mp3; sourceTree = "<group>"; };
+		FA9E6421261D53EE0066C985 /* bubble.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bubble.mp3; path = ../../../../Sounds/bubble.mp3; sourceTree = "<group>"; };
+		FA9E6427261D72480066C985 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		FA9E6429261D75740066C985 /* pianoBG.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = pianoBG.mp3; path = ../../../../Sounds/pianoBG.mp3; sourceTree = "<group>"; };
+		FA9E642C261D7A730066C985 /* skyBG.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = skyBG.mp3; path = ../../../../Sounds/skyBG.mp3; sourceTree = "<group>"; };
+		FA9E642F261D7B450066C985 /* sadBG.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = sadBG.mp3; path = ../../../../Sounds/sadBG.mp3; sourceTree = "<group>"; };
+		FA9E6432261D7DDD0066C985 /* gameover.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = gameover.mp3; path = ../../../../Sounds/gameover.mp3; sourceTree = "<group>"; };
+		FA9E6433261D7DDD0066C985 /* upbeatBG.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = upbeatBG.mp3; path = ../../../../Sounds/upbeatBG.mp3; sourceTree = "<group>"; };
+		FA9E6437261D7F6F0066C985 /* victory.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = victory.mp3; path = ../../../../Sounds/victory.mp3; sourceTree = "<group>"; };
+		FAAC03AB261C455200A6277F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FABC69F62614EC370021BB95 /* SRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRenderer.swift; sourceTree = "<group>"; };
 		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
 		FAE2B12F25E618F2008E38F3 /* stonewall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonewall.png; sourceTree = "<group>"; };
@@ -76,6 +102,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA9E6428261D72480066C985 /* AVFoundation.framework in Frameworks */,
+				FAAC03AC261C455200A6277F /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +115,7 @@
 			children = (
 				7399693325E1FF0800AE3215 /* BricksAndBones */,
 				7399693225E1FF0800AE3215 /* Products */,
+				FAAC03AA261C455200A6277F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -131,8 +160,36 @@
 				B91F3A12261C04150039FCBE /* DemolishBuilding.swift */,
 				B91F3A0C261C01E60039FCBE /* DebuffBuilding.swift */,
 				FABC69F62614EC370021BB95 /* SRenderer.swift */,
+				FA9E6419261D25B20066C985 /* Sounds */,
 			);
 			path = BricksAndBones;
+			sourceTree = "<group>";
+		};
+		FA9E6419261D25B20066C985 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				FA9E6437261D7F6F0066C985 /* victory.mp3 */,
+				FA9E6432261D7DDD0066C985 /* gameover.mp3 */,
+				FA9E6433261D7DDD0066C985 /* upbeatBG.mp3 */,
+				FA9E642F261D7B450066C985 /* sadBG.mp3 */,
+				FA9E642C261D7A730066C985 /* skyBG.mp3 */,
+				FA9E6429261D75740066C985 /* pianoBG.mp3 */,
+				FA9E641F261D53EE0066C985 /* boing.mp3 */,
+				FA9E641E261D53EE0066C985 /* boop.mp3 */,
+				FA9E6421261D53EE0066C985 /* bubble.mp3 */,
+				FA9E6420261D53EE0066C985 /* whoosh.mp3 */,
+				FA9E641A261D25B20066C985 /* bleep.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		FAAC03AA261C455200A6277F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA9E6427261D72480066C985 /* AVFoundation.framework */,
+				FAAC03AB261C455200A6277F /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FAF15AC225E6D25D00AB4F78 /* Models */ = {
@@ -202,14 +259,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA9E641C261D293F0066C985 /* bleep.mp3 in Resources */,
 				FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */,
+				FA9E6425261D53EE0066C985 /* bubble.mp3 in Resources */,
+				FA9E642A261D75740066C985 /* pianoBG.mp3 in Resources */,
+				FA9E6422261D53EE0066C985 /* boop.mp3 in Resources */,
 				FA8811E82616865E0045B752 /* texRed.png in Resources */,
 				FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */,
 				FA8811EA2616865E0045B752 /* texGreen.png in Resources */,
+				FA9E6430261D7B450066C985 /* sadBG.mp3 in Resources */,
 				7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */,
+				FA9E6423261D53EE0066C985 /* boing.mp3 in Resources */,
 				FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */,
+				FA9E6435261D7DDD0066C985 /* upbeatBG.mp3 in Resources */,
 				7399693E25E1FF0900AE3215 /* Assets.xcassets in Resources */,
+				FA9E6434261D7DDD0066C985 /* gameover.mp3 in Resources */,
+				FA9E6424261D53EE0066C985 /* whoosh.mp3 in Resources */,
 				7399693C25E1FF0800AE3215 /* Main.storyboard in Resources */,
+				FA9E6438261D7F6F0066C985 /* victory.mp3 in Resources */,
+				FA9E642D261D7A730066C985 /* skyBG.mp3 in Resources */,
 				FA8811E92616865E0045B752 /* texBlue.png in Resources */,
 				FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */,
 			);
