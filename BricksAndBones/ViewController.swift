@@ -216,7 +216,7 @@ class ViewController: GLKViewController {
                 score += points;
                 scoreLabel.text = "Score:" + String(score)
                 nextBuilding()
-                previewPoints(xPos: gridPosX, yPos: gridPosY)
+                previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
                 glesRenderer.playSoundFile("boop");
                 
                 print("built "+String(buildType))
