@@ -119,9 +119,12 @@ class ViewController: GLKViewController {
         
         var x: Float = Float(Int(glesRenderer.cameraFocusPos.x))
         var z: Float = Float(Int(glesRenderer.cameraFocusPos.z))
+        let gridPosX = x
+        let gridPosY = z
         x = x * -1 + 0.5
         z = z * -1 + 0.5
         
+        if()
         
         let buildPos = GLKVector3Make(x, 0, z)
         

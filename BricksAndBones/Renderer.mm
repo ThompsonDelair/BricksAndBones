@@ -229,7 +229,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     diffuseComponent = GLKVector4Make(0.8, 0.1, 0.1, 1.0);
     shininess = 200.0;
     specularComponent = GLKVector4Make(1.0, 1.0, 1.0, 1.0);
-    ambientComponent = GLKVector4Make(0.2, 0.2, 0.2, 1.0);
+    ambientComponent = GLKVector4Make(0.5, 0.5, 0.5, 1.0);
     
     // set up fog parameters
     minDist = 1.0;
@@ -544,6 +544,16 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 
 - (void) moveCamera:(GLKVector3)move{
     cameraFocusPos = GLKVector3Add(cameraFocusPos, move);
+    if(cameraFocusPos.x > 0){
+        cameraFocusPos.x = 0;
+    } else if (cameraFocusPos.x < -9){
+        cameraFocusPos.x = -9;
+    }
+    if(cameraFocusPos.z > 0){
+        cameraFocusPos.z = 0;
+    } else if (cameraFocusPos.z < -9){
+        cameraFocusPos.z = -9;
+    }
 }
 
 // Plays a oneshot of the sound file. Passes the filename as a string to search for.
