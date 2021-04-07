@@ -36,6 +36,9 @@
 		FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC69F62614EC370021BB95 /* SRenderer.swift */; };
 		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
 		FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE2B12F25E618F2008E38F3 /* stonewall.png */; };
+		FAE6B07E261D98A1005DE449 /* tex_6.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE6B07B261D98A1005DE449 /* tex_6.png */; };
+		FAE6B07F261D98A1005DE449 /* tex_4.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE6B07C261D98A1005DE449 /* tex_4.png */; };
+		FAE6B080261D98A1005DE449 /* tex_5.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE6B07D261D98A1005DE449 /* tex_5.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +76,9 @@
 		FABC69F62614EC370021BB95 /* SRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRenderer.swift; sourceTree = "<group>"; };
 		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
 		FAE2B12F25E618F2008E38F3 /* stonewall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonewall.png; sourceTree = "<group>"; };
+		FAE6B07B261D98A1005DE449 /* tex_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tex_6.png; sourceTree = "<group>"; };
+		FAE6B07C261D98A1005DE449 /* tex_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tex_4.png; sourceTree = "<group>"; };
+		FAE6B07D261D98A1005DE449 /* tex_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tex_5.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +111,9 @@
 		7399693325E1FF0800AE3215 /* BricksAndBones */ = {
 			isa = PBXGroup;
 			children = (
+				FAE6B07C261D98A1005DE449 /* tex_4.png */,
+				FAE6B07D261D98A1005DE449 /* tex_5.png */,
+				FAE6B07B261D98A1005DE449 /* tex_6.png */,
 				FAA0E4D5261D8A430087A2DE /* Sounds */,
 				FA8811E62616865E0045B752 /* texBlue.png */,
 				FA8811E72616865E0045B752 /* texGreen.png */,
@@ -210,13 +219,16 @@
 			files = (
 				FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */,
 				FA8811E82616865E0045B752 /* texRed.png in Resources */,
+				FAE6B07E261D98A1005DE449 /* tex_6.png in Resources */,
 				FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */,
 				FA8811EA2616865E0045B752 /* texGreen.png in Resources */,
 				FAA0E4D6261D8A430087A2DE /* Sounds in Resources */,
 				7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */,
+				FAE6B07F261D98A1005DE449 /* tex_4.png in Resources */,
 				FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */,
 				7399693E25E1FF0900AE3215 /* Assets.xcassets in Resources */,
 				7399693C25E1FF0800AE3215 /* Main.storyboard in Resources */,
+				FAE6B080261D98A1005DE449 /* tex_5.png in Resources */,
 				FA8811E92616865E0045B752 /* texBlue.png in Resources */,
 				FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */,
 			);
