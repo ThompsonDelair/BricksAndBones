@@ -243,6 +243,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
             ObjLoader rook;
             m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/rook.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
             NSLog(@"VertCount: %d\n IndicesCount: %d", m.numVerts, m.numIndices);
+            /*
             NSLog(@"\nPost load:");
             for(int i=0; i<m.numVerts; i+=3){
                 NSLog(@"\n%d: (%f %f %f)", i, m.vertices[i], m.vertices[i+1], m.vertices[i+2]);
@@ -250,7 +251,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
             NSLog(@"\n\nIndices\n\n");
             for(int i=0; i<m.numIndices; i+=3){
                 NSLog(@"\n(%d %d %d)", m.indices[i], m.indices[i+1], m.indices[i+2]);
-            }
+            }*/
         }else{
             m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }
