@@ -23,6 +23,7 @@
 		FA8811E82616865E0045B752 /* texRed.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E52616865E0045B752 /* texRed.png */; };
 		FA8811E92616865E0045B752 /* texBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E62616865E0045B752 /* texBlue.png */; };
 		FA8811EA2616865E0045B752 /* texGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E72616865E0045B752 /* texGreen.png */; };
+		FAA0E4D6261D8A430087A2DE /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = FAA0E4D5261D8A430087A2DE /* Sounds */; };
 		FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC69F62614EC370021BB95 /* SRenderer.swift */; };
 		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
 		FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE2B12F25E618F2008E38F3 /* stonewall.png */; };
@@ -50,6 +51,7 @@
 		FA8811E52616865E0045B752 /* texRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texRed.png; sourceTree = "<group>"; };
 		FA8811E62616865E0045B752 /* texBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texBlue.png; sourceTree = "<group>"; };
 		FA8811E72616865E0045B752 /* texGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texGreen.png; sourceTree = "<group>"; };
+		FAA0E4D5261D8A430087A2DE /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		FABC69F62614EC370021BB95 /* SRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRenderer.swift; sourceTree = "<group>"; };
 		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
 		FAE2B12F25E618F2008E38F3 /* stonewall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonewall.png; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 		7399693325E1FF0800AE3215 /* BricksAndBones */ = {
 			isa = PBXGroup;
 			children = (
+				FAA0E4D5261D8A430087A2DE /* Sounds */,
 				FA8811E62616865E0045B752 /* texBlue.png */,
 				FA8811E72616865E0045B752 /* texGreen.png */,
 				FA8811E52616865E0045B752 /* texRed.png */,
@@ -182,6 +185,7 @@
 				FA8811E82616865E0045B752 /* texRed.png in Resources */,
 				FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */,
 				FA8811EA2616865E0045B752 /* texGreen.png in Resources */,
+				FAA0E4D6261D8A430087A2DE /* Sounds in Resources */,
 				7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */,
 				FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */,
 				7399693E25E1FF0900AE3215 /* Assets.xcassets in Resources */,
