@@ -78,24 +78,16 @@ class ViewController: GLKViewController {
         cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(1, 1, 1)))
        
         
-        var testManager = BuildingsManager(buildingSize: 8)
-        print(testManager.addBuilding(buildingName:"Leader", xPos:2, yPos:2))
-        print(testManager.addBuilding(buildingName:"Empower", xPos:2, yPos:3))
-        print(testManager.addBuilding(buildingName:"Leader", xPos:2, yPos:4))
+        var testManager = BuildingsManager(buildingSize: 10)
         
         //print(testBuilding.selfValue)
-        
-        
-       
-        //print("width" + String(UIScreen.main.bounds.size.width.description));
-        //print("height" + String(UIScreen.main.bounds.size.height.description));
-        
 
         
         //plays background music on start
         glesRenderer.playBackgroundMusic();
 
     }
+    
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
         let touchPoint = sender.location(in: self.view)

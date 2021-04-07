@@ -165,8 +165,12 @@ class BuildingsManager{
         }
     }
     
-    func changeInfluenceValue(){
-        
+    func calcPointsFromPositions(thisBuildingXPos:Int, thisBuildingYPos:Int, otherBuildingXPos:Int, otherBuildingYPos:Int)->Int{
+        return calculatePointsBetweenBuildings(thisBuilding: buildingArray[thisBuildingYPos][thisBuildingXPos], otherBuilding: buildingArray[otherBuildingYPos][otherBuildingXPos])
+    }
+    
+    func getPointsFromPosition(thisBuildingXPos:Int, thisBuildingYPos:Int)->Int{
+        return buildingArray[thisBuildingYPos][thisBuildingXPos].selfValue;
     }
     
 }
