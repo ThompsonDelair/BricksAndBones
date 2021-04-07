@@ -220,7 +220,12 @@ class ViewController: GLKViewController {
                 score += points;
                 scoreLabel.text = "Score:" + String(score)
                 nextBuilding()
-                previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
+                if(testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
+                    previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
+                } else{
+                    print("position not in grid")
+                }
+                
                 glesRenderer.playSoundFile("boop");
                 
                 print("built "+String(buildType))
