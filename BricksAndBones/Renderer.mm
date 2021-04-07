@@ -548,7 +548,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 - (void) playSoundFile:(NSString*)fileName {
     SystemSoundID soundID;
     NSString *soundFile = [[NSBundle mainBundle]
-                           pathForResource:fileName ofType:@"mp3"];
+                           pathForResource:fileName ofType:@"mp3" inDirectory:@"Sounds"];
     
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)
                                      [NSURL fileURLWithPath:soundFile], & soundID);
@@ -557,7 +557,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 
 // Plays the background music and loops it.
 - (void) playBackgroundMusic {
-    NSString *musicFile = [[NSBundle mainBundle] pathForResource:@"skyBG" ofType:@"mp3"];
+    NSString *musicFile = [[NSBundle mainBundle] pathForResource:@"skyBG" ofType:@"mp3" inDirectory:@"Sounds"];
     NSURL *url = [NSURL URLWithString:musicFile];
     backgroundMusic = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:nil];
     

@@ -32,6 +32,8 @@
 		FA8811E82616865E0045B752 /* texRed.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E52616865E0045B752 /* texRed.png */; };
 		FA8811E92616865E0045B752 /* texBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E62616865E0045B752 /* texBlue.png */; };
 		FA8811EA2616865E0045B752 /* texGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E72616865E0045B752 /* texGreen.png */; };
+		FA9E6440261D9CA20066C985 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9E643F261D9CA20066C985 /* AudioToolbox.framework */; };
+		FA9E6442261D9CAF0066C985 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9E6441261D9CAF0066C985 /* AVFoundation.framework */; };
 		FAA0E4D6261D8A430087A2DE /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = FAA0E4D5261D8A430087A2DE /* Sounds */; };
 		FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC69F62614EC370021BB95 /* SRenderer.swift */; };
 		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
@@ -72,6 +74,8 @@
 		FA8811E52616865E0045B752 /* texRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texRed.png; sourceTree = "<group>"; };
 		FA8811E62616865E0045B752 /* texBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texBlue.png; sourceTree = "<group>"; };
 		FA8811E72616865E0045B752 /* texGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texGreen.png; sourceTree = "<group>"; };
+		FA9E643F261D9CA20066C985 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		FA9E6441261D9CAF0066C985 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FAA0E4D5261D8A430087A2DE /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		FABC69F62614EC370021BB95 /* SRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRenderer.swift; sourceTree = "<group>"; };
 		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
@@ -86,6 +90,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA9E6442261D9CAF0066C985 /* AVFoundation.framework in Frameworks */,
+				FA9E6440261D9CA20066C985 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,6 +103,7 @@
 			children = (
 				7399693325E1FF0800AE3215 /* BricksAndBones */,
 				7399693225E1FF0800AE3215 /* Products */,
+				FA9E643E261D9CA20066C985 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,6 +155,15 @@
 				FA13484E261C1B4500B8BA2C /* Collision.swift */,
 			);
 			path = BricksAndBones;
+			sourceTree = "<group>";
+		};
+		FA9E643E261D9CA20066C985 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FA9E6441261D9CAF0066C985 /* AVFoundation.framework */,
+				FA9E643F261D9CA20066C985 /* AudioToolbox.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		FAF15AC225E6D25D00AB4F78 /* Models */ = {
