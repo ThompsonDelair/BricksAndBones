@@ -194,8 +194,7 @@ class ViewController: GLKViewController {
                 let buildPos = GLKVector3Make(x, 0, z)
                 
                 glesRenderer.createModelInstance(Int32(buildType),pos:buildPos,rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
-                buildType+=1
-                buildType %= buildTypes
+
                 
                 var buildingName: String = ""
                 if(buildType == 0){
@@ -213,8 +212,12 @@ class ViewController: GLKViewController {
                 var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
                 score += points;
                 scoreLabel.text = "Score:" + String(score)
-                nextBuilding()
                 previewPoints(xPos: gridPosX, yPos: gridPosY)
+                
+                buildType+=1
+                buildType %= buildTypes
+                nextBuilding()
+
                 glesRenderer.playSoundFile("boop");
                 
                 print("built " + String(buildType) + " at: " + String(gridPosX) + ", " + String(gridPosY))
