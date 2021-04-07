@@ -240,8 +240,17 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
         // Generate vertex attribute values from model
         //int numVerts;
         if(i == ROOK){
-            ObjLoader rook;            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/rook.obj", 0.00001f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
-            NSLog(@"loaded rook");
+            ObjLoader rook;
+            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/rook.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            NSLog(@"VertCount: %d\n IndicesCount: %d", m.numVerts, m.numIndices);
+            NSLog(@"\nPost load:");
+            for(int i=0; i<m.numVerts; i+=3){
+                NSLog(@"\n%d: (%f %f %f)", i, m.vertices[i], m.vertices[i+1], m.vertices[i+2]);
+            }
+            NSLog(@"\n\nIndices\n\n");
+            for(int i=0; i<m.numIndices; i+=3){
+                NSLog(@"\n(%d %d %d)", m.indices[i], m.indices[i+1], m.indices[i+2]);
+            }
         }else{
             m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }
@@ -287,7 +296,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
    // for testing
     for(int x = 0; x < 5;x++){
         for(int z = 0; z < 5;z++){
-            [self createModelInstance:0 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
+            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(90, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
         }
     }
 }

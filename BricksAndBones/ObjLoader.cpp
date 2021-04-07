@@ -22,15 +22,12 @@ GLuint ObjLoader::loadOBJ(
                           GLuint **indices,
                           GLuint *numVerts
                         ){
-    //std::vector<GLuint> vertexIndices, uvIndices, normalIndices;
-    GLuint vertexIndices[] = {};
-    GLfloat temp_vertices[] = {};
-    GLfloat temp_uvs[] = {};
-    GLfloat temp_normals[] = {};
-    int numVertIndex = 0;
-    int numVert = 0;
-    int numUV = 0;
-    int numNormal = 0;
+    std::vector<GLuint> vertexIndices, uvIndices, normalIndices;
+    //GLuint vertexIndices[] = {};
+    
+    std::vector<glm::vec3> vertVect;
+    std::vector<glm::vec2> uvVect;
+    std::vector<glm::vec3> normalVect;
     
     
     FILE * file = fopen(path, "r");
@@ -50,27 +47,15 @@ GLuint ObjLoader::loadOBJ(
         if(strcmp(lineHeader, "v") == 0){
             glm::vec3 vertex;
             fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
-            printf("NUMVERT: %d", numVert);
-            temp_vertices[numVert] = vertex.x;
-            temp_vertices[numVert+1] = vertex.y;
-            temp_vertices[numVert+2] = vertex.z;
-            printf("\n%f %f %f\n", temp_vertices[numVert], temp_vertices[numVert+1], temp_vertices[numVert+2]);
-            numVert++;
+            vertVect.push_back(vertex);
         }else if(strcmp(lineHeader, "vt") == 0){
             glm::vec2 uv;
             fscanf(file, "%f %f\n", &uv.x, &uv.y);
-            temp_uvs[numUV*3] = uv.x;
-            temp_uvs[numUV*3+1] = uv.y;
-            printf("\n%f %f\n", temp_uvs[numUV], temp_uvs[numUV+1]);
-            numUV++;
+            uvVect.push_back(uv);
         }else if(strcmp(lineHeader, "vn") == 0){
             glm::vec3 normal;
             fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
-            temp_normals[numNormal*3] = normal.x;
-            temp_normals[numNormal*3+1] = normal.y;
-            temp_normals[numNormal*3+2] = normal.z;
-            printf("\n%f %f %f\n", temp_normals[numNormal], temp_normals[numNormal+1], temp_normals[numNormal+2]);
-            numNormal++;
+            normalVect.push_back(normal);
         }else if(strcmp(lineHeader, "f") == 0){
             unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
             int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
@@ -78,10 +63,10 @@ GLuint ObjLoader::loadOBJ(
                 printf("This parser is incapable of reading this file. %d\n", matches);
                 return 0;
             }
-            vertexIndices[numVertIndex*3] = vertexIndex[0];
-            vertexIndices[numVertIndex*3+1] = vertexIndex[1];
-            vertexIndices[numVertIndex*3+2] = vertexIndex[2];
-            numVertIndex++;
+            vertexIndices.push_back(vertexIndex[0]);
+            vertexIndices.push_back(vertexIndex[1]);
+            vertexIndices.push_back(vertexIndex[2]);
+            //printf("\nvertex indices: (%d %d %d)", vertexIndex[0], vertexIndex[1], vertexIndex[2]);
             /*
             vertexIndices.push_back(vertexIndex[0]);
             vertexIndices.push_back(vertexIndex[1]);
@@ -98,13 +83,34 @@ GLuint ObjLoader::loadOBJ(
         }
     }
     
+    GLfloat temp_vertices[vertVect.size()*3];
+    GLfloat temp_uvs[uvVect.size()*2];
+    GLfloat temp_normals[normalVect.size()*2];
+    
+    for(unsigned int i=0; i<vertVect.size(); i++){
+        temp_vertices[i*3] = vertVect[i].x;
+        temp_vertices[(i*3)+1] = vertVect[i].y;
+        temp_vertices[(i*3)+2] = vertVect[i].z;
+    }
+    
+    for(unsigned int i=0; i<uvVect.size(); i++){
+        temp_uvs[i*2] = uvVect[i].x;
+        temp_uvs[(i*2)+1] = uvVect[i].y;
+    }
+    
+    for(unsigned int i=0; i<normalVect.size(); i++){
+        temp_normals[i*3] = normalVect[i].x;
+        temp_normals[(i*3)+1] = normalVect[i].y;
+        temp_normals[(i*3)+2] = normalVect[i].z;
+    }
+    
     // Allocate memory for buffers
     if ( vertices != NULL )
     {
-        *vertices = (GLfloat *)malloc ( sizeof(GLfloat) * 3 * numVert);
+        *vertices = (GLfloat *)malloc ( sizeof(GLfloat) * 3 * vertVect.size());
         memcpy ( *vertices, temp_vertices, sizeof ( temp_vertices ) );
         
-        for ( unsigned int i = 0; i < numVert; i++ )
+        for ( unsigned int i = 0; i < vertVect.size(); i++ )
         {
             ( *vertices ) [i] *= scale;
         }
@@ -112,13 +118,13 @@ GLuint ObjLoader::loadOBJ(
     
     if ( normals != NULL )
     {
-        *normals = (GLfloat *)malloc ( sizeof ( GLfloat ) * 3 * numNormal );
+        *normals = (GLfloat *)malloc ( sizeof ( GLfloat ) * 3 * normalVect.size() );
         memcpy ( *normals, temp_normals, sizeof ( temp_normals ) );
     }
     
     if ( texCoords != NULL )
     {
-        *texCoords = (GLfloat *)malloc ( sizeof ( GLfloat ) * 2 * numUV );
+        *texCoords = (GLfloat *)malloc ( sizeof ( GLfloat ) * 2 * uvVect.size() );
         memcpy ( *texCoords, temp_uvs, sizeof ( temp_uvs ) ) ;
     }
     
@@ -131,11 +137,18 @@ GLuint ObjLoader::loadOBJ(
     }*/
     //printf("Size of tempvertindexarr: %d", sizeof(tempVertIndexArr));
     
-    *numVerts = numVert;
-    printf("\n%d\n", numVertIndex);
-    *indices = (GLuint *)malloc ( sizeof ( GLuint ) * numVertIndex);
-    std::memcpy(*indices, vertexIndices, sizeof(vertexIndices));
+    GLuint vertexIndexArr[vertexIndices.size()];
+    for(unsigned int i=0; i < vertexIndices.size(); i++){
+        vertexIndexArr[i] = vertexIndices[i];
+        printf("\n%d", vertexIndexArr[i]);
+    }
     
-    printf("made it to the end");
-    return numVertIndex;
+    *numVerts = vertVect.size()*3;
+    printf("\nVertex indices count: %d", vertexIndices.size());
+    *indices = (GLuint *)malloc ( sizeof ( GLuint ) * vertexIndices.size());
+    
+    std::memcpy(*indices, vertexIndexArr, sizeof(vertexIndexArr));
+    
+    printf("\nmade it to the end");
+    return vertexIndices.size();
 }
