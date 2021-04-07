@@ -16,6 +16,7 @@ class ViewController: GLKViewController {
     private var rotation: Float = 0.0
     
     private var buildType = 0
+    private let buildTypes = 6
     
     private var typeLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
@@ -29,6 +30,7 @@ class ViewController: GLKViewController {
     
     var cursorType: Int = 0;
     var cursorInstanceId: Int = 0;
+    
     
     var panStartScreen: CGPoint = CGPoint();
     var panX: CGFloat = 0.0
@@ -75,8 +77,10 @@ class ViewController: GLKViewController {
         self.view.addSubview(scoreLabel)
         
         cursorType = 1;
-        cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(1, 1, 1)))
-       
+        //cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(1, 1, 1)))
+        
+        glesRenderer.createModelInstance(Int32(6),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
+      
         
         var testManager = BuildingsManager(buildingSize: 8)
         print(testManager.addBuilding(buildingName:"Leader", xPos:2, yPos:2))
@@ -84,14 +88,11 @@ class ViewController: GLKViewController {
         print(testManager.addBuilding(buildingName:"Leader", xPos:2, yPos:4))
         
         //print(testBuilding.selfValue)
-        
-        
+               
        
         //print("width" + String(UIScreen.main.bounds.size.width.description));
         //print("height" + String(UIScreen.main.bounds.size.height.description));
-        
-
-        
+               
         //plays background music on start
         glesRenderer.playBackgroundMusic();
 
@@ -110,8 +111,21 @@ class ViewController: GLKViewController {
             // for each other building
             
             
-            glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: worldPos.hitPos)
+            //glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: worldPos.hitPos)
         }
+        
+        var x: Float = Float(Int(glesRenderer.cameraFocusPos.x))
+        var y: Float = Float(Int(glesRenderer.cameraFocusPos.y))
+        x = x + 0.5
+        y = y + 0.5
+        
+        
+        let buildPos = GLKVector3Make(x, 0, y)
+        
+        glesRenderer.createModelInstance(Int32(buildType),pos:buildPos,rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
+        buildType+=1
+        buildType %= buildTypes
+        
         glesRenderer.playSoundFile("boop");
     }
     

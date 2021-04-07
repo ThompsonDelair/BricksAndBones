@@ -49,12 +49,17 @@ enum
 enum ModelType{
     TEST_CUBE_RED,
     TEST_CUBE_BLUE,
+    TEST_CUBE_GREEN,
+    TEST_CUBE_PURP,
+    TEST_CUBE_PINK,
+    TEST_CUBE_YELL,
+    TEST_CUBE_GRAD,
     NUM_MODEL_TYPES
 };
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
-NSArray *textureNames = @[@"texRed.png",@"texBlue.png"];
+NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"texGreen.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"gradient.png"];
 NSArray *modelNames = @[@"nothingRightNow.wut"];
 
 //===========================================================================
@@ -86,7 +91,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     //GLKMatrix4 _viewMatrix;
     
     // Camera details
-    GLKVector3 cameraFocusPos;
+    //GLKVector3 cameraFocusPos;
     GLKVector3 cameraOffset;
     float cameraAngle;
     float cameraDist;
@@ -131,7 +136,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 
 @synthesize _viewMatrix;
 @synthesize _projectionMatrix;
-
+@synthesize cameraFocusPos;
 
 //=======================
 // Initial setup of GL using iOS view
@@ -298,13 +303,11 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     glActiveTexture(GL_TEXTURE0);
    
    // for testing
-    for(int x = -5; x < 5;x++){
-        for(int z = -5; z < 5;z++){
-            [self createModelInstance:0 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
-        }
-    }
-
-
+//    for(int x = -5; x < 5;x++){
+//        for(int z = -5; z < 5;z++){
+//            [self createModelInstance:0 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
+//        }
+//    }
 }
 
 
