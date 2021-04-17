@@ -51,12 +51,14 @@ enum ModelType{
     TEST_CUBE_RED,
     TEST_CUBE_BLUE,
     ROOK,
+    PLANE,
+    CUBE,
     NUM_MODEL_TYPES
 };
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
-NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"texBlue.png"];
+NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"texBlue.png", @"texBlue.png", @"texBlue.png"];
 NSArray *modelNames = @[@"nothingRightNow.wut"];
 
 //===========================================================================
@@ -241,8 +243,8 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
         //int numVerts;
         if(i == ROOK){
             ObjLoader rook;
-            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/plane.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
-            NSLog(@"VertCount: %d\n IndicesCount: %d", m.numVerts, m.numIndices);
+            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/cube.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            //NSLog(@"VertCount: %d\n IndicesCount: %d", m.numVerts, m.numIndices);
             /*
             NSLog(@"\nPost load:");
             for(int i=0; i<m.numVerts; i+=3){
@@ -297,7 +299,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
    // for testing
     for(int x = 0; x < 5;x++){
         for(int z = 0; z < 5;z++){
-            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(90, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
+            [self createModelInstance:0 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(90, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
         }
     }
 }
