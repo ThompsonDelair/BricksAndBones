@@ -182,10 +182,10 @@ GLuint ObjLoader::loadOBJ(
     std::vector<glm::vec3> indexed_normals;
     indexVBO(temp_vertices, temp_uvs, temp_normals, tempIndices, indexed_vertices, indexed_uvs, indexed_normals);
     
-    GLfloat out_vertices[200] = { };
-    GLfloat out_uvs[200] = { };
-    GLfloat out_normals[200] = { };
-    GLuint out_indices[200] = { };
+    GLfloat out_vertices[1000] = { };
+    GLfloat out_uvs[1000] = { };
+    GLfloat out_normals[1000] = { };
+    GLuint out_indices[1000] = { };
     
     for(unsigned int i=0; i<indexed_vertices.size(); i+=3){
         out_vertices[i] = indexed_vertices[i].x;
@@ -205,9 +205,9 @@ GLuint ObjLoader::loadOBJ(
     if ( vertices != NULL )
     {
         *vertices = (GLfloat *)malloc ( sizeof(GLfloat) * 3 * indexed_vertices.size());
-        memcpy ( *vertices, out_vertices, sizeof ( out_vertices ) );
+        memcpy ( *vertices, out_vertices, sizeof(GLfloat) * 3 * indexed_vertices.size() );
         
-        for ( unsigned int i = 0; i < vertVect.size(); i++ )
+        for ( unsigned int i = 0; i < indexed_vertices.size(); i++ )
         {
             ( *vertices ) [i] *= scale;
         }
@@ -216,13 +216,13 @@ GLuint ObjLoader::loadOBJ(
     if ( texCoords != NULL )
     {
         *texCoords = (GLfloat *)malloc ( sizeof ( GLfloat ) * 2 * indexed_vertices.size() );
-        memcpy ( *texCoords, out_uvs, sizeof ( out_uvs ) ) ;
+        memcpy ( *texCoords, out_uvs, sizeof ( GLfloat ) * 2 * indexed_vertices.size() ) ;
     }
     
     if ( normals != NULL )
     {
         *normals = (GLfloat *)malloc ( sizeof ( GLfloat ) * 3 * indexed_vertices.size() );
-        memcpy ( *normals, out_normals, sizeof ( out_normals ) );
+        memcpy ( *normals, out_normals, sizeof ( GLfloat ) * 3 * indexed_vertices.size() );
     }
     
     *numVerts = indexed_vertices.size();

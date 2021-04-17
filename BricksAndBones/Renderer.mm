@@ -299,7 +299,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
    // for testing
     for(int x = 0; x < 5;x++){
         for(int z = 0; z < 5;z++){
-            [self createModelInstance:0 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(90, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
+            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(90, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
         }
     }
 }
