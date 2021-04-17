@@ -19,6 +19,7 @@ uniform vec4 diffuseComponent;
 uniform float shininess;
 uniform vec4 specularComponent;
 uniform vec4 ambientComponent;
+uniform vec4 colorMod;
 
 // fog parameters
 uniform int fogType;
@@ -90,8 +91,12 @@ void main()
         f = expoFog2(d);
     }
 
+    vec4 texColor = texture(texSampler, texCoordOut);
+    vec4 baseColor = texColor * colorMod;
+    baseColor.a = colorMod.a;
+    
     // ### Modify this next line to modulate texture with calculated phong shader values
-    fragColor = (ambient + diffuse + specular) * texture(texSampler, texCoordOut);
+    fragColor = (ambient + diffuse + specular) * baseColor;
     
     // lerp between color with no fog, and total fog color using f
     fragColor = mix(fragColor,fogColor,f);

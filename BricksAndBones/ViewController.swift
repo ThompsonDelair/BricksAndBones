@@ -15,8 +15,8 @@ class ViewController: GLKViewController {
     
     private var rotation: Float = 0.0
     
-    private var buildType = 0
-    private let buildTypes = 5
+    private var buildType: Int32 = 0
+    private let buildTypes: Int32 = 5
     
     private var typeLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
@@ -29,10 +29,10 @@ class ViewController: GLKViewController {
     var gameGrid: Grid = Grid(unitSize: 2);
     var testManager = BuildingsManager(buildingSize: 10)
     
-    var cursorType: Int = 0;
-    var cursorInstanceId: Int = 0;
+    var cursorType: Int32 = 1;
+    var cursorInstanceId: Int32 = 0;
     
-    var currType: Int = 0;
+    var currType: Int32 = 0;
     var currID: Int32 = 0;
     
     var panStartScreen: CGPoint = CGPoint();
@@ -41,6 +41,10 @@ class ViewController: GLKViewController {
     var panTrack: GLKVector3 = GLKVector3Make(0, 0, 0);
 
     let cameraSpeed: CGFloat = 0.04;
+    
+    var lastTime: Double = 0.0;
+    
+    var gameObjects: [GameObject] = []
     
     //var buildingArray
 
@@ -81,19 +85,19 @@ class ViewController: GLKViewController {
         scoreLabel.textAlignment = .center
         self.view.addSubview(scoreLabel)
         
-        cursorType = 1;
+        //cursorType = 1;
 
-        cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3)))
+        cursorInstanceId = glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3))
         
         glesRenderer.createModelInstance(Int32(6),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
       
-        nextBuilding();
+        initBuildingSelection()
 
         //print(testBuilding.selfValue)               
        
         //print("width" + String(UIScreen.main.bounds.size.width.description));
         //print("height" + String(UIScreen.main.bounds.size.height.description));
-
+        lastTime = CACurrentMediaTime();
 
         //plays background music on start
         glesRenderer.playBackgroundMusic();
@@ -196,9 +200,13 @@ class ViewController: GLKViewController {
             
             if(!testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
                 let buildPos = GLKVector3Make(x, 0, z)
+                let animPos = GLKVector3Add(buildPos, GLKVector3Make(0, 4, 0))
                 
-                glesRenderer.createModelInstance(Int32(buildType),pos:buildPos,rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
+                let id = glesRenderer.createModelInstance(Int32(buildType),pos:animPos,rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
 
+                
+                let anim: BuildAnimation = BuildAnimation(modelType: buildType, instanceID: id, startPos: animPos, endPos: buildPos)
+                gameObjects.append(anim)
                 
                 var buildingName: String = ""
                 if(buildType == 0){
@@ -217,26 +225,19 @@ class ViewController: GLKViewController {
                 score += points;
                 scoreLabel.text = "Score:" + String(score)
 
-                previewPoints(xPos: gridPosX, yPos: gridPosY)
-                
-                buildType+=1
-                buildType %= buildTypes
-                nextBuilding()
-
-
-                nextBuilding()
+                previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
+                      
 
                 if(testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
                     previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
                 } else{
                     print("position not in grid")
                 }
-                
-
 
                 glesRenderer.playSoundFile("boop");
                 
                 print("built " + String(buildType) + " at: " + String(gridPosX) + ", " + String(gridPosY))
+                nextBuilding()
             } else {
                 print("building already active at: " + String(gridPosX) + ", " + String(gridPosY) + "?")
             }
@@ -283,9 +284,20 @@ class ViewController: GLKViewController {
     }
     
     func nextBuilding(){
-        currID = glesRenderer.createModelInstance(Int32(buildType),pos:GLKVector3Make(0,0,0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
+        
+        buildType+=1
+        buildType %= buildTypes
+        
+        glesRenderer.deactivateModelInstance(Int32(cursorType), id: Int32(cursorInstanceId))
+        initBuildingSelection()
+
         positionBuildPreview()
         UpdateTypeText()
+    }
+    
+    func initBuildingSelection(){
+        currID = glesRenderer.createModelInstance(Int32(buildType),pos:GLKVector3Make(0,0,0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
+        currType = buildType
     }
     
     func positionBuildPreview(){
@@ -431,37 +443,30 @@ class ViewController: GLKViewController {
             print(NSStringFromGLKVector4(row))
         }
     }
-  
-    
-//    func MakeCameraLabel(locX: CGFloat, locY: CGFloat){
-//        cameraLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-//        cameraLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-//        cameraLabel.font = cameraLabel.font.withSize(20)
-//        cameraLabel.textColor = .black
-//        cameraLabel.center = CGPoint(x:locX, y:locY)
-//        cameraLabel.textAlignment = .center
-//
-//        var text = ""
-//
-//        for num in 0...3 {
-//            let row = GLKMatrix4GetRow(effect.transform.modelviewMatrix, Int32(num))
-//            text += NSStringFromGLKVector4(row) + "\n"
-//            print("loop " + String(num))
-//        }
-//
-//        print(text)
-//
-//        cameraLabel.text = text
-//
-//        self.view.addSubview(cameraLabel)
-//    }
-
 }
 
 extension ViewController: GLKViewControllerDelegate{
     
     func glkViewControllerUpdate(_ controller: GLKViewController){
         
+        let currTime = CACurrentMediaTime();
+        let elapsedTime: Float = Float(currTime - lastTime);
+        
+        if(gameObjects.count > 0){
+            for i in 0 ... gameObjects.count - 1
+            {
+                let reverseIndex = gameObjects.count - 1 - i
+                let updateReturn: Int = gameObjects[reverseIndex].update(deltaTime: elapsedTime, glesRenderer: glesRenderer)
+                if(updateReturn == 0){
+                    gameObjects.remove(at: reverseIndex)
+                }
+            }
+        }
+
+        
+        lastTime = CACurrentMediaTime();
+        
+        glesRenderer.update();
     }
 }
 

@@ -20,7 +20,7 @@ enum
     UNIFORM_NORMAL_MATRIX,
     UNIFORM_TEXTURE,
     UNIFORM_MODELVIEW_MATRIX,
-    // ### Add uniforms for lighting parameters here...
+    UNIFORM_COLOR_MOD,
     UNIFORM_FLASHLIGHT_POSITION,
     UNIFORM_DIFFUSE_LIGHT_POSITION,
     UNIFORM_SHININESS,
@@ -57,6 +57,8 @@ enum ModelType{
     NUM_MODEL_TYPES
 };
 
+int startingInstanceMemory = 16;
+
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"texGreen.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"gradient.png"];
@@ -82,7 +84,8 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     struct ModelData modelTypes[NUM_MODEL_TYPES];
     struct ModelInstance *modelInstances[NUM_MODEL_TYPES];
     int modelInstanceMemorySize[NUM_MODEL_TYPES];
-    int modelInstanceCount[NUM_MODEL_TYPES];
+    //int modelInstanceCount[NUM_MODEL_TYPES];
+    int inactiveIndex[NUM_MODEL_TYPES];
 
     // Transformation matrices
     GLKMatrix4 _modelViewProjectionMatrix;
@@ -97,6 +100,10 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     float cameraDist;
     
     //GLKMatrix4 projectionMatrix;
+    
+    // Shader data
+    
+    GLKVector4 baseColorMod;
     
     // Lighting parameters
     // ### Add lighting parameter variables here...
@@ -127,8 +134,6 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 }
 
 @end
-
-
 
 //===========================================================================
 //  Class implementation
@@ -171,9 +176,9 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     cameraDist = -8.0;
     cameraOffset = GLKVector3Make(0.0, sinf(GLKMathDegreesToRadians(cameraAngle)), cosf(GLKMathDegreesToRadians(cameraAngle)));
     //cameraOffset = GLKVector3Make(0.0, cosf(cameraAngle), sin(cameraAngle));
-    printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
+    //printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
     cameraOffset = GLKVector3MultiplyScalar(cameraOffset, cameraDist);
-    printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
+    //printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
     
     //cameraOffset = GLKVector3Make(0.0, -3.0, -3.0);
     
@@ -215,6 +220,8 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     uniforms[UNIFORM_DIFFUSE_COMPONENT] = glGetUniformLocation(_program, "diffuseComponent");
     uniforms[UNIFORM_SPECULAR_COMPONENT] = glGetUniformLocation(_program, "specularComponent");
     
+    uniforms[UNIFORM_COLOR_MOD] = glGetUniformLocation(_program, "colorMod");
+    
     // fog uniforms added here
     uniforms[UNIFORM_FOG_TYPE] = glGetUniformLocation(_program, "fogType");
     uniforms[UNIFORM_FOG_COLOR] = glGetUniformLocation(_program, "fogColor");
@@ -222,6 +229,8 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     uniforms[UNIFORM_FOG_MAX_DIST] = glGetUniformLocation(_program, "maxDist");
     uniforms[UNIFORM_FOG_DENSITY] = glGetUniformLocation(_program, "fogDensity");
 
+    baseColorMod = GLKVector4Make(1.0,1.0,1.0,1.0);
+    
     // Set up lighting parameters
     // ### Set default lighting parameter values here...
     flashlightPosition = GLKVector3Make(0.0, 0.0, 1.0);
@@ -248,9 +257,15 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 - (void)loadModels
 {
     for(int i = 0; i < NUM_MODEL_TYPES;i++){
-        modelInstances[i] = new ModelInstance[16];
-        modelInstanceMemorySize[i] = 16;
-        modelInstanceCount[i] = 0;
+        modelInstances[i] = new ModelInstance[startingInstanceMemory];
+        modelInstanceMemorySize[i] = startingInstanceMemory;
+        inactiveIndex[i] = 0;
+        
+        for(int j = 0; j < modelInstanceMemorySize[i];j++){
+            modelInstances[i][j].active = false;
+        }
+        
+        //modelInstanceCount[i] = 0;
         ModelData m;
         
         // Create VAOs
@@ -290,7 +305,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)*m.numIndices, m.indices, GL_STATIC_DRAW);
         
         NSString *texName = textureNames[i];
-        NSLog(texName);
+        //NSLog(texName);
         m.texture = [self setupTexture:texName];
         
         modelTypes[i] = m;
@@ -381,39 +396,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 //=======================
 - (void)update
 {
-//    // Calculate elapsed time
-//    auto currentTime = std::chrono::steady_clock::now();
-//    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
-//    lastTime = currentTime;
-//
-//    // Do UI tasks
-//    if (isRotating)
-//    {
-//        rotAngle += 0.001f * elapsedTime;
-//        if (rotAngle >= 360.0f)
-//            rotAngle = 0.0f;
-//    }
-//
-//    // Set up base model view matrix (place camera)
-//    GLKMatrix4 baseModelViewMatrix = GLKMatrix4MakeTranslation(xPos, yPos, zPos);
-//    baseModelViewMatrix = GLKMatrix4Rotate(baseModelViewMatrix, rotAngle, 0.0f, 1.0f, 0.0f);
-//
-//    // Set up model view matrix (place model in world)
-//    _modelViewMatrix = GLKMatrix4Identity;
-//    _modelViewMatrix = GLKMatrix4Rotate(_modelViewMatrix, xRot, 1.0f, 0.0f, 0.0f);
-//    _modelViewMatrix = GLKMatrix4Rotate(_modelViewMatrix, yRot, 0.0f, 1.0f, 0.0f);
-//    _modelViewMatrix = GLKMatrix4Rotate(_modelViewMatrix, rotAngle, 0.0f, 1.0f, 0.0f);
-//    _modelViewMatrix = GLKMatrix4Multiply(baseModelViewMatrix, _modelViewMatrix);
-//
-//    // Calculate normal matrix
-//    _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_modelViewMatrix), NULL);
-//
-//    // Calculate projection matrix
-//    float aspect = fabsf(theView.bounds.size.width / theView.bounds.size.height);
-//    GLKMatrix4 projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 0.1f, 100.0f);
-//
-//    // Calculate model-view-projection matrix
-//    _modelViewProjectionMatrix = GLKMatrix4Multiply(projectionMatrix, _modelViewMatrix);
+    
 }
 
 //=======================
@@ -433,6 +416,8 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     glUseProgram(_program);
     
     // non-instanced shader stuff
+    
+    glUniform4fv(uniforms[UNIFORM_COLOR_MOD],1,baseColorMod.v);
     
     // ### Set values for lighting parameter uniforms here...
     glUniform3fv(uniforms[UNIFORM_FLASHLIGHT_POSITION], 1, flashlightPosition.v);
@@ -458,9 +443,13 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
         // select texture
         glBindTexture(GL_TEXTURE_2D, modelTypes[i].texture);
         
-        for(int j = 0; j < modelInstanceCount[i];j++){
+        for(int j = 0; j < modelInstanceMemorySize[i];j++){
             
-            _modelViewMatrix = GLKMatrix4Multiply(_viewMatrix, modelInstances[i][j].modelMatrix);
+            if(!modelInstances[i][j].active){
+                continue;
+            }
+            
+            _modelViewMatrix = GLKMatrix4Multiply(_viewMatrix, [self calculateModelMatrix:modelInstances[i][j]]);
             _modelViewProjectionMatrix = GLKMatrix4Multiply(_projectionMatrix, _modelViewMatrix);
             _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_modelViewMatrix), NULL);
             
@@ -489,32 +478,62 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
                             xRotationMatrix))));
 }
 
-- (int) createModelInstance:(int)type pos:(GLKVector3)position rot:(GLKVector3)rotation scale:(GLKVector3)scale{
-    int count = modelInstanceCount[type];
-    //printf("instance count: %d, array size: %d \n",count,modelInstanceMemorySize[type]);
-    if(count >= modelInstanceMemorySize[type]){
-        //
-        int newSize = modelInstanceMemorySize[type] * 2;
-        modelInstanceMemorySize[type] = newSize;
-        ModelInstance *newArr = (ModelInstance*)malloc(sizeof(ModelInstance) * newSize);
-        for(int i = 0; i < count;i++){
-            ModelInstance mi = modelInstances[type][i];
-            newArr[i] = mi;
+
+- (int) getNewInstanceIndex:(int)type{
+    
+    for(int i = inactiveIndex[type]; i < modelInstanceMemorySize[type];i++){
+        if(modelInstances[type][i].active == false){
+            inactiveIndex[type] = i + 1;
+            return i;
         }
-        ModelInstance *oldArr = modelInstances[type];
-        free(oldArr);
-        modelInstances[type] = newArr;
     }
+    
+    if(inactiveIndex[type] < modelInstanceMemorySize[type]){
+        [NSException raise:@"inactiveIndex incorrect" format:@"for type %d",type];
+    }
+    
+    int oldMemSize = modelInstanceMemorySize[type];
+
+    int newSize = modelInstanceMemorySize[type] * 2;
+    modelInstanceMemorySize[type] = newSize;
+    ModelInstance *newArr = (ModelInstance*)malloc(sizeof(ModelInstance) * newSize);
+    for(int i = 0; i < oldMemSize;i++){
+        ModelInstance mi = modelInstances[type][i];
+        newArr[i] = mi;
+    }
+    ModelInstance *oldArr = modelInstances[type];
+    free(oldArr);
+    modelInstances[type] = newArr;
+
+    int index = inactiveIndex[type];
+    inactiveIndex[type] += 1;
+    return index;
+}
+
+- (void) deactivateModelInstance:(int)type ID:(int)instanceID{
+    modelInstances[type][instanceID].active = false;
+    if(instanceID < inactiveIndex[type]){
+        inactiveIndex[type] = instanceID;
+    }
+}
+
+- (int) createModelInstance:(int)type pos:(GLKVector3)position rot:(GLKVector3)rotation scale:(GLKVector3)scale{
+
+    int index = [self getNewInstanceIndex:type];
+    
     ModelInstance inst;
     inst.position = position;
     inst.rotation = rotation;
     inst.scale = scale;
+    inst.active = true;
+    inst.color = GLKVector4Make(1.0,1.0,1.0,1.0);
     //GLKMatrix4 matrix = [self calculateModelMatrix:inst];
-    inst.modelMatrix = [self calculateModelMatrix:inst];
-    modelInstances[type][count] = inst;
-    modelInstanceCount[type] = count + 1;
+    //inst.modelMatrix = [self calculateModelMatrix:inst];
+    modelInstances[type][index] = inst;
+    
+    //modelInstanceCount[type] = count + 1;
     //printf("got to end of func\n");
-    return count;
+    return index;
 }
 
 - (ModelInstance) getModelInstanceData:(int)type instance:(int)instance{
@@ -523,20 +542,18 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 
 - (void) setInstancePos:(int)type instance:(int)instance pos:(GLKVector3)pos{
     modelInstances[type][instance].position = pos;
-    modelInstances[type][instance].modelMatrix = [self calculateModelMatrix:modelInstances[type][instance]];
+}
+
+- (void) setInstanceScale:(int)type instance:(int)instance scale:(GLKVector3)scale{
+    modelInstances[type][instance].scale = scale;
+}
+
+- (void) setInstanceRotation:(int)type instance:(int)instance rotation:(GLKVector3)rotation{
+    modelInstances[type][instance].rotation = rotation;
 }
 
 - (void) updateViewMatrix{
-    
-//    _viewMatrix = GLKMatrix4MakeTranslation(-4, 0, 2);
-//    _viewMatrix = GLKMatrix4Translate(_viewMatrix, cameraOffset.x, cameraOffset.y, cameraOffset.z);
-//    _viewMatrix = GLKMatrix4Rotate(_viewMatrix, GLKMathDegreesToRadians(cameraAngle),1.0, 0.0, 0.0);
-    
-//    _viewMatrix = GLKMatrix4MakeTranslation(cameraFocusPos.x, cameraFocusPos.y, cameraFocusPos.x);
-//    _viewMatrix = GLKMatrix4Translate(_viewMatrix, cameraOffset.x, cameraOffset.y, cameraOffset.z);
-//    _viewMatrix = GLKMatrix4Rotate(_viewMatrix, GLKMathDegreesToRadians(cameraAngle),1.0, 0.0, 0.0);
-    
-    
+   
     _viewMatrix = GLKMatrix4MakeRotation(GLKMathDegreesToRadians(cameraAngle),1.0, 0.0, 0.0);
     _viewMatrix = GLKMatrix4Translate(_viewMatrix, cameraFocusPos.x, cameraFocusPos.y, cameraFocusPos.z);
     _viewMatrix = GLKMatrix4Translate(_viewMatrix, cameraOffset.x, cameraOffset.y, cameraOffset.z);

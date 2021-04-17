@@ -26,23 +26,8 @@ typedef struct ModelInstance{
     GLKVector3 position;
     GLKVector3 rotation;
     GLKVector3 scale;
-    
-    GLKMatrix4 modelMatrix;
-    
-//    void calculateModelMatrix(){
-//        GLKMatrix4 xRotationMatrix = GLKMatrix4MakeXRotation(rotation.x);
-//        GLKMatrix4 yRotationMatrix = GLKMatrix4MakeYRotation(rotation.y);
-//        GLKMatrix4 zRotationMatrix = GLKMatrix4MakeZRotation(rotation.z);
-//        GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(scale.x, scale.y, scale.z);
-//        GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(position.x, position.y, position.z);
-//
-//        modelMatrix =
-//             GLKMatrix4Multiply(translateMatrix,
-//             GLKMatrix4Multiply(scaleMatrix,
-//             GLKMatrix4Multiply(zRotationMatrix,
-//             GLKMatrix4Multiply(yRotationMatrix,
-//                                xRotationMatrix))));
-//    }
+    GLKVector4 color;
+    bool active;
 };
 
 @interface Renderer : NSObject
@@ -56,7 +41,6 @@ typedef struct ModelInstance{
 @property (readonly) GLKMatrix4 _projectionMatrix;
 @property (readonly) GLKVector3 cameraFocusPos;
 
-
 - (void)setup:(GLKView *)view;      // Set up GL using the current View
 - (void)loadModels;                 // Load models (e.g., cube to rotate)
 - (void)update;                     // Update GL
@@ -67,9 +51,12 @@ typedef struct ModelInstance{
 //- (GLKVector2) worldPosToScreenPos:(GLKVector3)worldPos;
 - (struct ModelInstance) getModelInstanceData:(int)type instance:(int)instance;
 - (void) setInstancePos:(int)type instance:(int)instance pos:(GLKVector3)pos;
+- (void) setInstanceScale:(int)type instance:(int)instance scale:(GLKVector3)scale;
+- (void) setInstanceRotation:(int)type instance:(int)instance rotation:(GLKVector3)rotation;
 - (void) moveCamera:(GLKVector3)move;
 - (void) playSoundFile:(NSString*)fileName;
 - (void) playBackgroundMusic;
+- (void) deactivateModelInstance:(int)type ID:(int)instanceID;
 
 
 @end
