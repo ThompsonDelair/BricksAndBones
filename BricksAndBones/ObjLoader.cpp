@@ -187,15 +187,15 @@ GLuint ObjLoader::loadOBJ(
     GLfloat out_normals[1000] = { };
     GLuint out_indices[1000] = { };
     
-    for(unsigned int i=0; i<indexed_vertices.size(); i+=3){
-        out_vertices[i] = indexed_vertices[i].x;
-        out_vertices[i+1] = indexed_vertices[i].y;
-        out_vertices[i+2] = indexed_vertices[i].z;
-        out_uvs[i] = indexed_uvs[i].x;
-        out_uvs[i+1] = indexed_uvs[i].y;
-        out_normals[i] = indexed_normals[i].x;
-        out_normals[i+1] = indexed_normals[i].y;
-        out_normals[i+2] = indexed_normals[i].z;
+    for(unsigned int i=0; i<indexed_vertices.size(); i++){
+        out_vertices[(i*3)] = indexed_vertices[i].x;
+        out_vertices[(i*3)+1] = indexed_vertices[i].y;
+        out_vertices[(i*3)+2] = indexed_vertices[i].z;
+        out_uvs[(i*2)] = indexed_uvs[i].x;
+        out_uvs[(i*2)+1] = indexed_uvs[i].y;
+        out_normals[(i*3)] = indexed_normals[i].x;
+        out_normals[(i*3)+1] = indexed_normals[i].y;
+        out_normals[(i*3)+2] = indexed_normals[i].z;
     }
     for(unsigned int i=0; i<tempIndices.size(); i++){
         out_indices[i] = tempIndices[i];

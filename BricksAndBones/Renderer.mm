@@ -243,7 +243,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
         //int numVerts;
         if(i == ROOK){
             ObjLoader rook;
-            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/cube.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/rook.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
             //NSLog(@"VertCount: %d\n IndicesCount: %d", m.numVerts, m.numIndices);
             /*
             NSLog(@"\nPost load:");
@@ -299,7 +299,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
    // for testing
     for(int x = 0; x < 5;x++){
         for(int z = 0; z < 5;z++){
-            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(90, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
+            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
         }
     }
 }
