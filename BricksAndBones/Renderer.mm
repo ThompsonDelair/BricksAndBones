@@ -142,6 +142,8 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 @synthesize _viewMatrix;
 @synthesize _projectionMatrix;
 @synthesize cameraFocusPos;
+@synthesize currTime;
+@synthesize deltaTime;
 
 //=======================
 // Initial setup of GL using iOS view
@@ -396,7 +398,12 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 //=======================
 - (void)update
 {
-    
+    // Calculate elapsed time
+    auto currentTime = std::chrono::steady_clock::now();
+    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime).count();
+    lastTime = currentTime;
+    deltaTime = elapsedTime / 1000.0;
+    currTime += deltaTime;
 }
 
 //=======================

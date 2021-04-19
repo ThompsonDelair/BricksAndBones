@@ -30,7 +30,7 @@
 		FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FA2DEC3826159CBD003138BA /* Shader.vsh */; };
 		FA2DEC3E26159CBD003138BA /* GLESRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA2DEC3A26159CBD003138BA /* GLESRenderer.cpp */; };
 		FA44F3E52624059E009835FF /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA44F3E42624059E009835FF /* GameObject.swift */; };
-		FA44F3E8262406B3009835FF /* BuildAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA44F3E7262406B3009835FF /* BuildAnimation.swift */; };
+		FA44F3E8262406B3009835FF /* MoveAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA44F3E7262406B3009835FF /* MoveAnimation.swift */; };
 		FA44F3EB26240963009835FF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA44F3EA26240963009835FF /* Utils.swift */; };
 		FA8811E82616865E0045B752 /* texRed.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E52616865E0045B752 /* texRed.png */; };
 		FA8811E92616865E0045B752 /* texBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E62616865E0045B752 /* texBlue.png */; };
@@ -40,6 +40,8 @@
 		FAA0E4D6261D8A430087A2DE /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = FAA0E4D5261D8A430087A2DE /* Sounds */; };
 		FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC69F62614EC370021BB95 /* SRenderer.swift */; };
 		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
+		FACAF96C262E3135005BC2B6 /* BuildAnimation2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACAF96B262E3135005BC2B6 /* BuildAnimation2.swift */; };
+		FACAF96F262E31B2005BC2B6 /* ParticleSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACAF96E262E31B2005BC2B6 /* ParticleSystem.swift */; };
 		FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE2B12F25E618F2008E38F3 /* stonewall.png */; };
 		FAE4C460261FA43E00DA8A40 /* justWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE4C45F261FA43E00DA8A40 /* justWhite.png */; };
 		FAE4C463261FAC0100DA8A40 /* ParticleGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE4C462261FAC0100DA8A40 /* ParticleGroup.swift */; };
@@ -78,7 +80,7 @@
 		FA2DEC3A26159CBD003138BA /* GLESRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLESRenderer.cpp; sourceTree = "<group>"; };
 		FA2DEC4026159CFA003138BA /* BricksAndBones-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BricksAndBones-Bridging-Header.h"; sourceTree = "<group>"; };
 		FA44F3E42624059E009835FF /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
-		FA44F3E7262406B3009835FF /* BuildAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildAnimation.swift; sourceTree = "<group>"; };
+		FA44F3E7262406B3009835FF /* MoveAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveAnimation.swift; sourceTree = "<group>"; };
 		FA44F3EA26240963009835FF /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		FA8811E52616865E0045B752 /* texRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texRed.png; sourceTree = "<group>"; };
 		FA8811E62616865E0045B752 /* texBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texBlue.png; sourceTree = "<group>"; };
@@ -88,6 +90,8 @@
 		FAA0E4D5261D8A430087A2DE /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		FABC69F62614EC370021BB95 /* SRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRenderer.swift; sourceTree = "<group>"; };
 		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
+		FACAF96B262E3135005BC2B6 /* BuildAnimation2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildAnimation2.swift; sourceTree = "<group>"; };
+		FACAF96E262E31B2005BC2B6 /* ParticleSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleSystem.swift; sourceTree = "<group>"; };
 		FAE2B12F25E618F2008E38F3 /* stonewall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonewall.png; sourceTree = "<group>"; };
 		FAE4C45F261FA43E00DA8A40 /* justWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = justWhite.png; sourceTree = "<group>"; };
 		FAE4C462261FAC0100DA8A40 /* ParticleGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleGroup.swift; sourceTree = "<group>"; };
@@ -169,8 +173,10 @@
 				FA13484E261C1B4500B8BA2C /* Collision.swift */,
 				FAE4C462261FAC0100DA8A40 /* ParticleGroup.swift */,
 				FA44F3E42624059E009835FF /* GameObject.swift */,
-				FA44F3E7262406B3009835FF /* BuildAnimation.swift */,
+				FA44F3E7262406B3009835FF /* MoveAnimation.swift */,
 				FA44F3EA26240963009835FF /* Utils.swift */,
+				FACAF96B262E3135005BC2B6 /* BuildAnimation2.swift */,
+				FACAF96E262E31B2005BC2B6 /* ParticleSystem.swift */,
 			);
 			path = BricksAndBones;
 			sourceTree = "<group>";
@@ -277,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FACAF96F262E31B2005BC2B6 /* ParticleSystem.swift in Sources */,
 				7399693925E1FF0800AE3215 /* ViewController.swift in Sources */,
 				FA13484F261C1B4500B8BA2C /* Collision.swift in Sources */,
 				B91F3A04261BFEC20039FCBE /* LonerBuilding.swift in Sources */,
@@ -290,7 +297,7 @@
 				7399694A25E208AA00AE3215 /* Vertex.swift in Sources */,
 				B91F3A10261C03C70039FCBE /* CopyBuilding.swift in Sources */,
 				7399693525E1FF0800AE3215 /* AppDelegate.swift in Sources */,
-				FA44F3E8262406B3009835FF /* BuildAnimation.swift in Sources */,
+				FA44F3E8262406B3009835FF /* MoveAnimation.swift in Sources */,
 				FAE4C463261FAC0100DA8A40 /* ParticleGroup.swift in Sources */,
 				B91F3A07261BFED90039FCBE /* LeaderBuilding.swift in Sources */,
 				FA2DEC3E26159CBD003138BA /* GLESRenderer.cpp in Sources */,
@@ -299,6 +306,7 @@
 				FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */,
 				FA2DEC3B26159CBD003138BA /* Renderer.mm in Sources */,
 				7399693725E1FF0800AE3215 /* SceneDelegate.swift in Sources */,
+				FACAF96C262E3135005BC2B6 /* BuildAnimation2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

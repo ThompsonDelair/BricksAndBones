@@ -40,6 +40,8 @@ typedef struct ModelInstance{
 //@property GLKMatrix4 _modelViewMatrix;
 @property (readonly) GLKMatrix4 _projectionMatrix;
 @property (readonly) GLKVector3 cameraFocusPos;
+@property (readonly) float deltaTime;
+@property (readonly) float currTime;
 
 - (void)setup:(GLKView *)view;      // Set up GL using the current View
 - (void)loadModels;                 // Load models (e.g., cube to rotate)

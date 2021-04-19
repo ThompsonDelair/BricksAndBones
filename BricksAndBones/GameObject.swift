@@ -8,7 +8,7 @@
 import Foundation
 
 class GameObject{
-    func update(deltaTime: Float, glesRenderer: Renderer) -> Int{
+    func update(glesRenderer: Renderer, viewController: ViewController) -> Int{
         return 1;
     }
 }

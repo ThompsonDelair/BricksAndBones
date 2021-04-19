@@ -1,29 +1,13 @@
 //
-//  BuildAnimation.swift
+//  BuildAnimation2.swift
 //  BricksAndBones
 //
-//  Created by socas on 2021-04-11.
+//  Created by socas on 2021-04-19.
 //
 
 import Foundation
 
-class MoveAnimation: GameObject{
-    
-    public var modelType: Int32;
-    public var instanceID: Int32;
-    var startTime: Float;
-    public let duration: Float = 0.75;
-    let startPos: GLKVector3;
-    let endPos: GLKVector3;
-    
-    
-    init(modelType: Int32,instanceID: Int32, startPos: GLKVector3, endPos: GLKVector3, startTime: Float) {
-        self.modelType = modelType;
-        self.instanceID = instanceID;
-        self.startTime = startTime;
-        self.startPos = startPos
-        self.endPos = endPos
-    }
+class BuildAnimation2: MoveAnimation{
     
     override func update(glesRenderer: Renderer,viewController: ViewController) -> Int{
         let currTime: Float = glesRenderer.currTime;
@@ -43,6 +27,6 @@ class MoveAnimation: GameObject{
             return 0
         } else {
             return 1;
-        }        
+        }
     }
 }
