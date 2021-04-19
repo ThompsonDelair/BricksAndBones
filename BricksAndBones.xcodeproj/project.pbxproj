@@ -37,6 +37,7 @@
 		FAA0E4D6261D8A430087A2DE /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = FAA0E4D5261D8A430087A2DE /* Sounds */; };
 		FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABC69F62614EC370021BB95 /* SRenderer.swift */; };
 		FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAC70C0925ECC386005B6A38 /* rook.obj */; };
+		FADBA2CF262E3FB600CD296C /* ObjLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FADBA2CE262E3FB600CD296C /* ObjLoader.cpp */; };
 		FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE2B12F25E618F2008E38F3 /* stonewall.png */; };
 		FAE6B07E261D98A1005DE449 /* tex_6.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE6B07B261D98A1005DE449 /* tex_6.png */; };
 		FAE6B07F261D98A1005DE449 /* tex_4.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE6B07C261D98A1005DE449 /* tex_4.png */; };
@@ -80,6 +81,8 @@
 		FAA0E4D5261D8A430087A2DE /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		FABC69F62614EC370021BB95 /* SRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SRenderer.swift; sourceTree = "<group>"; };
 		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
+		FADBA2CD262E3FB600CD296C /* ObjLoader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjLoader.hpp; sourceTree = "<group>"; };
+		FADBA2CE262E3FB600CD296C /* ObjLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjLoader.cpp; sourceTree = "<group>"; };
 		FAE2B12F25E618F2008E38F3 /* stonewall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonewall.png; sourceTree = "<group>"; };
 		FAE6B07B261D98A1005DE449 /* tex_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tex_6.png; sourceTree = "<group>"; };
 		FAE6B07C261D98A1005DE449 /* tex_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tex_4.png; sourceTree = "<group>"; };
@@ -156,6 +159,8 @@
 				B91F3A0C261C01E60039FCBE /* DebuffBuilding.swift */,
 				FABC69F62614EC370021BB95 /* SRenderer.swift */,
 				FA13484E261C1B4500B8BA2C /* Collision.swift */,
+				FADBA2CE262E3FB600CD296C /* ObjLoader.cpp */,
+				FADBA2CD262E3FB600CD296C /* ObjLoader.hpp */,
 			);
 			path = BricksAndBones;
 			sourceTree = "<group>";
@@ -265,6 +270,7 @@
 				FA13484F261C1B4500B8BA2C /* Collision.swift in Sources */,
 				B91F3A04261BFEC20039FCBE /* LonerBuilding.swift in Sources */,
 				B91F39FE261BC1D20039FCBE /* Building.swift in Sources */,
+				FADBA2CF262E3FB600CD296C /* ObjLoader.cpp in Sources */,
 				B91F3A01261BE9000039FCBE /* SelfishBuilding.swift in Sources */,
 				B91F3A13261C04150039FCBE /* DemolishBuilding.swift in Sources */,
 				B91F3A0A261BFFD10039FCBE /* EmpowerBuilding.swift in Sources */,
