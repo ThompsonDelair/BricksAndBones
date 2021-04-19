@@ -9,6 +9,7 @@
 #include "GLESRenderer.hpp"
 #import "ObjLoader.hpp"
 
+#import <AudioToolbox/AudioToolbox.h>
 
 
 //===========================================================================
@@ -53,12 +54,17 @@ enum ModelType{
     ROOK,
     PLANE,
     CUBE,
+    TEST_CUBE_GREEN,
+    TEST_CUBE_PURP,
+    TEST_CUBE_PINK,
+    TEST_CUBE_YELL,
+    TEST_CUBE_GRAD,
     NUM_MODEL_TYPES
 };
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
-NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"texBlue.png", @"texBlue.png", @"texBlue.png"];
+NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"texGreen.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"gradient.png"];
 NSArray *modelNames = @[@"nothingRightNow.wut"];
 
 //===========================================================================
@@ -89,6 +95,12 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     GLKMatrix4 _modelViewMatrix;
     //GLKMatrix4 _viewMatrix;
     
+    // Camera details
+    //GLKVector3 cameraFocusPos;
+    GLKVector3 cameraOffset;
+    float cameraAngle;
+    float cameraDist;
+    
     //GLKMatrix4 projectionMatrix;
     
     // Lighting parameters
@@ -114,6 +126,9 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     
     // Misc UI variables
     std::chrono::time_point<std::chrono::steady_clock> lastTime;
+    
+    AVAudioPlayer *backgroundMusic;
+    
 }
 
 @end
@@ -126,7 +141,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 
 @synthesize _viewMatrix;
 @synthesize _projectionMatrix;
-
+@synthesize cameraFocusPos;
 
 //=======================
 // Initial setup of GL using iOS view
@@ -154,6 +169,18 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     lastTime = std::chrono::steady_clock::now();
     
     _viewMatrix = GLKMatrix4MakeLookAt(0, 5, 0, 0, 0, 0, 0, 0, 1);
+    
+    cameraFocusPos = GLKVector3Make(0.0,0.0,0.0);
+    
+    cameraAngle = 75.0;
+    cameraDist = -8.0;
+    cameraOffset = GLKVector3Make(0.0, sinf(GLKMathDegreesToRadians(cameraAngle)), cosf(GLKMathDegreesToRadians(cameraAngle)));
+    //cameraOffset = GLKVector3Make(0.0, cosf(cameraAngle), sin(cameraAngle));
+    printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
+    cameraOffset = GLKVector3MultiplyScalar(cameraOffset, cameraDist);
+    printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
+    
+    //cameraOffset = GLKVector3Make(0.0, -3.0, -3.0);
     
     //printf("Number of model types is %d",NUM_MODEL_TYPES);
 }
@@ -207,7 +234,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     diffuseComponent = GLKVector4Make(0.8, 0.1, 0.1, 1.0);
     shininess = 200.0;
     specularComponent = GLKVector4Make(1.0, 1.0, 1.0, 1.0);
-    ambientComponent = GLKVector4Make(0.2, 0.2, 0.2, 1.0);
+    ambientComponent = GLKVector4Make(0.5, 0.5, 0.5, 1.0);
     
     // set up fog parameters
     minDist = 1.0;
@@ -295,13 +322,11 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     
     glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
     glActiveTexture(GL_TEXTURE0);
-   
-   // for testing
-    for(int x = 0; x < 5;x++){
-        for(int z = 0; z < 5;z++){
-            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
-        }
-    }
+//    for(int x = -5; x < 5;x++){
+//        for(int z = -5; z < 5;z++){
+//            [self createModelInstance:0 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
+//        }
+//    }
 }
 
 
@@ -421,6 +446,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     
     float aspect = fabsf(theView.bounds.size.width / theView.bounds.size.height);
     _projectionMatrix = GLKMatrix4MakePerspective(GLKMathDegreesToRadians(65.0f), aspect, 1.0, 1000.0);;
+    [self updateViewMatrix];
     
     // select shader
     glUseProgram(_program);
@@ -517,6 +543,59 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
 - (void) setInstancePos:(int)type instance:(int)instance pos:(GLKVector3)pos{
     modelInstances[type][instance].position = pos;
     modelInstances[type][instance].modelMatrix = [self calculateModelMatrix:modelInstances[type][instance]];
+}
+
+- (void) updateViewMatrix{
+    
+//    _viewMatrix = GLKMatrix4MakeTranslation(-4, 0, 2);
+//    _viewMatrix = GLKMatrix4Translate(_viewMatrix, cameraOffset.x, cameraOffset.y, cameraOffset.z);
+//    _viewMatrix = GLKMatrix4Rotate(_viewMatrix, GLKMathDegreesToRadians(cameraAngle),1.0, 0.0, 0.0);
+    
+//    _viewMatrix = GLKMatrix4MakeTranslation(cameraFocusPos.x, cameraFocusPos.y, cameraFocusPos.x);
+//    _viewMatrix = GLKMatrix4Translate(_viewMatrix, cameraOffset.x, cameraOffset.y, cameraOffset.z);
+//    _viewMatrix = GLKMatrix4Rotate(_viewMatrix, GLKMathDegreesToRadians(cameraAngle),1.0, 0.0, 0.0);
+    
+    
+    _viewMatrix = GLKMatrix4MakeRotation(GLKMathDegreesToRadians(cameraAngle),1.0, 0.0, 0.0);
+    _viewMatrix = GLKMatrix4Translate(_viewMatrix, cameraFocusPos.x, cameraFocusPos.y, cameraFocusPos.z);
+    _viewMatrix = GLKMatrix4Translate(_viewMatrix, cameraOffset.x, cameraOffset.y, cameraOffset.z);
+}
+
+- (void) moveCamera:(GLKVector3)move{
+    cameraFocusPos = GLKVector3Add(cameraFocusPos, move);
+    if(cameraFocusPos.x > 0){
+        cameraFocusPos.x = 0;
+    } else if (cameraFocusPos.x < -9){
+        cameraFocusPos.x = -9;
+    }
+    if(cameraFocusPos.z > 0){
+        cameraFocusPos.z = 0;
+    } else if (cameraFocusPos.z < -9){
+        cameraFocusPos.z = -9;
+    }
+}
+
+// Plays a oneshot of the sound file. Passes the filename as a string to search for.
+
+- (void) playSoundFile:(NSString*)fileName {
+    SystemSoundID soundID;
+    NSString *soundFile = [[NSBundle mainBundle]
+                           pathForResource:fileName ofType:@"mp3" inDirectory:@"Sounds"];
+    
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)
+                                     [NSURL fileURLWithPath:soundFile], & soundID);
+    AudioServicesPlaySystemSound(soundID);
+}
+
+// Plays the background music and loops it.
+- (void) playBackgroundMusic {
+    NSString *musicFile = [[NSBundle mainBundle] pathForResource:@"skyBG" ofType:@"mp3" inDirectory:@"Sounds"];
+    NSURL *url = [NSURL URLWithString:musicFile];
+    backgroundMusic = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:nil];
+    
+    backgroundMusic.numberOfLoops = -1;
+    backgroundMusic.volume = 0.8;
+    [backgroundMusic play];
 }
 
 @end

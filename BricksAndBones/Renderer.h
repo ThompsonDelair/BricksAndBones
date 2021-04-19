@@ -5,6 +5,8 @@
 #ifndef Renderer_h
 #define Renderer_h
 #import <GLKit/GLKit.h>
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
 
 typedef struct ModelData{
     // model
@@ -52,7 +54,7 @@ typedef struct ModelInstance{
 @property (readonly) GLKMatrix4 _viewMatrix;
 //@property GLKMatrix4 _modelViewMatrix;
 @property (readonly) GLKMatrix4 _projectionMatrix;
-
+@property (readonly) GLKVector3 cameraFocusPos;
 
 
 - (void)setup:(GLKView *)view;      // Set up GL using the current View
@@ -65,6 +67,10 @@ typedef struct ModelInstance{
 //- (GLKVector2) worldPosToScreenPos:(GLKVector3)worldPos;
 - (struct ModelInstance) getModelInstanceData:(int)type instance:(int)instance;
 - (void) setInstancePos:(int)type instance:(int)instance pos:(GLKVector3)pos;
+- (void) moveCamera:(GLKVector3)move;
+- (void) playSoundFile:(NSString*)fileName;
+- (void) playBackgroundMusic;
+
 
 @end
 
