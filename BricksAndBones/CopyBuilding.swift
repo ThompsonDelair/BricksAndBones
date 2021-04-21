@@ -9,13 +9,14 @@ import Foundation
 
 class CopyBuilding : Building {
     
-    override init(posX:Int, posY:Int){
-        super.init(posX: posX, posY: posY)
+    override init(posX:Int, posY:Int, modelBuildType:Int, modelInstanceID:Int){
+        super.init(posX: posX, posY: posY,
+                   modelBuildType: modelBuildType, modelInstanceID: modelInstanceID)
         
         buildingName = "Copy"
-        selfValue = 1
+        selfValue = 0
         type = "Normal"
-        classification = "Replace"
+        classification = "Absorb"
         relationValue = 0
         radius = 0
         influencedValue = 0
