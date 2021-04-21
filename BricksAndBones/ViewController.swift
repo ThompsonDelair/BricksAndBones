@@ -15,8 +15,8 @@ class ViewController: GLKViewController {
     
     private var rotation: Float = 0.0
     
-    private var buildType = 0
-    private let buildTypes = 5
+    private var currBuildType: Int32 = 0
+    private let buildTypes: Int32 = 5
     
     private var typeLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     private var scoreLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
@@ -29,11 +29,11 @@ class ViewController: GLKViewController {
     var gameGrid: Grid = Grid(unitSize: 2);
     var testManager = BuildingsManager(buildingSize: 10)
     
-    var cursorType: Int = 0;
-    var cursorInstanceId: Int = 0;
+    var cursorType: Int32 = 1;
+    var cursorInstanceId: Int32 = 0;
     
-    var currType: Int = 0;
-    var currID: Int32 = 0;
+    var previewType: Int32 = 0;
+    var previewID: Int32 = 0;
     
     var panStartScreen: CGPoint = CGPoint();
     var panX: CGFloat = 0.0
@@ -46,6 +46,11 @@ class ViewController: GLKViewController {
     let scoreThreshold:[Int] = [100, 250, 500, 1000, 2500];
     let buildingsEachLevel:[Int]=[5, 5, 6, 10, 10];
     var currentLevel:Int = 0;
+
+    //var lastTime: Double = 0.0;
+    
+    var gameObjects: [GameObject] = []
+
     
     //var buildingArray
 
@@ -64,6 +69,8 @@ class ViewController: GLKViewController {
             glesRenderer.setup(view)
             glesRenderer.loadModels()
         }
+        
+        
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         view.addGestureRecognizer(tap)
@@ -101,18 +108,16 @@ class ViewController: GLKViewController {
         self.view.addSubview(scoreThresholdLabel)
         
         cursorType = 1;
-
-        cursorInstanceId = Int(glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3)))
-        
-        glesRenderer.createModelInstance(Int32(6),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
       
-        nextBuilding();
+        glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
+      
+        initBuildingSelection()
 
         //print(testBuilding.selfValue)               
        
         //print("width" + String(UIScreen.main.bounds.size.width.description));
         //print("height" + String(UIScreen.main.bounds.size.height.description));
-
+        //lastTime = CACurrentMediaTime();
 
         //plays background music on start
         glesRenderer.playBackgroundMusic();
@@ -147,7 +152,7 @@ class ViewController: GLKViewController {
                         //add display code here
                         
                         let lx: Float = Float(indexRow) + 0.5
-                        let lz: Float = Float(indexRow) + 0.5
+                        let lz: Float = Float(indexCol) + 0.5
                         
                         let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
                         
@@ -173,7 +178,7 @@ class ViewController: GLKViewController {
                         //add display code here
                         
                         let lx: Float = Float(indexRow) + 0.5
-                        let lz: Float = Float(indexRow) + 0.5
+                        let lz: Float = Float(indexCol) + 0.5
                         
                         let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
                         
@@ -222,21 +227,24 @@ class ViewController: GLKViewController {
             
             if(!testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
                 let buildPos = GLKVector3Make(x, 0, z)
+                let animPos = GLKVector3Add(buildPos, GLKVector3Make(0, 1, 0))
                 
-                glesRenderer.createModelInstance(Int32(buildType),pos:buildPos,rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
-                buildType+=1
-                buildType %= buildTypes
+                //let id = glesRenderer.createModelInstance(Int32(currBuildType),pos:animPos,rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
+
+                
+                let anim: MoveAnimation = MoveAnimation(modelType: previewType, instanceID: previewID, startPos: animPos, endPos: buildPos, startTime: glesRenderer.currTime)
+                gameObjects.append(anim)
                 
                 var buildingName: String = ""
-                if(buildType == 0){
+                if(currBuildType == 0){
                     buildingName = "Selfish"
-                } else if (buildType == 1){
+                } else if (currBuildType == 1){
                     buildingName = "Loner"
-                } else if (buildType == 2){
+                } else if (currBuildType == 2){
                     buildingName = "Leader"
-                } else if (buildType == 3){
+                } else if (currBuildType == 3){
                     buildingName = "Empower"
-                } else if (buildType == 4){
+                } else if (currBuildType == 4){
                     buildingName = "Copy"
                 }
                                 
@@ -244,19 +252,25 @@ class ViewController: GLKViewController {
                 score += points;
                 
                 scoreLabel.text = "Score:" + String(score)
+
                 checkLevelState()
                 nextBuilding()
+
+
+                previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
+                      
+
 
                 if(testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
                     previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
                 } else{
                     print("position not in grid")
                 }
-                
 
                 glesRenderer.playSoundFile("boop");
                 
-                print("built " + String(buildType) + " at: " + String(gridPosX) + ", " + String(gridPosY))
+                print("built " + String(currBuildType) + " at: " + String(gridPosX) + ", " + String(gridPosY))
+                nextBuilding()
             } else {
                 print("building already active at: " + String(gridPosX) + ", " + String(gridPosY) + "?")
             }
@@ -322,9 +336,19 @@ class ViewController: GLKViewController {
     }
     
     func nextBuilding(){
-        currID = glesRenderer.createModelInstance(Int32(buildType),pos:GLKVector3Make(0,0,0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
+        
+        currBuildType+=1
+        currBuildType %= buildTypes
+                
+        initBuildingSelection()
+
         positionBuildPreview()
         UpdateTypeText()
+    }
+    
+    func initBuildingSelection(){
+        previewID = glesRenderer.createModelInstance(Int32(currBuildType),pos:GLKVector3Make(0,0,0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
+        previewType = currBuildType
     }
     
     func positionBuildPreview(){
@@ -332,21 +356,21 @@ class ViewController: GLKViewController {
         let gridZ:Float = Float(Int(glesRenderer.cameraFocusPos.z)) * -1.0 + 0.5
         let gridPos = GLKVector3Make(gridX,0,gridZ)
         
-        glesRenderer.setInstancePos(Int32(buildType), instance: Int32(currID), pos: gridPos)
+        glesRenderer.setInstancePos(Int32(previewType), instance: Int32(previewID), pos: gridPos)
     }
     
     
     
     func UpdateTypeText(){
-        if(buildType == 0){
+        if(currBuildType == 0){
             typeLabel.text = "Selfish";
-        } else if (buildType == 1){
+        } else if (currBuildType == 1){
             typeLabel.text = "Loner";
-        } else if (buildType == 2){
+        } else if (currBuildType == 2){
             typeLabel.text = "Leader";
-        } else if (buildType == 3){
+        } else if (currBuildType == 3){
             typeLabel.text = "Empower";
-        } else if (buildType == 4){
+        } else if (currBuildType == 4){
             typeLabel.text = "Copy";
         }
     }
@@ -472,36 +496,32 @@ class ViewController: GLKViewController {
             print(NSStringFromGLKVector4(row))
         }
     }
-  
-    
-//    func MakeCameraLabel(locX: CGFloat, locY: CGFloat){
-//        cameraLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-//        cameraLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-//        cameraLabel.font = cameraLabel.font.withSize(20)
-//        cameraLabel.textColor = .black
-//        cameraLabel.center = CGPoint(x:locX, y:locY)
-//        cameraLabel.textAlignment = .center
-//
-//        var text = ""
-//
-//        for num in 0...3 {
-//            let row = GLKMatrix4GetRow(effect.transform.modelviewMatrix, Int32(num))
-//            text += NSStringFromGLKVector4(row) + "\n"
-//            print("loop " + String(num))
-//        }
-//
-//        print(text)
-//
-//        cameraLabel.text = text
-//
-//        self.view.addSubview(cameraLabel)
-//    }
-
 }
 
 extension ViewController: GLKViewControllerDelegate{
     
     func glkViewControllerUpdate(_ controller: GLKViewController){
+        
+        let currTime = glesRenderer.currTime;
+        let elapsedTime: Float = glesRenderer.deltaTime;
+        
+        glesRenderer.update();
+        
+        if(gameObjects.count > 0){
+            
+            for i in stride(from: gameObjects.count, to: 0, by: -1)
+            {
+                let realI: Int = i - 1;
+                let updateReturn: Int = gameObjects[realI].update(glesRenderer: glesRenderer, viewController: self)
+                if(updateReturn == 0){
+                    gameObjects.remove(at: realI)
+                }
+            }
+        }
+
+        
+        //lastTime = CACurrentMediaTime();
+        
         
     }
 }
