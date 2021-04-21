@@ -144,7 +144,6 @@ class BuildingsManager{
             return thisBuilding.relationValue + otherBuilding.influencedValue;
         case "Influencer":
             //supports both influencers
-            //print("This is an influencer")
             var returnPoints = otherBuilding.influencedValue
             if(!isPreview){
                 otherBuilding.influencedValue = otherBuilding.influencedValue + thisBuilding.relationValue;
