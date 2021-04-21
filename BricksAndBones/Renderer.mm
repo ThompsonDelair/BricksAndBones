@@ -411,6 +411,9 @@ NSString *modelNames2[NUM_MODEL_TYPES];
             free(modelTypes[i].texCoords);
     }
     
+    free(textureNames2);
+    free(modelNames2);
+    
      // Delete shader program
      if (_program) {
          glDeleteProgram(_program);
