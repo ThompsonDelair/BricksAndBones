@@ -24,6 +24,7 @@
 		B91F3A13261C04150039FCBE /* DemolishBuilding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91F3A12261C04150039FCBE /* DemolishBuilding.swift */; };
 		B946C0A1261D499C002A33BB /* BuildingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B946C0A0261D499C002A33BB /* BuildingsManager.swift */; };
 		B9E81C4625EF2E8C00176E20 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E81C4525EF2E8C00176E20 /* Grid.swift */; };
+		FA12AC03262FCD9F00C63E2B /* HighScore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA12AC02262FCD9F00C63E2B /* HighScore.swift */; };
 		FA13484F261C1B4500B8BA2C /* Collision.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA13484E261C1B4500B8BA2C /* Collision.swift */; };
 		FA2D78B9262FAE08002591A9 /* ObjLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA2D78B7262FAE07002591A9 /* ObjLoader.cpp */; };
 		FA2DEC3B26159CBD003138BA /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA2DEC3626159CBD003138BA /* Renderer.mm */; };
@@ -72,6 +73,7 @@
 		B91F3A12261C04150039FCBE /* DemolishBuilding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemolishBuilding.swift; sourceTree = "<group>"; };
 		B946C0A0261D499C002A33BB /* BuildingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingsManager.swift; sourceTree = "<group>"; };
 		B9E81C4525EF2E8C00176E20 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		FA12AC02262FCD9F00C63E2B /* HighScore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScore.swift; sourceTree = "<group>"; };
 		FA13484E261C1B4500B8BA2C /* Collision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collision.swift; sourceTree = "<group>"; };
 		FA2D78B7262FAE07002591A9 /* ObjLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjLoader.cpp; sourceTree = "<group>"; };
 		FA2D78B8262FAE08002591A9 /* ObjLoader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjLoader.hpp; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				FACAF96B262E3135005BC2B6 /* BuildAnimation2.swift */,
 				FACAF96E262E31B2005BC2B6 /* ParticleSystem.swift */,
 				FACAF972262E41E5005BC2B6 /* Text3D.h */,
+				FA12AC02262FCD9F00C63E2B /* HighScore.swift */,
 			);
 			path = BricksAndBones;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				7399693525E1FF0800AE3215 /* AppDelegate.swift in Sources */,
 				FA44F3E8262406B3009835FF /* MoveAnimation.swift in Sources */,
 				FA2D78B9262FAE08002591A9 /* ObjLoader.cpp in Sources */,
+				FA12AC03262FCD9F00C63E2B /* HighScore.swift in Sources */,
 				FAE4C463261FAC0100DA8A40 /* ParticleGroup.swift in Sources */,
 				B91F3A07261BFED90039FCBE /* LeaderBuilding.swift in Sources */,
 				FA2DEC3E26159CBD003138BA /* GLESRenderer.cpp in Sources */,

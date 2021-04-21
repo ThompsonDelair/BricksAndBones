@@ -24,6 +24,8 @@ class ViewController: GLKViewController {
     
     private var cameraLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
+    private var highScoreButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 25))
+    
     var score: Int = 0;
     
     var gameGrid: Grid = Grid(unitSize: 2);
@@ -45,12 +47,13 @@ class ViewController: GLKViewController {
     //var lastTime: Double = 0.0;
     
     var gameObjects: [GameObject] = []
+        
+    private var customView: UIView!
     
     //var buildingArray
 
     override func viewDidLoad() {
         super.viewDidLoad();
-        
         // to do anything with OpenGL, you need to create an EAGLContext
         context = EAGLContext(api: .openGLES3)
         // specify that the rendering context is the one to use in the current thread
@@ -87,7 +90,12 @@ class ViewController: GLKViewController {
         scoreLabel.textAlignment = .center
         self.view.addSubview(scoreLabel)
         
-        
+        highScoreButton.backgroundColor = .green
+        highScoreButton.setTitle("High Scores", for: .normal)
+        highScoreButton.addTarget(self, action: #selector(loadViewIntoController), for: .touchUpInside)
+        highScoreButton.center = CGPoint(x:220, y:500)
+        highScoreButton.setTitleColor(.black, for: .normal)
+        self.view.addSubview(highScoreButton)
         
         //cursorType = 1;
 
@@ -447,6 +455,69 @@ class ViewController: GLKViewController {
             print(NSStringFromGLKVector4(row))
         }
     }
+    
+    // Dismisses the popup view
+    @objc func dismissView() {
+        customView.isHidden = true
+    }
+    
+    @objc func loadViewIntoController() {
+        let highScoreFrame = CGRect(x:0,y:0, width: view.frame.width, height: view.frame.height)
+        customView = UIView(frame: highScoreFrame)
+        customView.backgroundColor = .white
+        customView.isHidden = false
+        view.addSubview(customView)
+                
+        let closeButtonFrame = CGRect(x: 0, y: 0, width: 80, height: 30)
+        let closeButton = UIButton(frame: closeButtonFrame)
+        closeButton.center = CGPoint(x: 220, y:500)
+        closeButton.backgroundColor = .blue
+        closeButton.setTitle("Close", for: .normal)
+        customView.addSubview(closeButton)
+        
+        closeButton.addTarget(self, action: #selector(self.dismissView), for: .touchUpInside)
+        
+        let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        title.font = UIFont.preferredFont(forTextStyle: .footnote)
+        title.font = title.font.withSize(30)
+        title.center = CGPoint(x:160, y:50)
+        title.textAlignment = .center
+        title.text = "High Scores"
+        customView.addSubview(title)
+        
+        let score1 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
+        score1.font = UIFont.preferredFont(forTextStyle: .footnote)
+        score1.font = score1.font.withSize(21)
+        score1.center = CGPoint(x:160, y:150)
+        score1.textAlignment = .center
+        score1.text = "1st Place: Placeholder score"
+        customView.addSubview(score1)
+        
+        let score2 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
+        score2.font = UIFont.preferredFont(forTextStyle: .footnote)
+        score2.font = score2.font.withSize(21)
+        score2.center = CGPoint(x:160, y:200)
+        score2.textAlignment = .center
+        score2.text = "2nd Place: Placeholder score"
+        customView.addSubview(score2)
+        
+        let score3 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
+        score3.font = UIFont.preferredFont(forTextStyle: .footnote)
+        score3.font = score3.font.withSize(21)
+        score3.center = CGPoint(x:160, y:250)
+        score3.textAlignment = .center
+        score3.text = "3rd Place: Placeholder score"
+        customView.addSubview(score3)
+        
+        let personal = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
+        personal.font = UIFont.preferredFont(forTextStyle: .footnote)
+        personal.font = personal.font.withSize(21)
+        personal.center = CGPoint(x:160, y:350)
+        personal.textAlignment = .center
+        personal.text = "Your Score: " + String(score)
+        customView.addSubview(personal)
+    }
+
 }
 
 extension ViewController: GLKViewControllerDelegate{
@@ -487,3 +558,5 @@ struct WorldBoundUI{
     var worldPos: GLKVector3
     var label: UILabel
 }
+
+
