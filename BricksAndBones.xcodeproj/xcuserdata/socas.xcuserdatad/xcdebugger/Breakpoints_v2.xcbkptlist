@@ -14,8 +14,8 @@
             filePath = "BricksAndBones/Renderer.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "579"
-            endingLineNumber = "579"
+            startingLineNumber = "582"
+            endingLineNumber = "582"
             landmarkName = "-getNewInstanceIndex:"
             landmarkType = "7">
          </BreakpointContent>

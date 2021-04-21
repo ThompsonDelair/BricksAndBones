@@ -14,6 +14,8 @@ typedef enum : NSUInteger {
     TEST_CUBE_PINK,
     TEST_CUBE_YELL,
     TEST_CUBE_GRAD,
+    CUBE,
+    PLANE,
     ROOK,
     MILL,
     COPY_CUBE,
