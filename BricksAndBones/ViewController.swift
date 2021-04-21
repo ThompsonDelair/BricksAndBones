@@ -283,8 +283,7 @@ class ViewController: GLKViewController {
             x = x * -1 + 0.5
             z = z * -1 + 0.5
             
-            if(!testManager.checkActive(xPos: gridPosX, yPos: gridPosY)
-            || currBuildType == 4){
+            if(!testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
 
 
                 var buildingName: String = buildingNameFromInt(i: Int(currBuildType))

@@ -69,11 +69,9 @@ class BuildingsManager{
                     print("there is no building here to activate")
                     return 0;
                 }
-                //return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
-//            case "Demolish":
-//                print("implement removal of rendered object first")
-//                buildingArray[yPos][xPos] = DemolishBuilding(posX: xPos, posY: yPos, modelBuildType: modelType, modelInstanceID: modelID)
-//                demolishBuildings(xPos:xPos, yPos:yPos)
+                buildingArray[yPos][xPos] = CopyBuilding(posX: xPos, posY: yPos, modelBuildType: modelType,
+                                                         modelInstanceID: modelID)
+                return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
             default:
                 print(String(buildingName) + " Building doesn't exist")
                 return 0
@@ -92,6 +90,7 @@ class BuildingsManager{
             || centerBuilding.buildingName == "Leader"
             || centerBuilding.buildingName == "Empower"
             || centerBuilding.buildingName == "Debuff"
+            || centerBuilding.buildingName == "Copy"
         )
         {
             var columnCounts = 0;
@@ -148,10 +147,13 @@ class BuildingsManager{
                 otherBuilding.influencedValue = otherBuilding.influencedValue + thisBuilding.relationValue;
             }
             return returnPoints
-        //case "Destroy":
-        //destroy adjacent buildings and put thisbuilding down where clicked not here tho
-        //return 0;
+        case "Absorb":
+            if(!isPreview){
+                thisBuilding.influencedValue+=otherBuilding.influencedValue;
+            }
+            return otherBuilding.influencedValue;
         default:
+            print("classification doesnt exist")
             return 0;
         }
         
@@ -220,6 +222,8 @@ class BuildingsManager{
             previewBuilding = EmpowerBuilding(posX: xPos, posY: yPos)
         case "Debuff":
             previewBuilding = DebuffBuilding(posX: xPos, posY: yPos)
+        case "Copy":
+            previewBuilding = CopyBuilding(posX: xPos, posY: yPos)
         default:
             print("building doesnt exist")
         }

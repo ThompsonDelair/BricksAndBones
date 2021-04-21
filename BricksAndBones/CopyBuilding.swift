@@ -14,9 +14,9 @@ class CopyBuilding : Building {
                    modelBuildType: modelBuildType, modelInstanceID: modelInstanceID)
         
         buildingName = "Copy"
-        selfValue = 1
+        selfValue = 0
         type = "Normal"
-        classification = "Replace"
+        classification = "Absorb"
         relationValue = 0
         radius = 0
         influencedValue = 0
