@@ -101,12 +101,12 @@ class ViewController: GLKViewController {
         scoreLabel.textAlignment = .center
         self.view.addSubview(scoreLabel)
         
-        highScoreButton.backgroundColor = .green
-        highScoreButton.setTitle("High Scores", for: .normal)
-        highScoreButton.addTarget(self, action: #selector(loadViewIntoController), for: .touchUpInside)
-        highScoreButton.center = CGPoint(x:220, y:500)
-        highScoreButton.setTitleColor(.black, for: .normal)
-        self.view.addSubview(highScoreButton)
+        //highScoreButton.backgroundColor = .green
+        //highScoreButton.setTitle("High Scores", for: .normal)
+        //highScoreButton.addTarget(self, action: #selector(loadViewIntoController), for: .touchUpInside)
+        //highScoreButton.center = CGPoint(x:220, y:500)
+        //highScoreButton.setTitleColor(.black, for: .normal)
+        //self.view.addSubview(highScoreButton)
         
         //cursorType = 1;
 
@@ -351,6 +351,7 @@ class ViewController: GLKViewController {
         if(buildingsLeft < 0){
             //end game
             print("game ended");
+            loadViewIntoController()
         }
         
     }
@@ -600,14 +601,14 @@ class ViewController: GLKViewController {
         customView.isHidden = false
         view.addSubview(customView)
                 
-        let closeButtonFrame = CGRect(x: 0, y: 0, width: 80, height: 30)
-        let closeButton = UIButton(frame: closeButtonFrame)
-        closeButton.center = CGPoint(x: 220, y:500)
-        closeButton.backgroundColor = .blue
-        closeButton.setTitle("Close", for: .normal)
-        customView.addSubview(closeButton)
-        
-        closeButton.addTarget(self, action: #selector(self.dismissView), for: .touchUpInside)
+//        let closeButtonFrame = CGRect(x: 0, y: 0, width: 80, height: 30)
+//        let closeButton = UIButton(frame: closeButtonFrame)
+//        closeButton.center = CGPoint(x: 220, y:500)
+//        closeButton.backgroundColor = .blue
+//        closeButton.setTitle("Close", for: .normal)
+//        customView.addSubview(closeButton)
+//
+//        closeButton.addTarget(self, action: #selector(self.dismissView), for: .touchUpInside)
         
         let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
         title.font = UIFont.preferredFont(forTextStyle: .footnote)
