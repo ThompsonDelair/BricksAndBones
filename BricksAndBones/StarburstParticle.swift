@@ -7,6 +7,8 @@
 
 import Foundation
 
+// a particle subclass that makes rises and then falls in an arc instead of traveling in a straight line
+
 class StarburstParticle : Particle{
     
     var midPointHeight: GLKVector3 = GLKVector3Make(0, 1, 0);
@@ -24,6 +26,7 @@ class StarburstParticle : Particle{
         let l_color: GLKVector4 = Utils.Vector4Lerp(a: startColor, b: endColor, t: t)
         glesRenderer.setInstanceColor(type, instance: instanceID, color: l_color)
         
+        // lerping between positions creates the arc
         var midPoint: GLKVector3 = GLKVector3Subtract(endPos, position);
         midPoint = GLKVector3DivideScalar(midPoint, 2)
         midPoint = GLKVector3Add(midPoint, midPointHeight)

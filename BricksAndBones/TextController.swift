@@ -7,30 +7,21 @@
 
 import Foundation
 
+// a game object used to render 3D score text
+// currently only support numbers
+
 class TextController: GameObject{
     
     var instances: [TypeInstance] = [TypeInstance]()
     var texts: [MyText] = [MyText]()
-    
-    
+        
     override func update(glesRenderer: Renderer,viewController: ViewController) -> Int{
-        
-//        for ti in instances{
-//            //let dat: ModelInstance = glesRenderer.getModelInstanceData(ti.type, instance: ti.instanceID)
-//            var pos: GLKVector3 = glesRenderer.getInstancePos(ti.type, instance: ti.instanceID)
-//            //pos.x = -pos.x;
-//            //pos.z = -pos.z;
-//            let camPos: GLKVector3 = glesRenderer.getCameraPos();
-//            let matrix: GLKMatrix4 = GLKMatrix4MakeLookAt(pos.x, pos.y, pos.z, camPos.x * -1, camPos.y, camPos.z * -1, 0, 1, 0);
-//            glesRenderer.setInstanceMatrix(ti.type, instance: ti.instanceID, matrix: matrix)
-//            
-//        }
-        
-        
+        // this object wil live forever
+        // originally it was planned to have this gameobject update the text canvases to look at the camera, but an attempted implementation was not successful
         return 1;
     }
     
-    
+    // clear all text data
     public func clearText(glesRenderer: Renderer){
         for inst in instances{
             glesRenderer.deactivateModelInstance(inst.type, id: inst.instanceID)
@@ -38,12 +29,14 @@ class TextController: GameObject{
         instances = [TypeInstance]()
     }
     
+    // add a new text item
+    // creates the relevant letter canvas models per string character
     public func addNewText(text: MyText, glesRenderer: Renderer){
         texts.append(text)
         
         var pos: GLKVector3 = text.pos
         
-        var offset: GLKVector3 = GLKVector3Make(Float(text.text.count  - 1) * text.spacing * -0.5, 0, 0)
+        let offset: GLKVector3 = GLKVector3Make(Float(text.text.count  - 1) * text.spacing * -0.5, 0, 0)
         pos = GLKVector3Add(pos, offset)
         
         var i: Int = 0;
@@ -76,14 +69,10 @@ class TextController: GameObject{
             }else {
                 ti.type = Int32(MOD_TEXT_0.rawValue)
             }
-            
-            //ti.type = Int32(MOD_TEXT_5.rawValue)
-            let offset: GLKVector3 = GLKVector3Make(text.spacing * Float(i),0,0);
+  
             ti.instanceID = glesRenderer.createModelInstance(ti.type, pos: pos, rot: GLKVector3Make(0,0,0), scale: text.scale)
             
             glesRenderer.setInstanceColor(ti.type, instance: ti.instanceID, color: text.color)
-            
-            //pos = GLKVector3Add(pos, GLKVector3Make(text.spacing, 0, 0))
             
             instances.append(ti)
             i += 1

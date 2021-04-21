@@ -47,9 +47,8 @@ enum
     NUM_ATTRIBUTES
 };
 
-
+// the starting capacity for model instance arrays
 const int startingInstanceMemory = 100;
-//const int charCap = 100;
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -64,45 +63,31 @@ const int startingInstanceMemory = 100;
     GLESRenderer glesRenderer;
     GLuint _program;
     
-//    // GLES buffer IDs
-//    GLuint _vertexArray;
-//    GLuint _vertexBuffers[3];
-//    GLuint _indexBuffer;
-    
+    // the paths to textures for each model
     NSString *textureNames2[NUM_MODEL_TYPES];
-    NSString *modelNames2[NUM_MODEL_TYPES];
+    //NSString *modelNames2[NUM_MODEL_TYPES];
     
     // Model data
     struct ModelData modelTypes[NUM_MODEL_TYPES];
     struct ModelInstance *modelInstances[NUM_MODEL_TYPES];
     int modelInstanceMemorySize[NUM_MODEL_TYPES];
-    //int modelInstanceCount[NUM_MODEL_TYPES];
     int inactiveIndex[NUM_MODEL_TYPES];
-
-    
-    
-    //struct CharInstance charInstances[charCap];
     
     // Transformation matrices
     GLKMatrix4 _modelViewProjectionMatrix;
     GLKMatrix3 _normalMatrix;
     GLKMatrix4 _modelViewMatrix;
-    //GLKMatrix4 _viewMatrix;
     
     // Camera details
-    //GLKVector3 cameraFocusPos;
+    // the result of the two variables below
     GLKVector3 cameraOffset;
     float cameraAngle;
+    // the distance between the focus position and the camera position
     float cameraDist;
-    
-    //GLKMatrix4 projectionMatrix;
     
     // Shader data
     
     GLKVector4 baseColorMod;
-    
-    // Lighting parameters
-    // ### Add lighting parameter variables here...
     GLKVector3 flashlightPosition;
     GLKVector3 diffuseLightPosition;
     GLKVector4 diffuseComponent;
@@ -123,8 +108,6 @@ const int startingInstanceMemory = 100;
     AVAudioPlayer *backgroundMusic;
     AVAudioPlayer *backgroundMusic2;
     AVAudioPlayer *backgroundMusic3;
-    
-    
 }
 
 @end
@@ -202,7 +185,10 @@ const int startingInstanceMemory = 100;
     // Initialize GL color and other parameters
     glClearColor ( 0.0f, 0.0f, 0.0f, 0.0f );
     glEnable(GL_DEPTH_TEST);
+    
     lastTime = std::chrono::steady_clock::now();
+       
+    // set up camera
     
     _viewMatrix = GLKMatrix4MakeLookAt(0, 5, 0, 0, 0, 0, 0, 0, 1);
     
@@ -286,6 +272,8 @@ const int startingInstanceMemory = 100;
 - (void)loadModels
 {
     for(int i = 0; i < NUM_MODEL_TYPES;i++){
+        
+        // setup model instance array
         modelInstances[i] = new ModelInstance[startingInstanceMemory];
         modelInstanceMemorySize[i] = startingInstanceMemory;
         inactiveIndex[i] = 0;
@@ -294,7 +282,6 @@ const int startingInstanceMemory = 100;
             modelInstances[i][j].active = false;
         }
         
-        //modelInstanceCount[i] = 0;
         ModelData m;
         
         // Create VAOs
@@ -306,7 +293,6 @@ const int startingInstanceMemory = 100;
         glGenBuffers(1, &m.ebo);                 // Index buffer
 
         // Generate vertex attribute values from model
-        //int numVerts;
         
         ObjLoader thisOBJ;
         
@@ -382,9 +368,7 @@ const int startingInstanceMemory = 100;
     
     glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
     glActiveTexture(GL_TEXTURE0);
-    
 }
-
 
 //=======================
 // Load in and set up texture image (adapted from Ray Wenderlich)
@@ -444,7 +428,7 @@ const int startingInstanceMemory = 100;
     }
     
     free(textureNames2);
-    free(modelNames2);
+    //free(modelNames2);
     
      // Delete shader program
      if (_program) {
@@ -507,7 +491,7 @@ const int startingInstanceMemory = 100;
     glUniform4fv(uniforms[UNIFORM_FOG_COLOR], 1, fogColor.v);
     
     
-    // draw from draw from model instances
+    // draw instances for each model type
     for(int i = 0; i < NUM_MODEL_TYPES;i++){
         
         // select VAO
@@ -522,13 +506,12 @@ const int startingInstanceMemory = 100;
             if(!modelInstances[i][j].active){
                 continue;
             }
-            
-            //_modelViewMatrix = GLKMatrix4Multiply(_viewMatrix, [self calculateModelMatrix:modelInstances[i][j]]);
+
             _modelViewMatrix = GLKMatrix4Multiply(_viewMatrix, modelInstances[i][j].matrix);
             _modelViewProjectionMatrix = GLKMatrix4Multiply(_projectionMatrix, _modelViewMatrix);
             _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_modelViewMatrix), NULL);
             
-            // instance shader stuff
+            // instanced shader stuff
             glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
             glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEW_MATRIX], 1, 0, _modelViewMatrix.m);
             glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
@@ -537,50 +520,9 @@ const int startingInstanceMemory = 100;
             glDrawElements(GL_TRIANGLES, modelTypes[i].numIndices, GL_UNSIGNED_INT, 0);
         }
     }
-    
-    // draw from char list
-//    for(int i = 0; i < charCap;i++){
-//
-//        CharInstance c = charInstances[i];
-//
-//        if(c.active == false)
-//            continue;
-//
-//        int t = c.modelType;
-//        // select VAO
-//        glBindVertexArray(modelTypes[t].vao);
-//        // select EBO
-//        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelTypes[t].ebo);
-//        // select texture
-//        glBindTexture(GL_TEXTURE_2D, modelTypes[t].texture);
-//
-//        // calculate model matrix
-//        GLKMatrix4 xRotationMatrix = GLKMatrix4MakeXRotation(c.rotation.x);
-//        GLKMatrix4 yRotationMatrix = GLKMatrix4MakeYRotation(c.rotation.y);
-//        GLKMatrix4 zRotationMatrix = GLKMatrix4MakeZRotation(c.rotation.z);
-//        GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(c.scale.x, c.scale.y, c.scale.z);
-//        GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(c.position.x, c.position.y, c.position.z);
-//
-//        GLKMatrix4 modelMatrix =
-//                     GLKMatrix4Multiply(translateMatrix,
-//                     GLKMatrix4Multiply(scaleMatrix,
-//                     GLKMatrix4Multiply(zRotationMatrix,
-//                     GLKMatrix4Multiply(yRotationMatrix,
-//                                        xRotationMatrix))));
-//
-//        _modelViewMatrix = GLKMatrix4Multiply(_viewMatrix, modelMatrix);
-//        _modelViewProjectionMatrix = GLKMatrix4Multiply(_projectionMatrix, _modelViewMatrix);
-//        _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_modelViewMatrix), NULL);
-//
-//        // instance shader stuff
-//        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
-//        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEW_MATRIX], 1, 0, _modelViewMatrix.m);
-//        glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
-//
-//        glDrawElements(GL_TRIANGLES, modelTypes[t].numIndices, GL_UNSIGNED_INT, 0);
-//    }
 }
 
+// calculates model matrix of a single model instance
 - (GLKMatrix4) calculateModelMatrix:(struct ModelInstance)inst{
     GLKMatrix4 xRotationMatrix = GLKMatrix4MakeXRotation(inst.rotation.x);
     GLKMatrix4 yRotationMatrix = GLKMatrix4MakeYRotation(inst.rotation.y);
@@ -596,32 +538,14 @@ const int startingInstanceMemory = 100;
                             xRotationMatrix))));
 }
 
-//- (void) updateModelMatrix:(struct ModelInstance*)inst{
-//    GLKMatrix4 xRotationMatrix = GLKMatrix4MakeXRotation(inst->rotation.x);
-//    GLKMatrix4 yRotationMatrix = GLKMatrix4MakeYRotation(inst->rotation.y);
-//    GLKMatrix4 zRotationMatrix = GLKMatrix4MakeZRotation(inst->rotation.z);
-//    GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(inst->scale.x, inst->scale.y, inst->scale.z);
-//    GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(inst->position.x, inst->position.y, inst->position.z);
-//
-//    inst->matrix =
-//         GLKMatrix4Multiply(translateMatrix,
-//         GLKMatrix4Multiply(scaleMatrix,
-//         GLKMatrix4Multiply(zRotationMatrix,
-//         GLKMatrix4Multiply(yRotationMatrix,
-//                            xRotationMatrix))));
-//}
-
+// finds an inactive index in the instance array of a given type
+// if no such index exists, increase the size of the array
 - (int) getNewInstanceIndex:(int)type{
     for(int i = 0; i < modelInstanceMemorySize[type];i++){
         if(modelInstances[type][i].active == false){
-            //inactiveIndex[type] = i + 1;
             return i;
         }
     }
-    
-//    if(inactiveIndex[type] < modelInstanceMemorySize[type]){
-//        [NSException raise:@"inactiveIndex incorrect" format:@"for type %d",type];
-//    }
     
     int oldMemSize = modelInstanceMemorySize[type];
 
@@ -635,12 +559,9 @@ const int startingInstanceMemory = 100;
     for(int i = oldMemSize; i < newSize;i++){
         modelInstances[type][i].active = false;
     }
-    //ModelInstance *oldArr = modelInstances[type];
-    //free(oldArr);
+
     modelInstances[type] = newArr;
 
-    //int index = inactiveIndex[type];
-    //inactiveIndex[type] += 1;
     return oldMemSize;
 }
 
@@ -651,6 +572,7 @@ const int startingInstanceMemory = 100;
     }
 }
 
+// initializes model instance data and returns its index in the type's array
 - (int) createModelInstance:(int)type pos:(GLKVector3)position rot:(GLKVector3)rotation scale:(GLKVector3)scale{
 
     int index = [self getNewInstanceIndex:type];
@@ -662,12 +584,8 @@ const int startingInstanceMemory = 100;
     inst.active = true;
     inst.color = GLKVector4Make(1.0,1.0,1.0,1.0);
     inst.matrix = [self calculateModelMatrix:inst];
-    //GLKMatrix4 matrix = [self calculateModelMatrix:inst];
-    //inst.matrix = [self calculateModelMatrix:inst];
     modelInstances[type][index] = inst;
-    
-    //modelInstanceCount[type] = count + 1;
-    //printf("got to end of func\n");
+
     return index;
 }
 
@@ -710,6 +628,7 @@ const int startingInstanceMemory = 100;
     return GLKVector3Add(cameraFocusPos, cameraOffset);
 }
 
+// calculates the view matrix
 - (void) updateViewMatrix{
    
     _viewMatrix = GLKMatrix4MakeRotation(GLKMathDegreesToRadians(cameraAngle),1.0, 0.0, 0.0);
@@ -774,20 +693,4 @@ const int startingInstanceMemory = 100;
     [backgroundMusic3 play];
 }
 
-//- (void) clearChars{
-//    for(int i = 0; i < charCap;i++){
-//        charInstances[i].active = false;
-//    }
-//}
-//
-//- (void) addNewChar:(CharInstance)c{
-//    for(int i = 0; i < charCap;i++){
-//        if(charInstances[i].active == false){
-//            charInstances[i] = c;
-//            charInstances[i].active = true;
-//        }
-//    }
-//}
-
 @end
-

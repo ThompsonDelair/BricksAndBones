@@ -7,6 +7,8 @@
 
 import Foundation
 
+// a particle system subclass that makes particles that rise and then fall in an arc
+
 class StarburstSystem : ParticleSystem{
     
     var midPoint: GLKVector3 = GLKVector3Make(0, 1, 0);
@@ -16,9 +18,9 @@ class StarburstSystem : ParticleSystem{
         if(interval <= 0 || glesRenderer.currTime - lastTime > interval){
             for i in 0...count{
                 
-                var x: Float = Float.random(in: dirMin.x...dirMax.x)
-                var z: Float = Float.random(in: dirMin.z...dirMax.z)
-                var y: Float = Float.random(in: dirMin.y...dirMax.y)
+                let x: Float = Float.random(in: dirMin.x...dirMax.x)
+                let z: Float = Float.random(in: dirMin.z...dirMax.z)
+                let y: Float = Float.random(in: dirMin.y...dirMax.y)
                             
                 let dir: GLKVector3 = GLKVector3Make(x, y, z)
                 

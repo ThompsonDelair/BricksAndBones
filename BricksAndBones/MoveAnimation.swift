@@ -7,6 +7,9 @@
 
 import Foundation
 
+// this animation moves a model from point A to point B over a fixed duration
+// moves using an exponentional ease-in for smooth movement
+
 class MoveAnimation: GameObject{
     
     public var modelType: Int32;
@@ -15,8 +18,7 @@ class MoveAnimation: GameObject{
     public let duration: Float = 0.75;
     let startPos: GLKVector3;
     let endPos: GLKVector3;
-    
-    
+        
     init(modelType: Int32,instanceID: Int32, startPos: GLKVector3, endPos: GLKVector3, startTime: Float) {
         self.modelType = modelType;
         self.instanceID = instanceID;
@@ -27,7 +29,6 @@ class MoveAnimation: GameObject{
     
     override func update(glesRenderer: Renderer,viewController: ViewController) -> Int{
         let currTime: Float = glesRenderer.currTime;
-        //let elapsedTime: Float = glesRenderer.deltaTime;
         var t: Float = Float((currTime - startTime) / duration)
         if(t > 1.0){
             t = 1.0
@@ -39,6 +40,8 @@ class MoveAnimation: GameObject{
         
         glesRenderer.setInstancePos(modelType, instance: instanceID, pos: pos)
         
+        // if t > 1, then the animation is over, signal to remove this gameobject
+        // ( note that this gameobject is not a model, the model does not get removed )
         if(t >= 1.0){
             return 0
         } else {

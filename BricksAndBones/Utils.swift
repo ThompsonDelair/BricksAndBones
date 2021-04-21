@@ -7,6 +7,8 @@
 
 import Foundation
 
+// A few useful utility scripts
+
 class Utils{
     
     public static func Vector3Lerp(a: GLKVector3,b: GLKVector3,t: Float)->GLKVector3{

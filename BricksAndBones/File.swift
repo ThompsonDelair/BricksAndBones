@@ -7,6 +7,8 @@
 
 import Foundation
 
+// this gameobject will continuously rotate its target over time for all eternity
+
 class Rotator : GameObject{
     
     public var type:Int;
@@ -23,8 +25,8 @@ class Rotator : GameObject{
     
     override func update(glesRenderer: Renderer,viewController: ViewController) -> Int{
         
-        var baseRot = glesRenderer.getInstanceRot(Int32(type), instance: Int32(id))
-        var change = GLKVector3MultiplyScalar(rotate, speed * glesRenderer.deltaTime)
+        let baseRot = glesRenderer.getInstanceRot(Int32(type), instance: Int32(id))
+        let change = GLKVector3MultiplyScalar(rotate, speed * glesRenderer.deltaTime)
                 
         glesRenderer.setInstanceRotation(Int32(type), instance: Int32(id), rotation: GLKVector3Add(baseRot, change));
         

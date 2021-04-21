@@ -7,6 +7,11 @@
 
 import Foundation
 
+// this gameobject spawns particles that operate within the given parameters
+// the gameobject can either fire a single wave of particles, or waves over intervals
+// with an interval time <= 0, this gameobject will signal for itself to be removed
+// particals can change size and color over time, in addition to moving
+
 class ParticleSystem: GameObject{
     
     let vectorZero: GLKVector3 = GLKVector3Make(0, 0, 0)
@@ -16,6 +21,7 @@ class ParticleSystem: GameObject{
     public var posStartMax: GLKVector3;
     public var rootPos: GLKVector3;
     
+    // the direction of the particle is determined by a random vector generated between these values
     public var dirMin: GLKVector3;
     public var dirMax: GLKVector3;
     
@@ -28,11 +34,17 @@ class ParticleSystem: GameObject{
     
     public var colorEnd: GLKVector4;
         
+    // number of particles spawned her wave
     public var count: Int;
+    // time between waves
     public var interval: Float;
+    // timestamp of last wave
     public var lastTime: Float;
     
+    // how far a particle will move
     public var distMoved: Float;
+    
+    // how long it will take to complete the move
     public var duration: Float;
     
     init(rootPos: GLKVector3, modelType: Int, color: GLKVector4, count: Int) {
@@ -59,9 +71,9 @@ class ParticleSystem: GameObject{
         if(interval <= 0 || glesRenderer.currTime - lastTime > interval){
             for i in 0...count{
                 
-                var x: Float = Float.random(in: dirMin.x...dirMax.x)
-                var z: Float = Float.random(in: dirMin.z...dirMax.z)
-                var y: Float = Float.random(in: dirMin.y...dirMax.y)
+                let x: Float = Float.random(in: dirMin.x...dirMax.x)
+                let z: Float = Float.random(in: dirMin.z...dirMax.z)
+                let y: Float = Float.random(in: dirMin.y...dirMax.y)
                             
                 let dir: GLKVector3 = GLKVector3Make(x, y, z)
                 

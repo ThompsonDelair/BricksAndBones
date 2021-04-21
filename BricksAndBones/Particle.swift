@@ -7,6 +7,9 @@
 
 import Foundation
 
+// a game object that animates a single model move and change color and shape over time
+// deactivates model when duration completes
+
 class Particle: GameObject{
  
     public var moveDist: Float;
@@ -65,6 +68,9 @@ class Particle: GameObject{
         let l_size: GLKVector3 = Utils.Vector3Lerp(a: startSize, b: endSize, t: t)
         glesRenderer.setInstanceScale(type, instance: instanceID, scale: l_size)
         
+        // if t == 1, we have compelted the duration of this particle's lifespan
+        // it returned 0 to signal for itself to be removed from game
+        // and signals for the model to be deactivated
         if(t == 1.0){
             glesRenderer.deactivateModelInstance(type, id: instanceID)
             return 0

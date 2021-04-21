@@ -7,11 +7,13 @@
 
 import Foundation
 
+// this gameobject class moves a model to the ground and then spawns a one-shot particle system when the animation is completed
+// uses exponential ease-in
+
 class BuildAnimation2: MoveAnimation{
     
     override func update(glesRenderer: Renderer,viewController: ViewController) -> Int{
         let currTime: Float = glesRenderer.currTime;
-        //let elapsedTime: Float = glesRenderer.deltaTime;
         var t: Float = Float((currTime - startTime) / duration)
         if(t > 1.0){
             t = 1.0
