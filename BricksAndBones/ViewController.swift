@@ -110,12 +110,12 @@ class ViewController: GLKViewController {
         scoreLabel.textAlignment = .center
         self.view.addSubview(scoreLabel)
         
-        highScoreButton.backgroundColor = .green
-        highScoreButton.setTitle("High Scores", for: .normal)
-        highScoreButton.addTarget(self, action: #selector(loadViewIntoController), for: .touchUpInside)
-        highScoreButton.center = CGPoint(x:220, y:500)
-        highScoreButton.setTitleColor(.black, for: .normal)
-        self.view.addSubview(highScoreButton)
+//        highScoreButton.backgroundColor = .green
+//        highScoreButton.setTitle("High Scores", for: .normal)
+//        highScoreButton.addTarget(self, action: #selector(loadViewIntoController), for: .touchUpInside)
+//        highScoreButton.center = CGPoint(x:220, y:500)
+//        highScoreButton.setTitleColor(.black, for: .normal)
+//        self.view.addSubview(highScoreButton)
         
         //cursorType = 1;
 
@@ -363,6 +363,7 @@ class ViewController: GLKViewController {
 
 
                 var buildingName: String = buildingNameFromInt(i: Int(currBuildType))
+                var soundName: String = soundNameFromInt(i: Int(currBuildType))
                                 
                 let buildPos = GLKVector3Make(x, 0, z)
                 let animPos = GLKVector3Add(buildPos, GLKVector3Make(0, 1, 0))
@@ -370,7 +371,7 @@ class ViewController: GLKViewController {
                 let anim: BuildAnimation2 = BuildAnimation2(modelType: previewType, instanceID: previewID, startPos: animPos, endPos: buildPos, startTime: glesRenderer.currTime)
                 gameObjects.append(anim)
               
-                build(buildingName: buildingName, posX: gridPosX, posY: gridPosY);
+                build(buildingName: buildingName, posX: gridPosX, posY: gridPosY, soundName: soundName);
 
                 checkLevelState();
                 
@@ -381,9 +382,9 @@ class ViewController: GLKViewController {
     }
     
 
-    func build(buildingName: String, posX: Int, posY: Int){
+    func build(buildingName: String, posX: Int, posY: Int, soundName: String){
 
-        glesRenderer.playSoundFile("boop");
+        glesRenderer.playSoundFile(soundName);
 
         spawnBuildingParticles(pos: GLKVector3Make(Float(posX) + 0.5, 0.0, Float(posY) + 0.5), buildingType: Int(currBuildType));
  
@@ -426,6 +427,7 @@ class ViewController: GLKViewController {
         if(buildingsLeft < 0){
             //end game
             print("game ended");
+
             if (score > highScore1){
                 highScore1 = score
                 defaults.set(highScore1, forKey: "HighScore1")
@@ -436,7 +438,9 @@ class ViewController: GLKViewController {
                 highScore3 = score
                 defaults.set(highScore3, forKey: "HighScore3")
             }
-            loadViewIntoController()        }
+            loadViewIntoController()
+            glesRenderer.playSoundFile("gameover")
+        }
         
     }
     
@@ -453,6 +457,23 @@ class ViewController: GLKViewController {
             return "Copy"
         } else if (i == 5){
             return "Debuff"
+        }
+        return "?"
+    }
+    
+    func soundNameFromInt( i: Int)->String{
+        if(i == 0){
+            return "hammer"
+        } else if (i == 1){
+            return "boop"
+        } else if (i == 2){
+            return "church"
+        } else if (i == 3){
+            return "whoosh2"
+        } else if (i == 4){
+            return "space"
+        } else if (i == 5){
+            return "magic"
         }
         return "?"
     }
@@ -695,14 +716,14 @@ class ViewController: GLKViewController {
         customView.isHidden = false
         view.addSubview(customView)
                 
-        let closeButtonFrame = CGRect(x: 0, y: 0, width: 80, height: 30)
-        let closeButton = UIButton(frame: closeButtonFrame)
-        closeButton.center = CGPoint(x: 220, y:500)
-        closeButton.backgroundColor = .blue
-        closeButton.setTitle("Close", for: .normal)
-        customView.addSubview(closeButton)
-        
-        closeButton.addTarget(self, action: #selector(self.dismissView), for: .touchUpInside)
+//        let closeButtonFrame = CGRect(x: 0, y: 0, width: 80, height: 30)
+//        let closeButton = UIButton(frame: closeButtonFrame)
+//        closeButton.center = CGPoint(x: 220, y:500)
+//        closeButton.backgroundColor = .blue
+//        closeButton.setTitle("Close", for: .normal)
+//        customView.addSubview(closeButton)
+//
+//        closeButton.addTarget(self, action: #selector(self.dismissView), for: .touchUpInside)
         
         let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
         title.font = UIFont.preferredFont(forTextStyle: .footnote)
