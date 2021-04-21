@@ -9,8 +9,8 @@ import Foundation
 
 class DemolishBuilding : Building {
     
-    override init(posX:Int, posY:Int){
-        super.init(posX: posX, posY: posY)
+    override init(posX:Int, posY:Int, modelBuildType:Int, modelInstanceID:Int){
+        super.init(posX: posX, posY: posY, modelBuildType: modelBuildType, modelInstanceID: modelInstanceID)
         
         buildingName = "Demolish"
         selfValue = 0

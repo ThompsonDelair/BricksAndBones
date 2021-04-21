@@ -21,7 +21,8 @@ public:
                 GLfloat **texCoords, GLuint **indices, GLuint *numVerts);
     int GenSphere(int numSlices, float radius, GLfloat **vertices, GLfloat **normals,
                   GLfloat **texCoords, GLuint **indices, GLuint *numVerts);
-    
+    int GenPlane(float scale, GLfloat **vertices, GLfloat **normals,
+                               GLfloat **texCoords, GLuint **indices, GLuint *numVerts);
 private:
     GLuint vertexShader, fragmentShader;
 
