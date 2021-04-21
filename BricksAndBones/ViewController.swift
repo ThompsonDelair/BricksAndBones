@@ -66,9 +66,9 @@ class ViewController: GLKViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         // grab highscores
-        //defaults.set(0, forKey: "HighScore1");
-        //defaults.set(0, forKey: "HighScore2");
-        //defaults.set(0, forKey: "HighScore3");
+//        defaults.set(0, forKey: "HighScore1");
+//        defaults.set(0, forKey: "HighScore2");
+//        defaults.set(0, forKey: "HighScore3");
         // to do anything with OpenGL, you need to create an EAGLContext
         context = EAGLContext(api: .openGLES3)
         // specify that the rendering context is the one to use in the current thread
@@ -126,6 +126,11 @@ class ViewController: GLKViewController {
         
         let id: Int = Int(glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10)))
         glesRenderer.setInstanceColor(Int32(TEST_CUBE_GRAD.rawValue), instance: Int32(id), color: GLKVector4Make(0.5, 1.0, 0.5,1.0))
+        
+        let landID: Int = Int(glesRenderer.createModelInstance(Int32(MOD_LAND.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10)))
+        glesRenderer.setInstanceColor(Int32(MOD_LAND.rawValue), instance: Int32(landID), color: GLKVector4Make(0.5, 1.0, 0.5,1.0))
+        
+        
 
         scoreThresholdLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         scoreThresholdLabel.textColor = .black
