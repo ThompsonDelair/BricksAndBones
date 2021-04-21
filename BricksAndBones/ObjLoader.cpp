@@ -182,10 +182,10 @@ GLuint ObjLoader::loadOBJ(
     std::vector<glm::vec3> indexed_normals;
     indexVBO(temp_vertices, temp_uvs, temp_normals, tempIndices, indexed_vertices, indexed_uvs, indexed_normals);
     
-    GLfloat out_vertices[1000] = { };
-    GLfloat out_uvs[1000] = { };
-    GLfloat out_normals[1000] = { };
-    GLuint out_indices[1000] = { };
+    GLfloat out_vertices[50000] = { };
+    GLfloat out_uvs[50000] = { };
+    GLfloat out_normals[50000] = { };
+    GLuint out_indices[50000] = { };
     
     for(unsigned int i=0; i<indexed_vertices.size(); i++){
         out_vertices[(i*3)] = indexed_vertices[i].x;

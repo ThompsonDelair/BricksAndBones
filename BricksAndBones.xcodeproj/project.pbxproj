@@ -29,6 +29,19 @@
 		FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FA2DEC3726159CBD003138BA /* Shader.fsh */; };
 		FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FA2DEC3826159CBD003138BA /* Shader.vsh */; };
 		FA2DEC3E26159CBD003138BA /* GLESRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA2DEC3A26159CBD003138BA /* GLESRenderer.cpp */; };
+		FA463FDB262FB19300F27762 /* basic_color_pallate.png in Resources */ = {isa = PBXBuildFile; fileRef = FA463FDA262FB19300F27762 /* basic_color_pallate.png */; };
+		FA463FE8262FB1B300F27762 /* powderkeg.obj in Resources */ = {isa = PBXBuildFile; fileRef = FA463FDD262FB1B300F27762 /* powderkeg.obj */; };
+		FA463FE9262FB1B300F27762 /* plane.obj in Resources */ = {isa = PBXBuildFile; fileRef = FA463FDE262FB1B300F27762 /* plane.obj */; };
+		FA463FEA262FB1B300F27762 /* crystal.obj in Resources */ = {isa = PBXBuildFile; fileRef = FA463FDF262FB1B300F27762 /* crystal.obj */; };
+		FA463FEB262FB1B300F27762 /* mill.obj in Resources */ = {isa = PBXBuildFile; fileRef = FA463FE0262FB1B300F27762 /* mill.obj */; };
+		FA463FED262FB1B300F27762 /* cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = FA463FE2262FB1B300F27762 /* cube.obj */; };
+		FA463FEE262FB1B300F27762 /* err_cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = FA463FE3262FB1B300F27762 /* err_cube.obj */; };
+		FA463FEF262FB1B300F27762 /* stonewall.png in Resources */ = {isa = PBXBuildFile; fileRef = FA463FE4262FB1B300F27762 /* stonewall.png */; };
+		FA463FF0262FB1B300F27762 /* mill_blade.obj in Resources */ = {isa = PBXBuildFile; fileRef = FA463FE5262FB1B300F27762 /* mill_blade.obj */; };
+		FA463FF1262FB1B300F27762 /* wizard tower.obj in Resources */ = {isa = PBXBuildFile; fileRef = FA463FE6262FB1B300F27762 /* wizard tower.obj */; };
+		FA463FF7262FB34600F27762 /* grass.obj in Resources */ = {isa = PBXBuildFile; fileRef = FA463FF5262FB34600F27762 /* grass.obj */; };
+		FA463FFB262FB34C00F27762 /* border_1.obj in Resources */ = {isa = PBXBuildFile; fileRef = FA463FFA262FB34C00F27762 /* border_1.obj */; };
+		FA464001262FBB1400F27762 /* basic_color_pallate_flipped.png in Resources */ = {isa = PBXBuildFile; fileRef = FA464000262FBB1400F27762 /* basic_color_pallate_flipped.png */; };
 		FA8811E82616865E0045B752 /* texRed.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E52616865E0045B752 /* texRed.png */; };
 		FA8811E92616865E0045B752 /* texBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E62616865E0045B752 /* texBlue.png */; };
 		FA8811EA2616865E0045B752 /* texGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E72616865E0045B752 /* texGreen.png */; };
@@ -73,6 +86,20 @@
 		FA2DEC3926159CBD003138BA /* GLESRenderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GLESRenderer.hpp; sourceTree = "<group>"; };
 		FA2DEC3A26159CBD003138BA /* GLESRenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GLESRenderer.cpp; sourceTree = "<group>"; };
 		FA2DEC4026159CFA003138BA /* BricksAndBones-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BricksAndBones-Bridging-Header.h"; sourceTree = "<group>"; };
+		FA463FDA262FB19300F27762 /* basic_color_pallate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = basic_color_pallate.png; sourceTree = "<group>"; };
+		FA463FDD262FB1B300F27762 /* powderkeg.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = powderkeg.obj; sourceTree = "<group>"; };
+		FA463FDE262FB1B300F27762 /* plane.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = plane.obj; sourceTree = "<group>"; };
+		FA463FDF262FB1B300F27762 /* crystal.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = crystal.obj; sourceTree = "<group>"; };
+		FA463FE0262FB1B300F27762 /* mill.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mill.obj; sourceTree = "<group>"; };
+		FA463FE2262FB1B300F27762 /* cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cube.obj; sourceTree = "<group>"; };
+		FA463FE3262FB1B300F27762 /* err_cube.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = err_cube.obj; sourceTree = "<group>"; };
+		FA463FE4262FB1B300F27762 /* stonewall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonewall.png; sourceTree = "<group>"; };
+		FA463FE5262FB1B300F27762 /* mill_blade.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mill_blade.obj; sourceTree = "<group>"; };
+		FA463FE6262FB1B300F27762 /* wizard tower.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "wizard tower.obj"; sourceTree = "<group>"; };
+		FA463FF5262FB34600F27762 /* grass.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = grass.obj; sourceTree = "<group>"; };
+		FA463FFA262FB34C00F27762 /* border_1.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = border_1.obj; sourceTree = "<group>"; };
+		FA463FFE262FB46600F27762 /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grass.png; sourceTree = "<group>"; };
+		FA464000262FBB1400F27762 /* basic_color_pallate_flipped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = basic_color_pallate_flipped.png; path = Models/basic_color_pallate_flipped.png; sourceTree = "<group>"; };
 		FA8811E52616865E0045B752 /* texRed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texRed.png; sourceTree = "<group>"; };
 		FA8811E62616865E0045B752 /* texBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texBlue.png; sourceTree = "<group>"; };
 		FA8811E72616865E0045B752 /* texGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texGreen.png; sourceTree = "<group>"; };
@@ -127,6 +154,7 @@
 				FAE6B07C261D98A1005DE449 /* tex_4.png */,
 				FAE6B07D261D98A1005DE449 /* tex_5.png */,
 				FAE6B07B261D98A1005DE449 /* tex_6.png */,
+				FA463FFE262FB46600F27762 /* grass.png */,
 				FAA0E4D5261D8A430087A2DE /* Sounds */,
 				FA8811E62616865E0045B752 /* texBlue.png */,
 				FA8811E72616865E0045B752 /* texGreen.png */,
@@ -136,6 +164,8 @@
 				FA2DEC3926159CBD003138BA /* GLESRenderer.hpp */,
 				FA2DEC3526159CBD003138BA /* Renderer.h */,
 				FA2DEC3626159CBD003138BA /* Renderer.mm */,
+				FA463FDA262FB19300F27762 /* basic_color_pallate.png */,
+				FA464000262FBB1400F27762 /* basic_color_pallate_flipped.png */,
 				FA2DEC3726159CBD003138BA /* Shader.fsh */,
 				FA2DEC3826159CBD003138BA /* Shader.vsh */,
 				7399693425E1FF0800AE3215 /* AppDelegate.swift */,
@@ -177,6 +207,17 @@
 		FAF15AC225E6D25D00AB4F78 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FA463FFA262FB34C00F27762 /* border_1.obj */,
+				FA463FF5262FB34600F27762 /* grass.obj */,
+				FA463FDF262FB1B300F27762 /* crystal.obj */,
+				FA463FE2262FB1B300F27762 /* cube.obj */,
+				FA463FE3262FB1B300F27762 /* err_cube.obj */,
+				FA463FE5262FB1B300F27762 /* mill_blade.obj */,
+				FA463FE0262FB1B300F27762 /* mill.obj */,
+				FA463FDE262FB1B300F27762 /* plane.obj */,
+				FA463FDD262FB1B300F27762 /* powderkeg.obj */,
+				FA463FE4262FB1B300F27762 /* stonewall.png */,
+				FA463FE6262FB1B300F27762 /* wizard tower.obj */,
 				FAC70C0925ECC386005B6A38 /* rook.obj */,
 				FAE2B12F25E618F2008E38F3 /* stonewall.png */,
 			);
@@ -242,20 +283,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */,
+				FA463FEF262FB1B300F27762 /* stonewall.png in Resources */,
 				FA8811E82616865E0045B752 /* texRed.png in Resources */,
 				FAE6B07E261D98A1005DE449 /* tex_6.png in Resources */,
 				FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */,
+				FA463FEE262FB1B300F27762 /* err_cube.obj in Resources */,
+				FA463FF7262FB34600F27762 /* grass.obj in Resources */,
+				FA463FEA262FB1B300F27762 /* crystal.obj in Resources */,
 				FA8811EA2616865E0045B752 /* texGreen.png in Resources */,
 				FAA0E4D6261D8A430087A2DE /* Sounds in Resources */,
 				7399694125E1FF0900AE3215 /* LaunchScreen.storyboard in Resources */,
 				FAE6B07F261D98A1005DE449 /* tex_4.png in Resources */,
 				FAC70C0A25ECC386005B6A38 /* rook.obj in Resources */,
 				7399693E25E1FF0900AE3215 /* Assets.xcassets in Resources */,
+				FA463FFB262FB34C00F27762 /* border_1.obj in Resources */,
+				FA463FEB262FB1B300F27762 /* mill.obj in Resources */,
 				7399693C25E1FF0800AE3215 /* Main.storyboard in Resources */,
+				FA463FE8262FB1B300F27762 /* powderkeg.obj in Resources */,
 				FAE6B080261D98A1005DE449 /* tex_5.png in Resources */,
+				FA463FED262FB1B300F27762 /* cube.obj in Resources */,
+				FA463FDB262FB19300F27762 /* basic_color_pallate.png in Resources */,
+				FA463FE9262FB1B300F27762 /* plane.obj in Resources */,
+				FA463FF0262FB1B300F27762 /* mill_blade.obj in Resources */,
 				FA8811E92616865E0045B752 /* texBlue.png in Resources */,
+				FA463FF1262FB1B300F27762 /* wizard tower.obj in Resources */,
 				FAE6B084261D9A24005DE449 /* gradient.png in Resources */,
 				FAE2B13025E618F2008E38F3 /* stonewall.png in Resources */,
+				FA464001262FBB1400F27762 /* basic_color_pallate_flipped.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -54,6 +54,7 @@ enum ModelType{
     ROOK,
     PLANE,
     CUBE,
+    BLACKSMITH,
     TEST_CUBE_GREEN,
     TEST_CUBE_PURP,
     TEST_CUBE_PINK,
@@ -64,7 +65,7 @@ enum ModelType{
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
-NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"texGreen.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"gradient.png"];
+NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"basic_color_pallate_flipped.png",@"tex_4.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"gradient.png"];
 NSArray *modelNames = @[@"nothingRightNow.wut"];
 
 //===========================================================================
@@ -270,7 +271,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
         //int numVerts;
         if(i == ROOK){
             ObjLoader rook;
-            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/rook.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/wizard tower.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
             //NSLog(@"VertCount: %d\n IndicesCount: %d", m.numVerts, m.numIndices);
             /*
             NSLog(@"\nPost load:");
@@ -322,13 +323,12 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     
     glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
     glActiveTexture(GL_TEXTURE0);
-    /*
     for(int x = -5; x < 5;x++){
         for(int z = -5; z < 5;z++){
-            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
+            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.5, 0.5, 0.5) ];
         }
     }
-     */
+    
 }
 
 
