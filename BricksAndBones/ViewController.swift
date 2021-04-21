@@ -110,10 +110,13 @@ class ViewController: GLKViewController {
         
         //cursorType = 1;
 
-        cursorInstanceId = glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3))
+        cursorType = Int32(TEST_CUBE_RED.rawValue)
+        
+        cursorInstanceId = glesRenderer.createModelInstance(cursorType,pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3))
+        glesRenderer.setInstanceColor(cursorType, instance: Int32(cursorInstanceId), color: GLKVector4Make(1.0, 0.0, 0.0,0.5))
         
         let id: Int = Int(glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10)))
-        glesRenderer.setInstanceColor(Int32(id), instance: Int32(TEST_CUBE_GRAD.rawValue), color: GLKVector4Make(0.3, 1.0, 0.3,1.0))
+        glesRenderer.setInstanceColor(Int32(TEST_CUBE_GRAD.rawValue), instance: Int32(id), color: GLKVector4Make(0.5, 1.0, 0.5,1.0))
 
         scoreThresholdLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         scoreThresholdLabel.textColor = .black
@@ -122,8 +125,6 @@ class ViewController: GLKViewController {
         scoreThresholdLabel.textAlignment = .center
         self.view.addSubview(scoreThresholdLabel)
         
-        cursorType = 1;
-      
 //        glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
       
         initBuildingSelection()
@@ -328,7 +329,7 @@ class ViewController: GLKViewController {
         } else if(buildingType == 5){
             var rot: GLKVector3 = GLKVector3Make(0.0,0.0,0.0);
             
-            let id: Int = Int(glesRenderer.createModelInstance(Int32(Int(CRYSTAL.rawValue)), pos: GLKVector3Add(pos, GLKVector3Make(Float(0.0),Float(0.9),Float(0.2))), rot: rot, scale: GLKVector3Make(Float(0.2),Float(0.2),Float(0.2))))
+            let id: Int = Int(glesRenderer.createModelInstance(Int32(Int(CRYSTAL.rawValue)), pos: GLKVector3Add(pos, GLKVector3Make(Float(0.0),Float(1.4),Float(0.2))), rot: rot, scale: GLKVector3Make(Float(0.5),Float(0.5),Float(0.5))))
             
             rot = GLKVector3Make(0.0,1.0,0.0);
             
@@ -464,7 +465,7 @@ class ViewController: GLKViewController {
             
             panStartScreen = translation
             glesRenderer.moveCamera(GLKVector3Make(Float(x), Float(0.0), Float(z)))
-            //panStartScreen = translation
+            //panStartScreen = translationS
             //let cursorPos = GLKVector3Make(glesre)
             var pos: GLKVector3 = glesRenderer.cameraFocusPos
             pos = GLKVector3MultiplyScalar(pos, -1)
@@ -491,7 +492,7 @@ class ViewController: GLKViewController {
         positionBuildPreview()
         glesRenderer.setInstanceColor(previewType, instance: previewID, color: GLKVector4Make(1.0,1.0,1.0,0.35))
 
-        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.25,0.25,0.25))
+        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.15,0.15,0.15))
 
     }
     

@@ -217,7 +217,7 @@ const int startingInstanceMemory = 100;
     cameraFocusPos = GLKVector3Make(0.0,0.0,0.0);
     
     cameraAngle = 60.0;
-    cameraDist = -8.0;
+    cameraDist = -6.0;
     cameraOffset = GLKVector3Make(0.0, sinf(GLKMathDegreesToRadians(cameraAngle)), cosf(GLKMathDegreesToRadians(cameraAngle)));
     //cameraOffset = GLKVector3Make(0.0, cosf(cameraAngle), sin(cameraAngle));
     //printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
@@ -282,12 +282,12 @@ const int startingInstanceMemory = 100;
     diffuseComponent = GLKVector4Make(0.8, 0.1, 0.1, 1.0);
     shininess = 200.0;
     specularComponent = GLKVector4Make(1.0, 1.0, 1.0, 1.0);
-    ambientComponent = GLKVector4Make(0.5, 0.5, 0.5, 1.0);
+    ambientComponent = GLKVector4Make(0.6, 0.6, 0.6, 1.0);
     
     // set up fog parameters
     minDist = 1.0;
     maxDist = 100.0;
-    fogType = 1;
+    fogType = 0;
     fogDensity = 0;
     fogColor = GLKVector4Make(0.0, 1.0, 1.0, 0.0);
 
@@ -491,7 +491,7 @@ const int startingInstanceMemory = 100;
 - (void)draw:(CGRect)drawRect;
 {
     // Clear window
-    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+    glClearColor(0.3f, 0.3f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     float aspect = fabsf(theView.bounds.size.width / theView.bounds.size.height);
