@@ -14,13 +14,11 @@ class ViewController: GLKViewController {
     private var glesRenderer: Renderer!
     
     private var rotation: Float = 0.0
-    
 
-    
     private var typeLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-    
     private var scoreLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-    
+    private var buildingsLeftLabel: UILabel = UILabel(frame: CGRect(x:0, y:0, width:200, height: 21))
+    private var scoreThresholdLabel: UILabel = UILabel(frame: CGRect(x:0, y:0, width:200, height: 21))
     private var cameraLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
     var score: Int = 0;
@@ -44,9 +42,15 @@ class ViewController: GLKViewController {
 
     let cameraSpeed: CGFloat = 0.04;
     
+    var buildingsLeft:Int = 0;
+    let scoreThreshold:[Int] = [100, 250, 500, 1000, 2500];
+    let buildingsEachLevel:[Int]=[5, 5, 6, 10, 10];
+    var currentLevel:Int = 0;
+
     //var lastTime: Double = 0.0;
     
     var gameObjects: [GameObject] = []
+
     
     //var buildingArray
 
@@ -66,8 +70,6 @@ class ViewController: GLKViewController {
             glesRenderer.loadModels()
         }
         
-        
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         view.addGestureRecognizer(tap)
         
@@ -82,6 +84,13 @@ class ViewController: GLKViewController {
         typeLabel.textAlignment = .center
         self.view.addSubview(typeLabel)
         
+        buildingsLeftLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        buildingsLeftLabel.textColor = .black
+        buildingsLeftLabel.font = typeLabel.font.withSize(15)
+        buildingsLeftLabel.center = CGPoint(x:60, y:55)
+        buildingsLeftLabel.textAlignment = .center
+        self.view.addSubview(buildingsLeftLabel)
+        
         scoreLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         scoreLabel.textColor = .black
         scoreLabel.font = scoreLabel.font.withSize(20)
@@ -89,12 +98,15 @@ class ViewController: GLKViewController {
         scoreLabel.textAlignment = .center
         self.view.addSubview(scoreLabel)
         
+        scoreThresholdLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        scoreThresholdLabel.textColor = .black
+        scoreThresholdLabel.font = scoreLabel.font.withSize(15)
+        scoreThresholdLabel.center = CGPoint(x:220, y:55)
+        scoreThresholdLabel.textAlignment = .center
+        self.view.addSubview(scoreThresholdLabel)
         
-        
-        //cursorType = 1;
-
-        cursorInstanceId = glesRenderer.createModelInstance(Int32(CUBE.rawValue),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3))
-        
+        cursorType = 1;
+      
         glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
       
         initBuildingSelection()
@@ -107,6 +119,13 @@ class ViewController: GLKViewController {
 
         //plays background music on start
         glesRenderer.playBackgroundMusic();
+        
+        buildingsLeft = buildingsEachLevel[currentLevel];
+        buildingsLeftLabel.text = "Left: " + String(buildingsLeft);
+        
+        
+        scoreThresholdLabel.text = "Next: " +  String(scoreThreshold[currentLevel]);
+        
 
     }
     
@@ -205,8 +224,11 @@ class ViewController: GLKViewController {
                 } else if (currBuildType == 4){
                     buildingName = "Copy"
                 }
-
-                previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
+                                
+                var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
+                score += points;
+                
+                scoreLabel.text = "Score:" + String(score)
 
                 let buildPos = GLKVector3Make(x, 0, z)
                 let animPos = GLKVector3Add(buildPos, GLKVector3Make(0, 1, 0))
@@ -216,12 +238,15 @@ class ViewController: GLKViewController {
                 
                 build(buildingName: buildingName, posX: gridPosX, posY: gridPosY);
 
+                checkLevelState();
+                
             } else {
                 print("building already active at: " + String(gridPosX) + ", " + String(gridPosY) + "?")
             }
         }
     }
     
+
     func build(buildingName: String, posX: Int, posY: Int){
 
         glesRenderer.playSoundFile("boop");
@@ -236,6 +261,24 @@ class ViewController: GLKViewController {
         print("built " + String(currBuildType) + " at: " + String(posX) + ", " + String(posY))
         nextBuilding()
         initBuildingSelection()
+    }
+    
+    func checkLevelState(){
+        buildingsLeft-=1;
+        buildingsLeftLabel.text = "Left: " + String(buildingsLeft)
+        if(score > scoreThreshold[currentLevel]){
+            
+            currentLevel+=1;
+            buildingsLeft = buildingsEachLevel[currentLevel];
+            buildingsLeftLabel.text = "Left: " + String(buildingsLeft)
+            
+            scoreThresholdLabel.text = "Next: " + String(scoreThreshold[currentLevel])
+            
+        }
+        if(buildingsLeft < 0){
+            //end game
+            print("game ended");
+        }
         
     }
         
@@ -291,6 +334,8 @@ class ViewController: GLKViewController {
         
         glesRenderer.setInstancePos(Int32(previewType), instance: Int32(previewID), pos: gridPos)
     }
+    
+    
     
     func UpdateTypeText(){
         if(currBuildType == 0){
@@ -467,3 +512,4 @@ struct WorldBoundUI{
     var worldPos: GLKVector3
     var label: UILabel
 }
+    
