@@ -14,6 +14,9 @@ typedef enum : NSUInteger {
     TEST_CUBE_PINK,
     TEST_CUBE_YELL,
     TEST_CUBE_GRAD,
+    ROOK,
+    PLANE,
+    CUBE,
     NUM_MODEL_TYPES
 } ModelTypes;
 

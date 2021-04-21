@@ -62,19 +62,17 @@ NSString *textureNames2[NUM_MODEL_TYPES];
 NSString *modelNames2[NUM_MODEL_TYPES];
 //=======
 // Type of models
-enum ModelType{
-    TEST_CUBE_RED,
-    TEST_CUBE_BLUE,
-    ROOK,
-    PLANE,
-    CUBE,
-    TEST_CUBE_GREEN,
-    TEST_CUBE_PURP,
-    TEST_CUBE_PINK,
-    TEST_CUBE_YELL,
-    TEST_CUBE_GRAD,
-    NUM_MODEL_TYPES
-};
+//enum ModelType{
+//    TEST_CUBE_RED,
+//    TEST_CUBE_BLUE,
+//
+//    TEST_CUBE_GREEN,
+//    TEST_CUBE_PURP,
+//    TEST_CUBE_PINK,
+//    TEST_CUBE_YELL,
+//    TEST_CUBE_GRAD,
+//    NUM_MODEL_TYPES
+//};
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -188,6 +186,9 @@ enum ModelType{
     textureNames2[TEST_CUBE_PINK] = @"tex_5.png";
     textureNames2[TEST_CUBE_YELL] = @"tex_6.png";
     textureNames2[TEST_CUBE_GRAD] = @"gradient.png";
+    textureNames2[ROOK] = @"texRed.png";
+    textureNames2[PLANE] = @"texRed.png";
+    textureNames2[CUBE] = @"texRed.png";
     
     // Set up context
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
