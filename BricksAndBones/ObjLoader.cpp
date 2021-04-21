@@ -226,8 +226,8 @@ GLuint ObjLoader::loadOBJ(
     }
     
     *numVerts = indexed_vertices.size();
-    *indices = (GLuint *)malloc ( sizeof ( GLuint ) * vertexIndices.size());
-    std::memcpy(*indices, out_indices, sizeof(out_indices));
+    *indices = (GLuint *)malloc ( sizeof ( GLuint ) * tempIndices.size());
+    std::memcpy(*indices, out_indices, sizeof(GLuint) * tempIndices.size());
     fclose(file);
     printf("\nmade it to the end");
     return vertexIndices.size();
