@@ -171,8 +171,18 @@ const int charCap = 100;
     textureNames2[TEST_CUBE_PINK] = @"tex_5.png";
     textureNames2[TEST_CUBE_YELL] = @"tex_6.png";
     textureNames2[TEST_CUBE_GRAD] = @"gradient.png";
-    textureNames2[ROOK] = @"texRed.png";
+    textureNames2[CUBE] = @"justWhite.png";
     textureNames2[PLANE] = @"texRed.png";
+    textureNames2[ROOK] = @"stonewall.png";
+    textureNames2[MILL] = @"basic_color_pallate_flipped.png";
+    textureNames2[COPY_CUBE] = @"basic_color_pallate_flipped.png";
+    textureNames2[POWDER_KEG] = @"basic_color_pallate_flipped.png";
+    textureNames2[WIZARD_TOWER] = @"basic_color_pallate_flipped.png";
+    textureNames2[CHURCH] = @"basic_color_pallate_flipped.png";
+    textureNames2[BLACKSMITH] = @"basic_color_pallate_flipped.png";
+    textureNames2[HOUSE] = @"basic_color_pallate_flipped.png";
+    textureNames2[HUT] = @"basic_color_pallate_flipped.png";
+    
     textureNames2[MOD_CUBE] = @"justWhite.png";
     textureNames2[MOD_SPHERE] = @"justWhite.png";
     textureNames2[MOD_TEXT_1] = @"1.png";
@@ -312,24 +322,30 @@ const int charCap = 100;
 
         // Generate vertex attribute values from model
         //int numVerts;
-//        if(i == ROOK){
-//            ObjLoader rook;
-//            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/wizard tower.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
-//            //NSLog(@"VertCount: %d\n IndicesCount: %d", m.numVerts, m.numIndices);
-//            /*
-//            NSLog(@"\nPost load:");
-//            for(int i=0; i<m.numVerts; i+=3){
-//                NSLog(@"\n%d: (%f %f %f)", i, m.vertices[i], m.vertices[i+1], m.vertices[i+2]);
-//            }
-//            NSLog(@"\n\nIndices\n\n");
-//            for(int i=0; i<m.numIndices; i+=3){
-//                NSLog(@"\n(%d %d %d)", m.indices[i], m.indices[i+1], m.indices[i+2]);
-//            }*/
-//        }else{
-//            m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
-//        }
         
-        if(i == MOD_TEXT_0 || i == MOD_TEXT_1 || i == MOD_TEXT_2|| i == MOD_TEXT_3|| i == MOD_TEXT_4|| i == MOD_TEXT_5|| i == MOD_TEXT_6|| i == MOD_TEXT_7|| i == MOD_TEXT_8|| i == MOD_TEXT_9|| i == MOD_TEXT_MINUS|| i == MOD_TEXT_PLUS ){
+        ObjLoader thisOBJ;
+        
+        if(i == ROOK){
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/rook.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == MILL){
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/mill.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == COPY_CUBE){
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/err_cube.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == POWDER_KEG){
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/powderkeg.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == WIZARD_TOWER){
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/wizard tower.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == CHURCH){
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/church.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == BLACKSMITH){
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/blacksmith.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == HOUSE){
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/house.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == HUT){
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/hut.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == PLANE){
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/plane.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == MOD_TEXT_0 || i == MOD_TEXT_1 || i == MOD_TEXT_2|| i == MOD_TEXT_3|| i == MOD_TEXT_4|| i == MOD_TEXT_5|| i == MOD_TEXT_6|| i == MOD_TEXT_7|| i == MOD_TEXT_8|| i == MOD_TEXT_9|| i == MOD_TEXT_MINUS|| i == MOD_TEXT_PLUS ){
             m.numIndices = glesRenderer.GenPlane(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         } else if(i == MOD_SPHERE){
             m.numIndices = glesRenderer.GenSphere(8, 0.5, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);

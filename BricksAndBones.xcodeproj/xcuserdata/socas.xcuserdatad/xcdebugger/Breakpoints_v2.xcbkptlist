@@ -78,6 +78,11 @@
             filePath = "BricksAndBones/Renderer.mm"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
+            startingLineNumber = "576"
+            endingLineNumber = "576"
+            landmarkName = "-getNewInstanceIndex:"
+=======
             startingLineNumber = "544"
             endingLineNumber = "544"
             landmarkName = "-draw:"
@@ -97,6 +102,7 @@
             startingLineNumber = "569"
             endingLineNumber = "569"
             landmarkName = "loadViewIntoController()"
+>>>>>>> main
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -305,6 +311,100 @@
             startingLineNumber = "28"
             endingLineNumber = "28"
             landmarkName = "update(glesRenderer:viewController:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CAAF5D4B-ABAB-4E02-8652-C4D35B09F655"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BricksAndBones/ObjLoader.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "238"
+            endingLineNumber = "238">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0B5179E9-3C50-490A-B348-E399BFB3390F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BricksAndBones/ObjLoader.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "ObjLoader::loadOBJ(path, scale, vertices, normals, texCoords, indices, numVerts)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F1B68526-1258-4C2B-91F6-C0E069B74562"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BricksAndBones/ObjLoader.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
+            landmarkName = "ObjLoader::loadOBJ(path, scale, vertices, normals, texCoords, indices, numVerts)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F1B68526-1258-4C2B-91F6-C0E069B74562 - 979ca75763f8802e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ObjLoader::loadOBJ(char const*, float, float**, float**, float**, unsigned int**, unsigned int*)"
+                  moduleName = "BricksAndBones"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/ObjLoader.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "234"
+                  endingLineNumber = "234"
+                  offsetFromSymbolStart = "259">
+               </Location>
+               <Location
+                  uuid = "F1B68526-1258-4C2B-91F6-C0E069B74562 - 979ca75763f8802e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "ObjLoader::loadOBJ(char const*, float, float**, float**, float**, unsigned int**, unsigned int*)"
+                  moduleName = "BricksAndBones"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/ObjLoader.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "234"
+                  endingLineNumber = "234"
+                  offsetFromSymbolStart = "1648">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "680E12FF-4506-47DC-B61B-6FF2177A42B5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BricksAndBones/ObjLoader.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "ObjLoader::loadOBJ(path, scale, vertices, normals, texCoords, indices, numVerts)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
