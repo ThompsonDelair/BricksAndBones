@@ -318,16 +318,16 @@ class ViewController: GLKViewController {
             gameObjects.append(ps)
         } else if(buildingType == 4){
             // spawn popcorn
-            let ps: StarburstSystem = StarburstSystem(rootPos: pos, modelType: Int(MOD_SPHERE.rawValue), color: GLKVector4Make(1.0, 0.0, 1.0, 1.0), count: 1 )
-            ps.interval = 1
-            ps.colorEnd = GLKVector4Make(1.0,0.0,0,0.4)
-            ps.dirMin = GLKVector3Make(-0.4,0.6,-0.4)
+            let ps: StarburstSystem = StarburstSystem(rootPos: pos, modelType: Int(MOD_SPHERE.rawValue), color: GLKVector4Make(0.2, 1.0, 0.2, 1.0), count: 1 )
+            ps.interval = 0.4
+            ps.colorEnd = GLKVector4Make(0.2,1.0,0.2,0.4)
+            ps.dirMin = GLKVector3Make(-0.6,0.4,-0.6)
             ps.dirMax = GLKVector3Make(0.6,1.0,0.6)
             ps.distMoved = 0.25
             ps.duration = 2
-            ps.sizeStart = GLKVector3Make(0.5,0.5,0.5)
-            ps.sizeEnd = GLKVector3Make(0.5, 0.5, 0.5)
-            ps.midPoint = GLKVector3Make(0, 2, 0)
+            ps.sizeStart = GLKVector3Make(0.4,0.4,0.4)
+            ps.sizeEnd = GLKVector3Make(0.3, 0.3, 0.3)
+            ps.midPoint = GLKVector3Make(0, 1.1, 0)
             gameObjects.append(ps)
         } else if(buildingType == 3){
             
