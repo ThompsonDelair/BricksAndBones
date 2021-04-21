@@ -326,31 +326,31 @@ const int startingInstanceMemory = 100;
         ObjLoader thisOBJ;
         
         if(i == ROOK){
-            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/rook.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"rook.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"rook.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == MILL){
-            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/mill.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"mill.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"mill.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == COPY_CUBE){
-            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/err_cube.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"copy_cube.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"copy_cube.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == POWDER_KEG){
-            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/powderkeg.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"powderkeg.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"poederkeg.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == WIZARD_TOWER){
-            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/wizard tower.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"wizard tower.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"wizard tower.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == CHURCH){
-            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/church.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"church.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"church.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == BLACKSMITH){
-            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/blacksmith.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"blacksmith.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"blacksmith.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == HOUSE){
-            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/house.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"house.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"house.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == HUT){
-            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/hut.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"hut.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"hut.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == GRASS){
-            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/plane.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"plane.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"plane.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == MILL_BLADE){
-            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/mill_blade.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"mill_blade.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"mill_blade.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == CRYSTAL){
-            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/crystal.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"crystal.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"crystal.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == PLANE){
-            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/plane.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"plane.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"plane.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == MOD_TEXT_0 || i == MOD_TEXT_1 || i == MOD_TEXT_2|| i == MOD_TEXT_3|| i == MOD_TEXT_4|| i == MOD_TEXT_5|| i == MOD_TEXT_6|| i == MOD_TEXT_7|| i == MOD_TEXT_8|| i == MOD_TEXT_9|| i == MOD_TEXT_MINUS|| i == MOD_TEXT_PLUS ){
             m.numIndices = glesRenderer.GenPlane(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         } else if(i == MOD_SPHERE){

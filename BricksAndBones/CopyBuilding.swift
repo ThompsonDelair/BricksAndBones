@@ -14,11 +14,11 @@ class CopyBuilding : Building {
                    modelBuildType: modelBuildType, modelInstanceID: modelInstanceID)
         
         buildingName = "Copy"
-        selfValue = 0
+        selfValue = 5
         type = "Normal"
         classification = "Absorb"
         relationValue = 0
-        radius = 0
+        radius = 3
         influencedValue = 0
         active = true;
     }
