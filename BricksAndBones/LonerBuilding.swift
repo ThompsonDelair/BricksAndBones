@@ -7,6 +7,7 @@
 
 import Foundation
 
+//building that earns points for itself but loses points for nearby buildings
 class LonerBuilding : Building {
     
     override init(posX:Int, posY:Int, modelBuildType:Int, modelInstanceID:Int){

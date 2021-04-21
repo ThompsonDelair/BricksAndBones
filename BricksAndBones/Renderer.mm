@@ -151,7 +151,7 @@ const int startingInstanceMemory = 100;
     }
 
     // set texture paths
-        
+
     textureNames2[TEST_CUBE_RED] = @"texRed.png";
     textureNames2[TEST_CUBE_BLUE] = @"texBlue.png";
     textureNames2[TEST_CUBE_GREEN] = @"texGreen.png";
@@ -211,14 +211,7 @@ const int startingInstanceMemory = 100;
     cameraAngle = 60.0;
     cameraDist = -8.0;
     cameraOffset = GLKVector3Make(0.0, sinf(GLKMathDegreesToRadians(cameraAngle)), cosf(GLKMathDegreesToRadians(cameraAngle)));
-    //cameraOffset = GLKVector3Make(0.0, cosf(cameraAngle), sin(cameraAngle));
-    //printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
     cameraOffset = GLKVector3MultiplyScalar(cameraOffset, cameraDist);
-    //printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
-    
-    //cameraOffset = GLKVector3Make(0.0, -3.0, -3.0);
-    
-    //printf("Number of model types is %d",NUM_MODEL_TYPES);
 }
 
 
@@ -389,11 +382,6 @@ const int startingInstanceMemory = 100;
     
     glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
     glActiveTexture(GL_TEXTURE0);
-//    for(int x = -5; x < 5;x++){
-//        for(int z = -5; z < 5;z++){
-//            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.5, 0.5, 0.5) ];
-//        }
-//    }
     
 }
 
@@ -757,6 +745,8 @@ const int startingInstanceMemory = 100;
 
 // Plays the background music and loops it.
 - (void) playBackgroundMusic {
+    // Storing the resource path in a NSString
+    // Plays the background music
     NSString *musicFile = [[NSBundle mainBundle] pathForResource:@"skyBG" ofType:@"mp3" inDirectory:@"Sounds"];
     NSURL *url = [NSURL URLWithString:musicFile];
     backgroundMusic = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:nil];
@@ -765,6 +755,7 @@ const int startingInstanceMemory = 100;
     backgroundMusic.volume = 0.7;
     [backgroundMusic play];
     
+    // Plays the ambient waterfall sounds in the background on loop
     NSString *musicFile2 = [[NSBundle mainBundle] pathForResource:@"waterfall" ofType:@"mp3" inDirectory:@"Sounds"];
     NSURL *url2 = [NSURL URLWithString:musicFile2];
     backgroundMusic2 = [[AVAudioPlayer alloc]initWithContentsOfURL:url2 error:nil];
@@ -773,7 +764,7 @@ const int startingInstanceMemory = 100;
     backgroundMusic2.volume = 0.1;
     [backgroundMusic2 play];
     
-    
+    // Plays the bird whistling in the background on loop
     NSString *musicFile3 = [[NSBundle mainBundle] pathForResource:@"bird" ofType:@"mp3" inDirectory:@"Sounds"];
     NSURL *url3 = [NSURL URLWithString:musicFile3];
     backgroundMusic3 = [[AVAudioPlayer alloc]initWithContentsOfURL:url3 error:nil];

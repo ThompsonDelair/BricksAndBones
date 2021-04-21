@@ -7,6 +7,7 @@
 
 import Foundation
 
+//Increases the influenced values on buildings nearby
 class EmpowerBuilding : Building {
     
     override init(posX:Int, posY:Int, modelBuildType:Int, modelInstanceID:Int){

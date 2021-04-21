@@ -7,6 +7,8 @@
 
 import Foundation
 
+
+//grants a debuff to nearby buildings that makes them grant less points
 class DebuffBuilding : Building {
     
     override init(posX:Int, posY:Int, modelBuildType:Int, modelInstanceID:Int){

@@ -25,10 +25,8 @@ class ViewController: GLKViewController {
     private var playGameButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 130, height: 40))
     private var restartButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 25))
     
-    //private var isGameStart: Bool = false;
-
+    //current score
     var score: Int = 0;
-    
     
     var defaults = UserDefaults.standard;
     var highScore1: Int = 0;
@@ -40,11 +38,13 @@ class ViewController: GLKViewController {
     
     var cursorType: Int32 = 1;
     var cursorInstanceId: Int32 = 0;
-    
+    //model type of the preview building
     var previewType: Int32 = 0;
+    //model id of the preview building
     var previewID: Int32 = 0;
     
     private var currBuildType: Int32 = 0
+    //number of building types
     private let buildTypes: Int32 = 6
     
     var panStartScreen: CGPoint = CGPoint();
@@ -54,32 +54,27 @@ class ViewController: GLKViewController {
 
     let cameraSpeed: CGFloat = 0.04;
     
+    //the number of buildings left that the player can place
     var buildingsLeft:Int = 0;
+    //the score thresholds
     let scoreThreshold:[Int] = [20, 100, 200, 500, 1000];
+    //buildings gained at each level
     let buildingsEachLevel:[Int]=[5, 10, 10, 15, 15];
     var currentLevel:Int = 0;
-
-    //var lastTime: Double = 0.0;
     
     var gameObjects: [GameObject] = []
         
     private var customView: UIView!
    
     let textController: TextController = TextController();
-    //var buildingArray
-
+    
     override func viewDidLoad() {
         super.viewDidLoad();
         // grab highscores
-//        defaults.set(0, forKey: "HighScore1");
-//        defaults.set(0, forKey: "HighScore2");
-//        defaults.set(0, forKey: "HighScore3");
         // to do anything with OpenGL, you need to create an EAGLContext
         context = EAGLContext(api: .openGLES3)
         // specify that the rendering context is the one to use in the current thread
         EAGLContext.setCurrent(context);
-        
-        
         
         if let view = self.view as? GLKView, let context = context {
             view.context = context
@@ -88,7 +83,6 @@ class ViewController: GLKViewController {
             glesRenderer.setup(view)
             glesRenderer.loadModels()
         }
-        //isGameStart = false;
         loadViewControllerGameMenu()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
@@ -97,16 +91,7 @@ class ViewController: GLKViewController {
         let pan = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(_:)))
         view.addGestureRecognizer(pan)
         UpdateTypeText()
-
         
-//        highScoreButton.backgroundColor = .green
-//        highScoreButton.setTitle("High Scores", for: .normal)
-//        highScoreButton.addTarget(self, action: #selector(loadViewIntoController), for: .touchUpInside)
-//        highScoreButton.center = CGPoint(x:220, y:500)
-//        highScoreButton.setTitleColor(.black, for: .normal)
-//        self.view.addSubview(highScoreButton)
-        
-        //cursorType = 1;
 
         cursorType = Int32(TEST_CUBE_RED.rawValue)
         
@@ -119,18 +104,7 @@ class ViewController: GLKViewController {
         let landID: Int = Int(glesRenderer.createModelInstance(Int32(MOD_LAND.rawValue),pos:GLKVector3Make(0, -0.5, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(5, 5, 5)))
         glesRenderer.setInstanceColor(Int32(MOD_LAND.rawValue), instance: Int32(landID), color: GLKVector4Make(0.3, 0.6, 0.3,1.0))
         
-        
-
-        
-//        glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
-      
         initBuildingSelection()
-
-        //print(testBuilding.selfValue)               
-       
-        //print("width" + String(UIScreen.main.bounds.size.width.description));
-        //print("height" + String(UIScreen.main.bounds.size.height.description));
-        //lastTime = CACurrentMediaTime();
 
         //plays background music on start
         glesRenderer.playBackgroundMusic();
@@ -149,9 +123,6 @@ class ViewController: GLKViewController {
         customView.backgroundColor = .white
         customView.isHidden = false
         view.addSubview(customView)
-                
-        //let playGameButtonFrame = CGRect(x: 0, y: 0, width: 130, height: 40)
-        //let resetButton = UIButton(frame: resetButtonFrame)
         
         playGameButton.center = CGPoint(x: 160, y:350)
         playGameButton.backgroundColor = .red
@@ -200,26 +171,28 @@ class ViewController: GLKViewController {
         scoreThresholdLabel.textAlignment = .center
         self.view.addSubview(scoreThresholdLabel)
             }
-    
+    /*
+     Calculates the amount of points needed for the building in the position
+    */
     func previewPoints(buildingName:String, xPos:Int, yPos:Int, actuallyScoring: Bool){
         
         textController.clearText(glesRenderer: glesRenderer)
         
         var columnCounts = 0;
-        //top half including middle
+        
+        //calculate  top half of diamond including middle
         testManager.setPreviewBuilding(buildingName: buildingName, xPos: xPos, yPos: yPos)
         let radius = testManager.getRadiusFromPreview()
+        
         for row in stride(from: radius, through: 0, by: -1){
             //for column in -columnCounts...columnCounts{
             for column in stride(from: -columnCounts, through: columnCounts, by: 1){
-                //print(row != 0)
-                //print(column != 0)
-                //print(type(of:column))
 
                 if(!(row == 0 && column == 0)){//dont check current buildings
                 let indexRow = xPos-row
                 let indexCol = yPos+column
-                    if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
+                    if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){ // check if on the grid
+                        //check if other building is active
                         if(testManager.getActive(thisBuildingXPos: indexRow, thisBuildingYPos: indexCol)){
                             var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
                             //add display code here
@@ -228,12 +201,6 @@ class ViewController: GLKViewController {
                                 let lx: Float = Float(indexRow) + 0.5
                                 let lz: Float = Float(indexCol) + 0.5
                                 let color: GLKVector4 = GLKVector4Make(1.0, 1.0, 1.0, 1.0)
-                                
-//                                if(pointsToDisplay > 0){
-//                                    color = GLKVector4Make(0.8, 1.0, 0.8, 1.0)
-//                                } else {
-//                                    color = GLKVector4Make(1.0, 0.8, 0.8, 1.0)
-//                                }
                                 
                                 var txt: MyText = MyText(
                                     text: String(pointsToDisplay), pos: GLKVector3Make(Float(lx),1.25,Float(lz)), spacing: 0.5, scale: GLKVector3Make(0.5, 1, 1), color: color
@@ -245,10 +212,6 @@ class ViewController: GLKViewController {
                                 }
                             }
 
-    
-                            //let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
-                            
-                            //displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplay), color: UIColor.cyan)
 
                         }
                     }
@@ -272,11 +235,6 @@ class ViewController: GLKViewController {
                             let lz: Float = Float(indexCol) + 0.5
                             let color: GLKVector4 = GLKVector4Make(1.0, 1.0, 1.0, 1.0)
                             
-//                            if(pointsToDisplay > 0){
-//                                color = GLKVector4Make(0.8, 1.0, 0.8, 1.0)
-//                            } else {
-//                                color = GLKVector4Make(1.0, 0.8, 0.8, 1.0)
-//                            }
                             
                             var txt: MyText = MyText(
                                 text: String(pointsToDisplay), pos: GLKVector3Make(Float(lx),1.25,Float(lz)), spacing: 0.5, scale: GLKVector3Make(0.5, 1, 1), color: color
@@ -289,12 +247,7 @@ class ViewController: GLKViewController {
                             textController.addNewText(text: txt, glesRenderer: glesRenderer)
                         }
                         
-                        
-                        //let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
-                        
-                        //displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplay), color: UIColor.cyan)
                     }
-                    //print(String(indexRow) + " " + String(indexCol))
                 }
             }
             columnCounts+=1;
@@ -307,12 +260,6 @@ class ViewController: GLKViewController {
             let lz: Float = Float(yPos) + 0.5
             let color: GLKVector4 = GLKVector4Make(1.0, 1.0, 1.0, 1.0)
             
-//            if(pointsToDisplaySelf > 0){
-//                color = GLKVector4Make(0.8, 1.0, 0.8, 1.0)
-//            } else {
-//                color = GLKVector4Make(1.0, 0.8, 0.8, 1.0)
-//            }
-            
             if(actuallyScoring){
                 scoreParticles(pos: GLKVector3Make(Float(lx),1,Float(lz)))
             }
@@ -322,16 +269,13 @@ class ViewController: GLKViewController {
             )
             textController.addNewText(text: txt, glesRenderer: glesRenderer)
         }
-        //let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
-        
-        //displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplaySelf), color: UIColor.cyan)
+    
     }
     
     func scoreParticles(pos: GLKVector3){
         
         let color: GLKVector4 = GLKVector4Make(1.0,0.1,0.1,0.5)
-        
-        
+                
         let ps: ParticleSystem = ParticleSystem(rootPos: pos, modelType: Int(MOD_SPHERE.rawValue), color: color, count: 4)
         ps.dirMin = GLKVector3Make(-0.1, 1, -0.1)
         ps.dirMax = GLKVector3Make(0.1, 1, 0.1)
@@ -340,7 +284,6 @@ class ViewController: GLKViewController {
         ps.colorEnd = GLKVector4Make(1.0,1.0,0.15,1.0)
         ps.distMoved = 6.5
         ps.duration = 2.8
-        //ps.midPoint = GLKVector3Make(0,3,0)
         gameObjects.append(ps)
     }
     
@@ -405,6 +348,7 @@ class ViewController: GLKViewController {
             x = x * -1 + 0.5
             z = z * -1 + 0.5
             
+            //check if building is placeable on empty tile
             if(!testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
 
 
@@ -439,25 +383,15 @@ class ViewController: GLKViewController {
         // previewType and previewID identify the model instance for this building
         var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: posX, yPos: posY, modelType: Int(previewType), modelID: Int(previewID))
         
-        print("points gained: " + String(points))
         score += points;
-        
-        
         scoreLabel.text = "Score:" + String(score)
         
-        print("built " + String(currBuildType) + " at: " + String(posX) + ", " + String(posY))
         nextBuilding()
         initBuildingSelection()
     }
     
-    func removeNearbyBuildings(posX: Int, posY:Int){
-        //check left
-        if(testManager.checkPosition(xPos: posX-1, yPos: posY) && testManager.checkActive(xPos: posX-1, yPos: posY)){
-            glesRenderer.deactivateModelInstance(testManager.getModelType(posX: posX-1, posY: posY),
-                                                 id: testManager.getModelID(posX: posX-1, posY: posY))
-        }
-    }
-    
+    //check the level state to see if player passed the score threshold or game ended
+    //also update labels accordingly
     func checkLevelState(){
         buildingsLeft-=1;
         buildingsLeftLabel.text = "Left: " + String(buildingsLeft)
@@ -466,13 +400,11 @@ class ViewController: GLKViewController {
             currentLevel+=1;
             buildingsLeft += buildingsEachLevel[currentLevel];
             buildingsLeftLabel.text = "Left: " + String(buildingsLeft)
-            
             scoreThresholdLabel.text = "Next: " + String(scoreThreshold[currentLevel])
             
         }
         if(buildingsLeft < 1){
             //end game
-            print("game ended");
 
             if (score > highScore1){
                 highScore1 = score
@@ -507,6 +439,7 @@ class ViewController: GLKViewController {
         return "?"
     }
     
+    // Returns a string of the sound name depending on the int
     func soundNameFromInt( i: Int)->String{
         if(i == 0){
             return "hammer"
@@ -546,15 +479,13 @@ class ViewController: GLKViewController {
             var zi: Float = Float(Int(glesRenderer.cameraFocusPos.z))
             let gridPosX: Int = Int(xi * -1)
             let gridPosY: Int = Int(zi * -1)
-            //print("grid pos x, y: " + String(gridPosX) + ", " + String(gridPosY));
            
             
             previewPoints(buildingName: buildingNameFromInt(i: Int(currBuildType)), xPos: gridPosX, yPos: gridPosY, actuallyScoring: false);
             
             panStartScreen = translation
             glesRenderer.moveCamera(GLKVector3Make(Float(x), Float(0.0), Float(z)))
-            //panStartScreen = translationS
-            //let cursorPos = GLKVector3Make(glesre)
+            
             var pos: GLKVector3 = glesRenderer.cameraFocusPos
             pos = GLKVector3MultiplyScalar(pos, -1)
             glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: pos)
@@ -638,18 +569,13 @@ class ViewController: GLKViewController {
     }
     
     func ScreenPosToWorldPlane(mouseX: CGFloat, mouseY: CGFloat) -> WorldPosReturn {
-        //let screenPos = GLKVector2Make(Float(mouseX),Float(mouseY))
-        //print("ray cast from screen position: "+NSStringFromGLKVector2(screenPos))
         // the direction of our ray
         let rayDirection = ScreenPosToWorldRay(mouseX: mouseX, mouseY: mouseY)
-        
-        //print("Ray dir: "+NSStringFromGLKVector3(rayDirection))
         
         // the origin of our ray is the camera position
         let cameraPos = GLKMatrix4GetColumn(glesRenderer._viewMatrix, 2)
         let rayOrigin = GLKVector3Make(0,5,0)
-        //print("ray cast from camera position: "+NSStringFromGLKVector3(rayOrigin))
-        //PrintModeViewMatrix()
+
         
         let planeNormal = GLKVector3Make(0,1,0)
         let planePoint = GLKVector3Make(0,0,0)
@@ -727,9 +653,6 @@ class ViewController: GLKViewController {
         label.text = text
         self.view.addSubview(label)
         
-        //let log: String = "making label at: " + String(Float(locX))  + ", " + String(Float(locY))
-        //print(log)
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             label.removeFromSuperview()
         }
@@ -762,15 +685,6 @@ class ViewController: GLKViewController {
         customView.backgroundColor = .white
         customView.isHidden = false
         view.addSubview(customView)
-                
-//        let resetButtonFrame = CGRect(x: 0, y: 0, width: 80, height: 30)
-//        let resetButton = UIButton(frame: resetButtonFrame)
-//        resetButton.center = CGPoint(x: 220, y:500)
-//        resetButton.backgroundColor = .blue
-//        resetButton.setTitle("Restart", for: .normal)
-//        customView.addSubview(resetButton)
-//
-//        resetButton.addTarget(self, action: #selector(self.dismissView), for: .touchUpInside)
         
         let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
         title.font = UIFont.preferredFont(forTextStyle: .footnote)

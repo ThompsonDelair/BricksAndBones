@@ -10,8 +10,11 @@ import Foundation
 //
 class BuildingsManager{
     
+    //contains the grid of buildings
     private var buildingArray=[[Building]]()
     private var buildingSize:Int;
+    
+    //building being previewed
     private var previewBuilding:Building;
     
     init(buildingSize: Int){
@@ -50,7 +53,6 @@ class BuildingsManager{
                 return buildingArray[yPos][xPos].selfValue;
             case "Loner":
                 buildingArray[yPos][xPos] = LonerBuilding(posX: xPos, posY: yPos, modelBuildType: modelType, modelInstanceID: modelID)
-                //iterate over buildings in radius
                 return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
             case "Leader":
                 buildingArray[yPos][xPos] = LeaderBuilding(posX: xPos, posY: yPos, modelBuildType: modelType, modelInstanceID: modelID)
@@ -80,6 +82,7 @@ class BuildingsManager{
         return 0
     }
     
+    //calculate total points gained from buildings in radius
     func calcAllBuildingsWithinRadius(centerBuilding:Building)->Int{
         if(centerBuilding.radius <= 0){
             print("radius was 0")
@@ -132,7 +135,7 @@ class BuildingsManager{
         return totalPoints + centerBuilding.selfValue
     }
     
-    //calculates points
+    //calculates points from their values and applies any changes from building abilities
     func calculatePointsBetweenBuildings(thisBuilding:Building, otherBuilding:Building, isPreview:Bool)->Int{
         //assuming both buildings exist
         switch thisBuilding.classification {
@@ -160,26 +163,6 @@ class BuildingsManager{
         return 0;
     }
     
-    
-    
-    func demolishBuildings(xPos:Int, yPos:Int){
-        //left buildinga
-        if(checkPosition(xPos: xPos-1, yPos: yPos)){
-            buildingArray[xPos-1][yPos] = Building(posX: xPos, posY: yPos)
-        }
-        //right building
-        if(checkPosition(xPos: xPos+1, yPos: yPos)){
-            buildingArray[xPos+1][yPos] = Building(posX: xPos, posY: yPos)
-        }
-        //above building
-        if(checkPosition(xPos: xPos, yPos: yPos+1)){
-            buildingArray[xPos][yPos+1] = Building(posX: xPos, posY: yPos)
-        }
-        //below building
-        if(checkPosition(xPos: xPos, yPos: yPos-1)){
-            buildingArray[xPos][yPos-1] = Building(posX: xPos, posY: yPos)
-        }
-    }
     
     func getModelID(posX:Int, posY:Int)->Int32{
         return Int32(buildingArray[posY][posX].modelInstanceID);

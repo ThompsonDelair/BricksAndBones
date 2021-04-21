@@ -133,31 +133,6 @@ GLuint ObjLoader::loadOBJ(
         }
     }
     
-    /*
-    GLfloat temp_vertices[vertexIndices.size()*3];
-    GLfloat temp_uvs[uvIndices.size()*2];
-    GLfloat temp_normals[normalIndices.size()*3];
-    GLuint i = 0;
-    for(i=0; i<vertexIndices.size(); i++){
-        GLuint curI = vertexIndices[i]-1;
-        temp_vertices[(i*3)] = vertVect[curI].x;
-        temp_vertices[(i*3)+1] = vertVect[curI].y;
-        temp_vertices[(i*3)+2] = vertVect[curI].z;
-        printf("\n-->%d: %f %f %f", curI+1, temp_vertices[(i*3)],temp_vertices[(i*3)+1],temp_vertices[(i*3)+2]);
-        
-        curI = uvIndices[i]-1;
-        temp_uvs[(i*2)] = uvVect[curI].x;
-        temp_uvs[(i*2)+1] = uvVect[curI].y;
-        printf("\n->>%d: %f %f", curI+1, temp_uvs[(i*2)],temp_uvs[(i*2)+1]);
-        
-        curI = normalIndices[i]-1;
-        temp_normals[(i*3)] = normalVect[curI].x;
-        temp_normals[(i*3)+1] = normalVect[curI].y;
-        temp_normals[(i*3)+2] = normalVect[curI].z;
-        printf("%f", normalVect[curI].z);
-        printf("\n>>>%d: %f %f %f", curI+1, temp_normals[(i*3)],temp_normals[(i*3)+1],temp_normals[(i*3)+2]);
-    }
-     */
     std::vector<glm::vec3> temp_vertices;
     std::vector<glm::vec2> temp_uvs;
     std::vector<glm::vec3> temp_normals;
@@ -229,6 +204,5 @@ GLuint ObjLoader::loadOBJ(
     *indices = (GLuint *)malloc ( sizeof ( GLuint ) * tempIndices.size());
     std::memcpy(*indices, out_indices, sizeof(GLuint) * tempIndices.size());
     fclose(file);
-    printf("\nmade it to the end");
     return vertexIndices.size();
 }
