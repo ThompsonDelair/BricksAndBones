@@ -290,23 +290,23 @@ class ViewController: GLKViewController {
     }
     
     func spawnBuildingParticles(pos: GLKVector3, buildingType: Int){
-        if(buildingType == 0){
+        if(buildingType == 1){
             // spawn bubbles
             let ps: ParticleSystem = ParticleSystem(rootPos: pos, modelType: Int(MOD_SPHERE.rawValue), color: GLKVector4Make(1.0, 0.0, 1.0, 1.0), count: 1 )
             ps.interval = 1.3
-            ps.colorEnd = GLKVector4Make(0.7,1.0,0.7,0.7)
-            ps.dirMin = GLKVector3Make(-0.2,0.9,-0.2)
-            ps.dirMax = GLKVector3Make(0.2,1.0,0.2)
+            ps.colorEnd = GLKVector4Make(0.7,0.7,0.7,0.3)
+            ps.dirMin = GLKVector3Make(-0.1,0.9,-0.1)
+            ps.dirMax = GLKVector3Make(0.1,1.0,0.1)
             ps.distMoved = 2.5
             ps.duration = 4
-            ps.sizeStart = GLKVector3Make(0.1,0.1,0.1)
-            ps.sizeEnd = GLKVector3Make(0.66, 0.66, 0.66)
+            ps.sizeStart = GLKVector3Make(0.05,0.05,0.05)
+            ps.sizeEnd = GLKVector3Make(0.3, 0.3, 0.3)
             gameObjects.append(ps)
-        } else if(buildingType == 3){
+        } else if(buildingType == 4){
             // spawn popcorn
             let ps: StarburstSystem = StarburstSystem(rootPos: pos, modelType: Int(MOD_SPHERE.rawValue), color: GLKVector4Make(1.0, 0.0, 1.0, 1.0), count: 1 )
             ps.interval = 1
-            ps.colorEnd = GLKVector4Make(1.0,0.66,0,1.0)
+            ps.colorEnd = GLKVector4Make(1.0,0.0,0,0.4)
             ps.dirMin = GLKVector3Make(-0.4,0.6,-0.4)
             ps.dirMax = GLKVector3Make(0.6,1.0,0.6)
             ps.distMoved = 0.25
@@ -315,15 +315,15 @@ class ViewController: GLKViewController {
             ps.sizeEnd = GLKVector3Make(0.5, 0.5, 0.5)
             ps.midPoint = GLKVector3Make(0, 2, 0)
             gameObjects.append(ps)
-        } else if(buildingType == 4){
+        } else if(buildingType == 3){
             
             var rot: GLKVector3 = GLKVector3Make(0.0,0.0,0.0);
             
-            let id: Int = Int(glesRenderer.createModelInstance(Int32(Int(TEST_CUBE_RED.rawValue)), pos: GLKVector3Add(pos, GLKVector3Make(Float(0.0),Float(0.5),Float(0.0))), rot: rot, scale: GLKVector3Make(Float(0.5),Float(0.5),Float(0.5))))
+            let id: Int = Int(glesRenderer.createModelInstance(Int32(Int(MILL_BLADE.rawValue)), pos: GLKVector3Add(pos, GLKVector3Make(Float(0.0),Float(0.9),Float(0.2))), rot: rot, scale: GLKVector3Make(Float(0.2),Float(0.2),Float(0.2))))
             
             rot = GLKVector3Make(0.0,0.0,1.0);
             
-            let rotator: Rotator = Rotator(type: Int(Int32(Int(TEST_CUBE_RED.rawValue))), id: id, rotate: rot, speed: Float(0.3))
+            let rotator: Rotator = Rotator(type: Int(Int32(Int(MILL_BLADE.rawValue))), id: id, rotate: rot, speed: Float(0.3))
             
             gameObjects.append(rotator);
         }
@@ -503,16 +503,22 @@ class ViewController: GLKViewController {
     
     func UpdateTypeText(){
         if(currBuildType == 0){
+            // HOUSE
             typeLabel.text = "Selfish";
         } else if (currBuildType == 1){
+            // HUT
             typeLabel.text = "Loner";
         } else if (currBuildType == 2){
+            // CHURCH
             typeLabel.text = "Leader";
         } else if (currBuildType == 3){
+            // MILL
             typeLabel.text = "Empower";
         } else if (currBuildType == 4){
+            // COPY
             typeLabel.text = "Copy";
         } else if (currBuildType == 5){
+            // WHIZ
             typeLabel.text = "Debuff"
         }
     }
