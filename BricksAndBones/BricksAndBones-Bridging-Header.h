@@ -7,6 +7,12 @@
 #ifndef MyEnum
 #define MyEnum
 typedef enum : NSUInteger {
+    HOUSE,
+    HUT,
+    CHURCH,
+    ROOK,
+    WIZARD_TOWER,
+    POWDER_KEG,
     TEST_CUBE_RED,
     TEST_CUBE_BLUE,
     TEST_CUBE_GREEN,
@@ -14,17 +20,11 @@ typedef enum : NSUInteger {
     TEST_CUBE_PINK,
     TEST_CUBE_YELL,
     TEST_CUBE_GRAD,
+    COPY_CUBE,
     CUBE,
     PLANE,
-    ROOK,
     MILL,
-    COPY_CUBE,
-    POWDER_KEG,
-    WIZARD_TOWER,
-    CHURCH,
     BLACKSMITH,
-    HOUSE,
-    HUT,
     NUM_MODEL_TYPES
 } ModelTypes;
 

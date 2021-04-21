@@ -299,7 +299,7 @@ class ViewController: GLKViewController {
     }
     
     func initBuildingSelection(){
-        previewID = glesRenderer.createModelInstance(Int32(currBuildType),pos:GLKVector3Make(0,0,0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
+        previewID = glesRenderer.createModelInstance(Int32(currBuildType),pos:GLKVector3Make(0,0,0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.25, 0.25, 0.25))
         previewType = currBuildType
     }
     
