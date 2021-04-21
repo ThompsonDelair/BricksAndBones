@@ -121,7 +121,7 @@ class ViewController: GLKViewController {
 
         cursorType = Int32(TEST_CUBE_RED.rawValue)
         
-        cursorInstanceId = glesRenderer.createModelInstance(cursorType,pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3))
+        cursorInstanceId = glesRenderer.createModelInstance(cursorType,pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.1, 0.1, 0.1))
         glesRenderer.setInstanceColor(cursorType, instance: Int32(cursorInstanceId), color: GLKVector4Make(1.0, 0.0, 0.0,0.5))
         
         let id: Int = Int(glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10)))
