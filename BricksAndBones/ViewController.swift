@@ -412,8 +412,6 @@ class ViewController: GLKViewController {
         
         currBuildType+=1
         currBuildType %= buildTypes
-                
-        initBuildingSelection()
         
         UpdateTypeText()
         
@@ -424,7 +422,7 @@ class ViewController: GLKViewController {
         previewType = currBuildType
         positionBuildPreview()
         glesRenderer.setInstanceColor(previewType, instance: previewID, color: GLKVector4Make(1.0,1.0,1.0,0.35))
-        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.2,0.2,0.2))
+        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.25,0.25,0.25))
     }
     
     func positionBuildPreview(){
