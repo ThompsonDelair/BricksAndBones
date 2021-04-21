@@ -25,6 +25,7 @@
 		B946C0A1261D499C002A33BB /* BuildingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B946C0A0261D499C002A33BB /* BuildingsManager.swift */; };
 		B9E81C4625EF2E8C00176E20 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E81C4525EF2E8C00176E20 /* Grid.swift */; };
 		FA13484F261C1B4500B8BA2C /* Collision.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA13484E261C1B4500B8BA2C /* Collision.swift */; };
+		FA2D78B9262FAE08002591A9 /* ObjLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FA2D78B7262FAE07002591A9 /* ObjLoader.cpp */; };
 		FA2DEC3B26159CBD003138BA /* Renderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = FA2DEC3626159CBD003138BA /* Renderer.mm */; };
 		FA2DEC3C26159CBD003138BA /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FA2DEC3726159CBD003138BA /* Shader.fsh */; };
 		FA2DEC3D26159CBD003138BA /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FA2DEC3826159CBD003138BA /* Shader.vsh */; };
@@ -72,6 +73,9 @@
 		B946C0A0261D499C002A33BB /* BuildingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildingsManager.swift; sourceTree = "<group>"; };
 		B9E81C4525EF2E8C00176E20 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		FA13484E261C1B4500B8BA2C /* Collision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collision.swift; sourceTree = "<group>"; };
+		FA2D78B7262FAE07002591A9 /* ObjLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ObjLoader.cpp; sourceTree = "<group>"; };
+		FA2D78B8262FAE08002591A9 /* ObjLoader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjLoader.hpp; sourceTree = "<group>"; };
+		FA2D78DA262FB043002591A9 /* Sounds */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = folder; name = Sounds; path = BricksAndBones/Textures/Sounds; sourceTree = SOURCE_ROOT; };
 		FA2DEC3526159CBD003138BA /* Renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renderer.h; sourceTree = "<group>"; };
 		FA2DEC3626159CBD003138BA /* Renderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Renderer.mm; sourceTree = "<group>"; };
 		FA2DEC3726159CBD003138BA /* Shader.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Shader.fsh; sourceTree = "<group>"; };
@@ -135,15 +139,10 @@
 		7399693325E1FF0800AE3215 /* BricksAndBones */ = {
 			isa = PBXGroup;
 			children = (
-				FAE4C45F261FA43E00DA8A40 /* justWhite.png */,
-				FAE6B083261D9A24005DE449 /* gradient.png */,
-				FAE6B07C261D98A1005DE449 /* tex_4.png */,
-				FAE6B07D261D98A1005DE449 /* tex_5.png */,
-				FAE6B07B261D98A1005DE449 /* tex_6.png */,
+				FA2D78D7262FAF05002591A9 /* Textures */,
+				FA2D78B7262FAE07002591A9 /* ObjLoader.cpp */,
+				FA2D78B8262FAE08002591A9 /* ObjLoader.hpp */,
 				FAA0E4D5261D8A430087A2DE /* Sounds */,
-				FA8811E62616865E0045B752 /* texBlue.png */,
-				FA8811E72616865E0045B752 /* texGreen.png */,
-				FA8811E52616865E0045B752 /* texRed.png */,
 				FA2DEC4026159CFA003138BA /* BricksAndBones-Bridging-Header.h */,
 				FA2DEC3A26159CBD003138BA /* GLESRenderer.cpp */,
 				FA2DEC3926159CBD003138BA /* GLESRenderer.hpp */,
@@ -181,6 +180,22 @@
 				FACAF972262E41E5005BC2B6 /* Text3D.h */,
 			);
 			path = BricksAndBones;
+			sourceTree = "<group>";
+		};
+		FA2D78D7262FAF05002591A9 /* Textures */ = {
+			isa = PBXGroup;
+			children = (
+				FA2D78DA262FB043002591A9 /* Sounds */,
+				FAE6B07C261D98A1005DE449 /* tex_4.png */,
+				FAE6B07D261D98A1005DE449 /* tex_5.png */,
+				FAE6B07B261D98A1005DE449 /* tex_6.png */,
+				FAE4C45F261FA43E00DA8A40 /* justWhite.png */,
+				FAE6B083261D9A24005DE449 /* gradient.png */,
+				FA8811E62616865E0045B752 /* texBlue.png */,
+				FA8811E72616865E0045B752 /* texGreen.png */,
+				FA8811E52616865E0045B752 /* texRed.png */,
+			);
+			path = Textures;
 			sourceTree = "<group>";
 		};
 		FA9E643E261D9CA20066C985 /* Frameworks */ = {
@@ -300,6 +315,7 @@
 				B91F3A10261C03C70039FCBE /* CopyBuilding.swift in Sources */,
 				7399693525E1FF0800AE3215 /* AppDelegate.swift in Sources */,
 				FA44F3E8262406B3009835FF /* MoveAnimation.swift in Sources */,
+				FA2D78B9262FAE08002591A9 /* ObjLoader.cpp in Sources */,
 				FAE4C463261FAC0100DA8A40 /* ParticleGroup.swift in Sources */,
 				B91F3A07261BFED90039FCBE /* LeaderBuilding.swift in Sources */,
 				FA2DEC3E26159CBD003138BA /* GLESRenderer.cpp in Sources */,
