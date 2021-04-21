@@ -127,6 +127,8 @@ NSString *modelNames2[NUM_MODEL_TYPES];
     std::chrono::time_point<std::chrono::steady_clock> lastTime;
     
     AVAudioPlayer *backgroundMusic;
+    AVAudioPlayer *backgroundMusic2;
+    AVAudioPlayer *backgroundMusic3;
     
     
 }
@@ -674,8 +676,25 @@ NSString *modelNames2[NUM_MODEL_TYPES];
     backgroundMusic = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:nil];
     
     backgroundMusic.numberOfLoops = -1;
-    backgroundMusic.volume = 0.8;
+    backgroundMusic.volume = 0.7;
     [backgroundMusic play];
+    
+    NSString *musicFile2 = [[NSBundle mainBundle] pathForResource:@"waterfall" ofType:@"mp3" inDirectory:@"Sounds"];
+    NSURL *url2 = [NSURL URLWithString:musicFile2];
+    backgroundMusic2 = [[AVAudioPlayer alloc]initWithContentsOfURL:url2 error:nil];
+    
+    backgroundMusic2.numberOfLoops = -1;
+    backgroundMusic2.volume = 0.1;
+    [backgroundMusic2 play];
+    
+    
+    NSString *musicFile3 = [[NSBundle mainBundle] pathForResource:@"bird" ofType:@"mp3" inDirectory:@"Sounds"];
+    NSURL *url3 = [NSURL URLWithString:musicFile3];
+    backgroundMusic3 = [[AVAudioPlayer alloc]initWithContentsOfURL:url3 error:nil];
+    
+    backgroundMusic3.numberOfLoops = -1;
+    backgroundMusic3.volume = 0.3;
+    [backgroundMusic3 play];
 }
 
 - (void) clearChars{
