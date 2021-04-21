@@ -74,7 +74,7 @@ class TextController: GameObject{
             }else if(char == "9"){
                 ti.type = Int32(MOD_TEXT_9.rawValue)
             }else {
-                ti.type = Int32(MOD_TEXT_PLUS.rawValue)
+                ti.type = Int32(MOD_TEXT_0.rawValue)
             }
             
             //ti.type = Int32(MOD_TEXT_5.rawValue)

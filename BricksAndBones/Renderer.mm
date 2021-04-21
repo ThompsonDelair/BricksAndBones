@@ -182,6 +182,7 @@ const int startingInstanceMemory = 100;
     textureNames2[MILL_BLADE] = @"basic_color_pallate_flipped.png";
     textureNames2[CRYSTAL] = @"basic_color_pallate_flipped.png";
     textureNames2[GRASS] = @"grass.png";
+    textureNames2[MOD_LAND] = @"justWhite.png";
     
     textureNames2[MOD_CUBE] = @"justWhite.png";
     textureNames2[MOD_SPHERE] = @"justWhite.png";
@@ -282,12 +283,12 @@ const int startingInstanceMemory = 100;
     diffuseComponent = GLKVector4Make(0.8, 0.1, 0.1, 1.0);
     shininess = 200.0;
     specularComponent = GLKVector4Make(1.0, 1.0, 1.0, 1.0);
-    ambientComponent = GLKVector4Make(0.5, 0.5, 0.5, 1.0);
+    ambientComponent = GLKVector4Make(0.6, 0.6, 0.6, 1.0);
     
     // set up fog parameters
     minDist = 1.0;
     maxDist = 100.0;
-    fogType = 1;
+    fogType = 0;
     fogDensity = 0;
     fogColor = GLKVector4Make(0.0, 1.0, 1.0, 0.0);
 
@@ -351,6 +352,8 @@ const int startingInstanceMemory = 100;
             m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"crystal.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"crystal.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == PLANE){
             m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"plane.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"plane.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == MOD_LAND){
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"land.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"land.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == MOD_TEXT_0 || i == MOD_TEXT_1 || i == MOD_TEXT_2|| i == MOD_TEXT_3|| i == MOD_TEXT_4|| i == MOD_TEXT_5|| i == MOD_TEXT_6|| i == MOD_TEXT_7|| i == MOD_TEXT_8|| i == MOD_TEXT_9|| i == MOD_TEXT_MINUS|| i == MOD_TEXT_PLUS ){
             m.numIndices = glesRenderer.GenPlane(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         } else if(i == MOD_SPHERE){
@@ -491,7 +494,7 @@ const int startingInstanceMemory = 100;
 - (void)draw:(CGRect)drawRect;
 {
     // Clear window
-    glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+    glClearColor(0.3f, 0.3f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     
     float aspect = fabsf(theView.bounds.size.width / theView.bounds.size.height);
