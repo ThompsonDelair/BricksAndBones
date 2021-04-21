@@ -71,9 +71,9 @@ class ViewController: GLKViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         // grab highscores
-        //defaults.set(0, forKey: "HighScore1");
-        //defaults.set(0, forKey: "HighScore2");
-        //defaults.set(0, forKey: "HighScore3");
+//        defaults.set(0, forKey: "HighScore1");
+//        defaults.set(0, forKey: "HighScore2");
+//        defaults.set(0, forKey: "HighScore3");
         // to do anything with OpenGL, you need to create an EAGLContext
         context = EAGLContext(api: .openGLES3)
         // specify that the rendering context is the one to use in the current thread
@@ -108,15 +108,20 @@ class ViewController: GLKViewController {
         
         //cursorType = 1;
 
-        cursorInstanceId = glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3))
+        cursorType = Int32(TEST_CUBE_RED.rawValue)
         
-
+        cursorInstanceId = glesRenderer.createModelInstance(cursorType,pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.1, 0.1, 0.1))
+        glesRenderer.setInstanceColor(cursorType, instance: Int32(cursorInstanceId), color: GLKVector4Make(1.0, 0.0, 0.0,0.5))
+        
         let id: Int = Int(glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10)))
-        glesRenderer.setInstanceColor(Int32(id), instance: Int32(TEST_CUBE_GRAD.rawValue), color: GLKVector4Make(0.3, 1.0, 0.3,1.0))
+        glesRenderer.setInstanceColor(Int32(TEST_CUBE_GRAD.rawValue), instance: Int32(id), color: GLKVector4Make(0.5, 1.0, 0.5,1.0))
+        
+        let landID: Int = Int(glesRenderer.createModelInstance(Int32(MOD_LAND.rawValue),pos:GLKVector3Make(0, -0.5, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(5, 5, 5)))
+        glesRenderer.setInstanceColor(Int32(MOD_LAND.rawValue), instance: Int32(landID), color: GLKVector4Make(0.3, 0.6, 0.3,1.0))
+        
+        
 
         
-        cursorType = 1;
-      
 //        glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
       
         initBuildingSelection()
@@ -376,6 +381,16 @@ class ViewController: GLKViewController {
             let rotator: Rotator = Rotator(type: Int(Int32(Int(MILL_BLADE.rawValue))), id: id, rotate: rot, speed: Float(0.3))
             
             gameObjects.append(rotator);
+        } else if(buildingType == 5){
+            var rot: GLKVector3 = GLKVector3Make(0.0,0.0,0.0);
+            
+            let id: Int = Int(glesRenderer.createModelInstance(Int32(Int(CRYSTAL.rawValue)), pos: GLKVector3Add(pos, GLKVector3Make(Float(0.0),Float(1.4),Float(0.2))), rot: rot, scale: GLKVector3Make(Float(0.5),Float(0.5),Float(0.5))))
+            
+            rot = GLKVector3Make(0.0,1.0,0.0);
+            
+            let rotator: Rotator = Rotator(type: Int(Int32(Int(CRYSTAL.rawValue))), id: id, rotate: rot, speed: Float(0.3))
+            
+            gameObjects.append(rotator);
         }
     }
     
@@ -538,7 +553,7 @@ class ViewController: GLKViewController {
             
             panStartScreen = translation
             glesRenderer.moveCamera(GLKVector3Make(Float(x), Float(0.0), Float(z)))
-            //panStartScreen = translation
+            //panStartScreen = translationS
             //let cursorPos = GLKVector3Make(glesre)
             var pos: GLKVector3 = glesRenderer.cameraFocusPos
             pos = GLKVector3MultiplyScalar(pos, -1)
@@ -565,7 +580,7 @@ class ViewController: GLKViewController {
         positionBuildPreview()
         glesRenderer.setInstanceColor(previewType, instance: previewID, color: GLKVector4Make(1.0,1.0,1.0,0.35))
 
-        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.25,0.25,0.25))
+        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.15,0.15,0.15))
 
     }
     
@@ -587,22 +602,22 @@ class ViewController: GLKViewController {
     func UpdateTypeText(){
         if(currBuildType == 0){
             // HOUSE
-            typeLabel.text = "Selfish";
+            typeLabel.text = "House";
         } else if (currBuildType == 1){
             // HUT
-            typeLabel.text = "Loner";
+            typeLabel.text = "Hut";
         } else if (currBuildType == 2){
             // CHURCH
-            typeLabel.text = "Leader";
+            typeLabel.text = "Church";
         } else if (currBuildType == 3){
             // MILL
-            typeLabel.text = "Empower";
+            typeLabel.text = "Mill";
         } else if (currBuildType == 4){
             // COPY
-            typeLabel.text = "Copy";
+            typeLabel.text = "Copy Cube";
         } else if (currBuildType == 5){
             // WHIZ
-            typeLabel.text = "Debuff"
+            typeLabel.text = "Wizard Tower"
         }
     }
 
