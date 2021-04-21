@@ -94,9 +94,9 @@
             filePath = "BricksAndBones/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "548"
-            endingLineNumber = "548"
-            landmarkName = "glkViewControllerUpdate(_:)"
+            startingLineNumber = "538"
+            endingLineNumber = "538"
+            landmarkName = "loadViewIntoController()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -110,9 +110,9 @@
             filePath = "BricksAndBones/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "542"
-            endingLineNumber = "542"
-            landmarkName = "glkViewControllerUpdate(_:)"
+            startingLineNumber = "532"
+            endingLineNumber = "532"
+            landmarkName = "loadViewIntoController()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -126,9 +126,9 @@
             filePath = "BricksAndBones/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
-            landmarkName = "handleTap(_:)"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "previewPoints(buildingName:xPos:yPos:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -158,9 +158,9 @@
             filePath = "BricksAndBones/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
-            landmarkName = "handleTap(_:)"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "previewPoints(buildingName:xPos:yPos:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -174,9 +174,9 @@
             filePath = "BricksAndBones/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "532"
-            endingLineNumber = "532"
-            landmarkName = "glkViewControllerUpdate(_:)"
+            startingLineNumber = "522"
+            endingLineNumber = "522"
+            landmarkName = "loadViewIntoController()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -190,9 +190,9 @@
             filePath = "BricksAndBones/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "534"
-            endingLineNumber = "534"
-            landmarkName = "glkViewControllerUpdate(_:)"
+            startingLineNumber = "524"
+            endingLineNumber = "524"
+            landmarkName = "loadViewIntoController()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -206,9 +206,9 @@
             filePath = "BricksAndBones/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
-            landmarkName = "handleTap(_:)"
+            startingLineNumber = "206"
+            endingLineNumber = "206"
+            landmarkName = "previewPoints(buildingName:xPos:yPos:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -222,9 +222,9 @@
             filePath = "BricksAndBones/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "531"
-            endingLineNumber = "531"
-            landmarkName = "glkViewControllerUpdate(_:)"
+            startingLineNumber = "521"
+            endingLineNumber = "521"
+            landmarkName = "loadViewIntoController()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -270,10 +270,10 @@
             filePath = "BricksAndBones/ViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "525"
-            endingLineNumber = "525"
-            landmarkName = "ViewController"
-            landmarkType = "21">
+            startingLineNumber = "515"
+            endingLineNumber = "515"
+            landmarkName = "loadViewIntoController()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

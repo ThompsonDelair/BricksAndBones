@@ -47,38 +47,15 @@ enum
     NUM_ATTRIBUTES
 };
 
-//<<<<<<< HEAD
+
 int startingInstanceMemory = 16;
 const int charCap = 100;
 
-#define BUFFER_OFFSET(i) ((char *)NULL + (i))
-
-//NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"texGreen.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"gradient.png"];
-//NSArray *modelNames = @[@"nothingRightNow.wut"];
-
-//NSArray *textureNames2 = [NSArray init];
-
 NSString *textureNames2[NUM_MODEL_TYPES];
 NSString *modelNames2[NUM_MODEL_TYPES];
-//=======
-// Type of models
-//enum ModelType{
-//    TEST_CUBE_RED,
-//    TEST_CUBE_BLUE,
-//
-//    TEST_CUBE_GREEN,
-//    TEST_CUBE_PURP,
-//    TEST_CUBE_PINK,
-//    TEST_CUBE_YELL,
-//    TEST_CUBE_GRAD,
-//    NUM_MODEL_TYPES
-//};
+
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
-
-//NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"texGreen.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"gradient.png"];
-//NSArray *modelNames = @[@"nothingRightNow.wut"];
-//>>>>>>> main
 
 //===========================================================================
 //  Class interface
@@ -316,7 +293,7 @@ NSString *modelNames2[NUM_MODEL_TYPES];
         //int numVerts;
         if(i == ROOK){
             ObjLoader rook;
-            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/rook.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/wizard tower.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
             //NSLog(@"VertCount: %d\n IndicesCount: %d", m.numVerts, m.numIndices);
             /*
             NSLog(@"\nPost load:");
@@ -368,13 +345,12 @@ NSString *modelNames2[NUM_MODEL_TYPES];
     
     glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
     glActiveTexture(GL_TEXTURE0);
-    /*
-    for(int x = -5; x < 5;x++){
-        for(int z = -5; z < 5;z++){
-            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
-        }
-    }
-     */
+//    for(int x = -5; x < 5;x++){
+//        for(int z = -5; z < 5;z++){
+//            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.5, 0.5, 0.5) ];
+//        }
+//    }
+    
 }
 
 
@@ -434,6 +410,9 @@ NSString *modelNames2[NUM_MODEL_TYPES];
         if (modelTypes[i].texCoords)
             free(modelTypes[i].texCoords);
     }
+    
+    free(textureNames2);
+    free(modelNames2);
     
      // Delete shader program
      if (_program) {
@@ -581,7 +560,6 @@ NSString *modelNames2[NUM_MODEL_TYPES];
 
 
 - (int) getNewInstanceIndex:(int)type{
-    
     for(int i = inactiveIndex[type]; i < modelInstanceMemorySize[type];i++){
         if(modelInstances[type][i].active == false){
             inactiveIndex[type] = i + 1;
@@ -601,6 +579,9 @@ NSString *modelNames2[NUM_MODEL_TYPES];
     for(int i = 0; i < oldMemSize;i++){
         ModelInstance mi = modelInstances[type][i];
         newArr[i] = mi;
+    }
+    for(int i = oldMemSize; i < newSize;i++){
+        modelInstances[type][i].active = false;
     }
     ModelInstance *oldArr = modelInstances[type];
     free(oldArr);

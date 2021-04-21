@@ -14,14 +14,11 @@ class ViewController: GLKViewController {
     private var glesRenderer: Renderer!
     
     private var rotation: Float = 0.0
-    
-    private var currBuildType: Int32 = 0
-    private let buildTypes: Int32 = 5
-    
+
     private var typeLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-    
     private var scoreLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-    
+    private var buildingsLeftLabel: UILabel = UILabel(frame: CGRect(x:0, y:0, width:200, height: 21))
+    private var scoreThresholdLabel: UILabel = UILabel(frame: CGRect(x:0, y:0, width:200, height: 21))
     private var cameraLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
     private var highScoreButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 25))
@@ -37,6 +34,9 @@ class ViewController: GLKViewController {
     var previewType: Int32 = 0;
     var previewID: Int32 = 0;
     
+    private var currBuildType: Int32 = 0
+    private let buildTypes: Int32 = 5
+    
     var panStartScreen: CGPoint = CGPoint();
     var panX: CGFloat = 0.0
     var panY: CGFloat = 0.0
@@ -44,11 +44,18 @@ class ViewController: GLKViewController {
 
     let cameraSpeed: CGFloat = 0.04;
     
+    var buildingsLeft:Int = 0;
+    let scoreThreshold:[Int] = [100, 250, 500, 1000, 2500];
+    let buildingsEachLevel:[Int]=[5, 5, 6, 10, 10];
+    var currentLevel:Int = 0;
+
     //var lastTime: Double = 0.0;
     
     var gameObjects: [GameObject] = []
         
     private var customView: UIView!
+
+
     
     //var buildingArray
 
@@ -67,8 +74,6 @@ class ViewController: GLKViewController {
             glesRenderer.loadModels()
         }
         
-        
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         view.addGestureRecognizer(tap)
         
@@ -82,6 +87,13 @@ class ViewController: GLKViewController {
         typeLabel.center = CGPoint(x:60, y:35)
         typeLabel.textAlignment = .center
         self.view.addSubview(typeLabel)
+        
+        buildingsLeftLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        buildingsLeftLabel.textColor = .black
+        buildingsLeftLabel.font = typeLabel.font.withSize(15)
+        buildingsLeftLabel.center = CGPoint(x:60, y:55)
+        buildingsLeftLabel.textAlignment = .center
+        self.view.addSubview(buildingsLeftLabel)
         
         scoreLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         scoreLabel.textColor = .black
@@ -102,6 +114,17 @@ class ViewController: GLKViewController {
         cursorInstanceId = glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3))
         
         glesRenderer.createModelInstance(Int32(6),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
+
+        scoreThresholdLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        scoreThresholdLabel.textColor = .black
+        scoreThresholdLabel.font = scoreLabel.font.withSize(15)
+        scoreThresholdLabel.center = CGPoint(x:220, y:55)
+        scoreThresholdLabel.textAlignment = .center
+        self.view.addSubview(scoreThresholdLabel)
+        
+        cursorType = 1;
+      
+        glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
       
         initBuildingSelection()
 
@@ -113,6 +136,13 @@ class ViewController: GLKViewController {
 
         //plays background music on start
         glesRenderer.playBackgroundMusic();
+        
+        buildingsLeft = buildingsEachLevel[currentLevel];
+        buildingsLeftLabel.text = "Left: " + String(buildingsLeft);
+        
+        
+        scoreThresholdLabel.text = "Next: " +  String(scoreThreshold[currentLevel]);
+        
 
     }
     
@@ -187,22 +217,9 @@ class ViewController: GLKViewController {
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
-        let touchPoint = sender.location(in: self.view)
-        let screenPos: GLKVector3 = GLKVector3Make(Float(touchPoint.x), Float(touchPoint.y), Float(0))
         
         if(sender.state == UIGestureRecognizer.State.ended){
-            let worldPos = ScreenPosToWorldPlane(mouseX: CGFloat(screenPos.x), mouseY: CGFloat(screenPos.y))
-                    
-            if(worldPos.hit == false){
-                print("no hit for screen-to-world ray")
-            } else{
-                
-                // for each other building
-                
-                
-                //glesRenderer.setInstancePos(Int32(cursorType), instance: Int32(cursorInstanceId), pos: worldPos.hitPos)
-            }
-            
+           
             var x: Float = Float(Int(glesRenderer.cameraFocusPos.x))
             var z: Float = Float(Int(glesRenderer.cameraFocusPos.z))
             let gridPosX: Int = Int(x * -1)
@@ -211,15 +228,7 @@ class ViewController: GLKViewController {
             z = z * -1 + 0.5
             
             if(!testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
-                let buildPos = GLKVector3Make(x, 0, z)
-                let animPos = GLKVector3Add(buildPos, GLKVector3Make(0, 1, 0))
-                
-                //let id = glesRenderer.createModelInstance(Int32(currBuildType),pos:animPos,rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
 
-                
-                let anim: MoveAnimation = MoveAnimation(modelType: previewType, instanceID: previewID, startPos: animPos, endPos: buildPos, startTime: glesRenderer.currTime)
-                gameObjects.append(anim)
-                
                 var buildingName: String = ""
                 if(currBuildType == 0){
                     buildingName = "Selfish"
@@ -235,25 +244,59 @@ class ViewController: GLKViewController {
                                 
                 var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
                 score += points;
+                
                 scoreLabel.text = "Score:" + String(score)
 
-                previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
-                      
-
-                if(testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
-                    previewPoints(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
-                } else{
-                    print("position not in grid")
-                }
-
-                glesRenderer.playSoundFile("boop");
+                let buildPos = GLKVector3Make(x, 0, z)
+                let animPos = GLKVector3Add(buildPos, GLKVector3Make(0, 1, 0))
                 
-                print("built " + String(currBuildType) + " at: " + String(gridPosX) + ", " + String(gridPosY))
-                nextBuilding()
+                let anim: MoveAnimation = MoveAnimation(modelType: previewType, instanceID: previewID, startPos: animPos, endPos: buildPos, startTime: glesRenderer.currTime)
+                gameObjects.append(anim)
+                
+                build(buildingName: buildingName, posX: gridPosX, posY: gridPosY);
+
+                checkLevelState();
+                
             } else {
                 print("building already active at: " + String(gridPosX) + ", " + String(gridPosY) + "?")
             }
         }
+    }
+    
+
+    func build(buildingName: String, posX: Int, posY: Int){
+
+        glesRenderer.playSoundFile("boop");
+        
+        previewPoints(buildingName: buildingName, xPos: posX, yPos: posY)
+                
+        // previewType and previewID identify the model instance for this building
+        var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: posX, yPos: posY)
+        score += points;
+        scoreLabel.text = "Score:" + String(score)
+        
+        print("built " + String(currBuildType) + " at: " + String(posX) + ", " + String(posY))
+        nextBuilding()
+        initBuildingSelection()
+    }
+    
+    func checkLevelState(){
+        buildingsLeft-=1;
+        buildingsLeftLabel.text = "Left: " + String(buildingsLeft)
+        if(score > scoreThreshold[currentLevel]){
+            
+            currentLevel+=1;
+            buildingsLeft = buildingsEachLevel[currentLevel];
+            buildingsLeftLabel.text = "Left: " + String(buildingsLeft)
+            
+            scoreThresholdLabel.text = "Next: " + String(scoreThreshold[currentLevel])
+            
+        }
+        if(buildingsLeft < 0){
+            //end game
+            print("game ended");
+        }
+        
     }
         
     @objc func handlePan(_ sender: UIPanGestureRecognizer){
@@ -268,17 +311,7 @@ class ViewController: GLKViewController {
         } else if (sender.state == UIGestureRecognizer.State.ended){
             
         } else {
-            //let inst = glesRenderer.getModelInstanceData(Int32(cursorType),instance:Int32(cursorInstanceId))
-            //let worldPos = ScreenPosToWorldPlane(mouseX: translation.x, mouseY: translation.y)
-            //let movement = GLKVector3Subtract(worldPos.hitPos, panTrack);
-            //let newPos: GLKVector3 = GLKVector3Make(inst.position.x + movement.x,0,inst.position.z + movement.z )
-            //glesRenderer.setInstancePos(Int32(cursorType),instance:Int32(cursorInstanceId),pos:newPos);
-            //print("world pos: "+NSStringFromGLKVector3(newPos));
-
-            //let move = CGPoint(x:panStartScreen.x - translation.x,y:panStartScreen.y - translation.y)
-            
-            
-            
+ 
             let x = (panStartScreen.x - translation.x) * cameraSpeed * -1.0
             let z = (panStartScreen.y - translation.y) * cameraSpeed * -1.0
             
@@ -299,8 +332,7 @@ class ViewController: GLKViewController {
         
         currBuildType+=1
         currBuildType %= buildTypes
-        
-        //glesRenderer.deactivateModelInstance(Int32(cursorType), id: Int32(cursorInstanceId))
+                
         initBuildingSelection()
 
         positionBuildPreview()
@@ -319,6 +351,8 @@ class ViewController: GLKViewController {
         
         glesRenderer.setInstancePos(Int32(previewType), instance: Int32(previewID), pos: gridPos)
     }
+    
+    
     
     func UpdateTypeText(){
         if(currBuildType == 0){
@@ -559,5 +593,4 @@ struct WorldBoundUI{
     var worldPos: GLKVector3
     var label: UILabel
 }
-
 
