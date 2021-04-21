@@ -75,6 +75,7 @@ typedef struct TypeInstance{
 //- (GLKVector2) worldPosToScreenPos:(GLKVector3)worldPos;
 //- (struct ModelInstance) getModelInstanceData:(int)type instance:(int)instance;
 - (GLKVector3) getInstancePos:(int)type instance:(int)instance;
+- (GLKVector3) getInstanceRot:(int)type instance:(int)instance;
 - (void) setInstanceMatrix:(int)type instance:(int)instance matrix:(GLKMatrix4)matrix;
 - (void) setInstancePos:(int)type instance:(int)instance pos:(GLKVector3)pos;
 - (void) setInstanceScale:(int)type instance:(int)instance scale:(GLKVector3)scale;
@@ -84,8 +85,8 @@ typedef struct TypeInstance{
 - (void) playSoundFile:(NSString*)fileName;
 - (void) playBackgroundMusic;
 - (void) deactivateModelInstance:(int)type ID:(int)instanceID;
-- (void) clearChars;
-- (void) addNewChar:(struct CharInstance)c;
+//- (void) clearChars;
+//- (void) addNewChar:(struct CharInstance)c;
 - (GLKVector3) getCameraPos;
 
 @end

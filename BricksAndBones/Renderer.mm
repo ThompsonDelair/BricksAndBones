@@ -48,11 +48,8 @@ enum
 };
 
 
-const int startingInstanceMemory = 16;
-const int charCap = 100;
-
-
-
+const int startingInstanceMemory = 100;
+//const int charCap = 100;
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -84,7 +81,7 @@ const int charCap = 100;
 
     
     
-    struct CharInstance charInstances[charCap];
+    //struct CharInstance charInstances[charCap];
     
     // Transformation matrices
     GLKMatrix4 _modelViewProjectionMatrix;
@@ -183,6 +180,7 @@ const int charCap = 100;
     textureNames2[HOUSE] = @"basic_color_pallate_flipped.png";
     textureNames2[HUT] = @"basic_color_pallate_flipped.png";
     textureNames2[MILL_BLADE] = @"basic_color_pallate_flipped.png";
+    textureNames2[CRYSTAL] = @"basic_color_pallate_flipped.png";
     textureNames2[GRASS] = @"grass.png";
     
     textureNames2[MOD_CUBE] = @"justWhite.png";
@@ -349,6 +347,8 @@ const int charCap = 100;
             m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/plane.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == MILL_BLADE){
             m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/mill_blade.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == CRYSTAL){
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/crystal.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == PLANE){
             m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/plane.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == MOD_TEXT_0 || i == MOD_TEXT_1 || i == MOD_TEXT_2|| i == MOD_TEXT_3|| i == MOD_TEXT_4|| i == MOD_TEXT_5|| i == MOD_TEXT_6|| i == MOD_TEXT_7|| i == MOD_TEXT_8|| i == MOD_TEXT_9|| i == MOD_TEXT_MINUS|| i == MOD_TEXT_PLUS ){
@@ -645,7 +645,7 @@ const int charCap = 100;
 
     int newSize = modelInstanceMemorySize[type] * 2;
     modelInstanceMemorySize[type] = newSize;
-    ModelInstance *newArr = (ModelInstance*)malloc(sizeof(ModelInstance) * newSize);
+    ModelInstance newArr[newSize];
     for(int i = 0; i < oldMemSize;i++){
         ModelInstance mi = modelInstances[type][i];
         newArr[i] = mi;
@@ -695,6 +695,10 @@ const int charCap = 100;
 
 - (GLKVector3) getInstancePos:(int)type instance:(int)instance{
     return  modelInstances[type][instance].position;
+}
+
+- (GLKVector3) getInstanceRot:(int)type instance:(int)instance{
+    return  modelInstances[type][instance].rotation;
 }
 
 - (void) setInstanceMatrix:(int)type instance:(int)instance matrix:(GLKMatrix4)matrix{
@@ -785,20 +789,20 @@ const int charCap = 100;
     [backgroundMusic3 play];
 }
 
-- (void) clearChars{
-    for(int i = 0; i < charCap;i++){
-        charInstances[i].active = false;
-    }
-}
-
-- (void) addNewChar:(CharInstance)c{
-    for(int i = 0; i < charCap;i++){
-        if(charInstances[i].active == false){
-            charInstances[i] = c;
-            charInstances[i].active = true;
-        }
-    }
-}
+//- (void) clearChars{
+//    for(int i = 0; i < charCap;i++){
+//        charInstances[i].active = false;
+//    }
+//}
+//
+//- (void) addNewChar:(CharInstance)c{
+//    for(int i = 0; i < charCap;i++){
+//        if(charInstances[i].active == false){
+//            charInstances[i] = c;
+//            charInstances[i].active = true;
+//        }
+//    }
+//}
 
 @end
 
