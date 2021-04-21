@@ -112,7 +112,8 @@ class ViewController: GLKViewController {
 
         cursorInstanceId = glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3))
         
-        glesRenderer.createModelInstance(Int32(6),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
+        let id: Int = Int(glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10)))
+        glesRenderer.setInstanceColor(Int32(id), instance: Int32(TEST_CUBE_GRAD.rawValue), color: GLKVector4Make(0.3, 1.0, 0.3,1.0))
 
         scoreThresholdLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         scoreThresholdLabel.textColor = .black
@@ -142,20 +143,9 @@ class ViewController: GLKViewController {
         scoreThresholdLabel.text = "Next: " +  String(scoreThreshold[currentLevel]);
         
         gameObjects.append(textController)
-        
-        
-        let ps: ParticleSystem = ParticleSystem(rootPos: GLKVector3Make(0, 0, 0), modelType: Int(MOD_SPHERE.rawValue), color: GLKVector4Make(1.0, 0.66, 0, 1.0), count: 1 )
-        ps.interval = 0.5
-        ps.colorEnd = GLKVector4Make(1.0,1.0,1.0,0.2)
-        ps.dirMin = GLKVector3Make(-0.2,0.9,-0.2)
-        ps.dirMax = GLKVector3Make(0.2,1.0,0.2)
-        ps.distMoved = 2.5
-        ps.duration = 4
-        gameObjects.append(ps)
-        
     }
     
-    func previewPoints(buildingName:String, xPos:Int, yPos:Int){
+    func previewPoints(buildingName:String, xPos:Int, yPos:Int, actuallyScoring: Bool){
         
         textController.clearText(glesRenderer: glesRenderer)
         
@@ -181,19 +171,22 @@ class ViewController: GLKViewController {
                             if(pointsToDisplay != 0){
                                 let lx: Float = Float(indexRow) + 0.5
                                 let lz: Float = Float(indexCol) + 0.5
-                                let color: GLKVector4;
+                                let color: GLKVector4 = GLKVector4Make(1.0, 1.0, 1.0, 1.0)
                                 
-                                if(pointsToDisplay > 0){
-                                    color = GLKVector4Make(0.8, 1.0, 0.8, 1.0)
-                                } else {
-                                    color = GLKVector4Make(1.0, 0.8, 0.8, 1.0)
-                                }
+//                                if(pointsToDisplay > 0){
+//                                    color = GLKVector4Make(0.8, 1.0, 0.8, 1.0)
+//                                } else {
+//                                    color = GLKVector4Make(1.0, 0.8, 0.8, 1.0)
+//                                }
                                 
                                 var txt: MyText = MyText(
                                     text: String(pointsToDisplay), pos: GLKVector3Make(Float(lx),1.25,Float(lz)), spacing: 0.5, scale: GLKVector3Make(0.5, 1, 1), color: color
                                 )
                                
                                 textController.addNewText(text: txt, glesRenderer: glesRenderer)
+                                if(actuallyScoring){
+                                    scoreParticles(pos: GLKVector3Make(Float(lx),1,Float(lz)))
+                                }
                             }
 
     
@@ -221,19 +214,21 @@ class ViewController: GLKViewController {
                         if(pointsToDisplay != 0){
                             let lx: Float = Float(indexRow) + 0.5
                             let lz: Float = Float(indexCol) + 0.5
-                            let color: GLKVector4;
+                            let color: GLKVector4 = GLKVector4Make(1.0, 1.0, 1.0, 1.0)
                             
-                            if(pointsToDisplay > 0){
-                                color = GLKVector4Make(0.8, 1.0, 0.8, 1.0)
-                            } else {
-                                color = GLKVector4Make(1.0, 0.8, 0.8, 1.0)
-                            }
+//                            if(pointsToDisplay > 0){
+//                                color = GLKVector4Make(0.8, 1.0, 0.8, 1.0)
+//                            } else {
+//                                color = GLKVector4Make(1.0, 0.8, 0.8, 1.0)
+//                            }
                             
                             var txt: MyText = MyText(
                                 text: String(pointsToDisplay), pos: GLKVector3Make(Float(lx),1.25,Float(lz)), spacing: 0.5, scale: GLKVector3Make(0.5, 1, 1), color: color
                             )
                             
-
+                            if(actuallyScoring){
+                                scoreParticles(pos: GLKVector3Make(Float(lx),1,Float(lz)))
+                            }
                            
                             textController.addNewText(text: txt, glesRenderer: glesRenderer)
                         }
@@ -254,12 +249,16 @@ class ViewController: GLKViewController {
         if(pointsToDisplaySelf != 0){
             let lx: Float = Float(xPos) + 0.5
             let lz: Float = Float(yPos) + 0.5
-            let color: GLKVector4;
+            let color: GLKVector4 = GLKVector4Make(1.0, 1.0, 1.0, 1.0)
             
-            if(pointsToDisplaySelf > 0){
-                color = GLKVector4Make(0.8, 1.0, 0.8, 1.0)
-            } else {
-                color = GLKVector4Make(1.0, 0.8, 0.8, 1.0)
+//            if(pointsToDisplaySelf > 0){
+//                color = GLKVector4Make(0.8, 1.0, 0.8, 1.0)
+//            } else {
+//                color = GLKVector4Make(1.0, 0.8, 0.8, 1.0)
+//            }
+            
+            if(actuallyScoring){
+                scoreParticles(pos: GLKVector3Make(Float(lx),1,Float(lz)))
             }
             
             var txt: MyText = MyText(
@@ -270,6 +269,63 @@ class ViewController: GLKViewController {
         //let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
         
         //displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplaySelf), color: UIColor.cyan)
+    }
+    
+    func scoreParticles(pos: GLKVector3){
+        
+        let color: GLKVector4 = GLKVector4Make(1.0,1.0,0.5,0.2)
+        
+        
+        let ps: ParticleSystem = ParticleSystem(rootPos: pos, modelType: Int(MOD_SPHERE.rawValue), color: color, count: 4)
+        ps.dirMin = GLKVector3Make(-0.2, 0.6, -0.2)
+        ps.dirMax = GLKVector3Make(0.2, 1, 0.2)
+        ps.sizeStart = GLKVector3Make(0.8, 0.8, 0.8)
+        ps.sizeEnd = GLKVector3Make(0.1, 0.1, 0.1)
+        ps.colorEnd = GLKVector4Make(1.0,1.0,0.5,1.0)
+        ps.distMoved = 7
+        ps.duration = 2.5
+        //ps.midPoint = GLKVector3Make(0,3,0)
+        gameObjects.append(ps)
+    }
+    
+    func spawnBuildingParticles(pos: GLKVector3, buildingType: Int){
+        if(buildingType == 0){
+            // spawn bubbles
+            let ps: ParticleSystem = ParticleSystem(rootPos: pos, modelType: Int(MOD_SPHERE.rawValue), color: GLKVector4Make(1.0, 0.0, 1.0, 1.0), count: 1 )
+            ps.interval = 1.3
+            ps.colorEnd = GLKVector4Make(0.7,1.0,0.7,0.7)
+            ps.dirMin = GLKVector3Make(-0.2,0.9,-0.2)
+            ps.dirMax = GLKVector3Make(0.2,1.0,0.2)
+            ps.distMoved = 2.5
+            ps.duration = 4
+            ps.sizeStart = GLKVector3Make(0.1,0.1,0.1)
+            ps.sizeEnd = GLKVector3Make(0.66, 0.66, 0.66)
+            gameObjects.append(ps)
+        } else if(buildingType == 3){
+            // spawn popcorn
+            let ps: StarburstSystem = StarburstSystem(rootPos: pos, modelType: Int(MOD_SPHERE.rawValue), color: GLKVector4Make(1.0, 0.0, 1.0, 1.0), count: 1 )
+            ps.interval = 1
+            ps.colorEnd = GLKVector4Make(1.0,0.66,0,1.0)
+            ps.dirMin = GLKVector3Make(-0.4,0.6,-0.4)
+            ps.dirMax = GLKVector3Make(0.6,1.0,0.6)
+            ps.distMoved = 0.25
+            ps.duration = 2
+            ps.sizeStart = GLKVector3Make(0.5,0.5,0.5)
+            ps.sizeEnd = GLKVector3Make(0.5, 0.5, 0.5)
+            ps.midPoint = GLKVector3Make(0, 2, 0)
+            gameObjects.append(ps)
+        } else if(buildingType == 4){
+            
+            var rot: GLKVector3 = GLKVector3Make(0.0,0.0,0.0);
+            
+            let id: Int = Int(glesRenderer.createModelInstance(Int32(Int(TEST_CUBE_RED.rawValue)), pos: GLKVector3Add(pos, GLKVector3Make(Float(0.0),Float(0.5),Float(0.0))), rot: rot, scale: GLKVector3Make(Float(0.5),Float(0.5),Float(0.5))))
+            
+            rot = GLKVector3Make(0.0,0.0,1.0);
+            
+            let rotator: Rotator = Rotator(type: Int(Int32(Int(TEST_CUBE_RED.rawValue))), id: id, rotate: rot, speed: Float(0.3))
+            
+            gameObjects.append(rotator);
+        }
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
@@ -312,8 +368,10 @@ class ViewController: GLKViewController {
     func build(buildingName: String, posX: Int, posY: Int){
 
         glesRenderer.playSoundFile("boop");
+
+        spawnBuildingParticles(pos: GLKVector3Make(Float(posX) + 0.5, 0.0, Float(posY) + 0.5), buildingType: Int(currBuildType));
         
-        previewPoints(buildingName: buildingName, xPos: posX, yPos: posY)
+        previewPoints(buildingName: buildingName, xPos: posX, yPos: posY, actuallyScoring: true);
                 
         // previewType and previewID identify the model instance for this building
         var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: posX, yPos: posY)
@@ -382,7 +440,7 @@ class ViewController: GLKViewController {
             let gridPosX: Int = Int(xi * -1)
             let gridPosY: Int = Int(zi * -1)
             
-            previewPoints(buildingName: buildingNameFromInt(i: Int(currBuildType)), xPos: gridPosX, yPos: gridPosY)
+            previewPoints(buildingName: buildingNameFromInt(i: Int(currBuildType)), xPos: gridPosX, yPos: gridPosY, actuallyScoring: false);
             
             panStartScreen = translation
             glesRenderer.moveCamera(GLKVector3Make(Float(x), Float(0.0), Float(z)))
@@ -398,7 +456,7 @@ class ViewController: GLKViewController {
     func nextBuilding(){
         
         glesRenderer.setInstanceColor(previewType, instance: previewID, color: GLKVector4Make(1.0,1.0,1.0,1.0))
-        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(1,1,1))
+        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.8,0.8,0.8))
         
         currBuildType+=1
         currBuildType %= buildTypes
@@ -414,7 +472,7 @@ class ViewController: GLKViewController {
         previewType = currBuildType
         positionBuildPreview()
         glesRenderer.setInstanceColor(previewType, instance: previewID, color: GLKVector4Make(1.0,1.0,1.0,0.35))
-        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.7,0.7,0.7))
+        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.6,0.6,0.6))
     }
     
     func positionBuildPreview(){

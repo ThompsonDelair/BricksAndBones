@@ -48,11 +48,8 @@ enum
 };
 
 
-const int startingInstanceMemory = 16;
-const int charCap = 100;
-
-
-
+const int startingInstanceMemory = 100;
+//const int charCap = 100;
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -84,7 +81,7 @@ const int charCap = 100;
 
     
     
-    struct CharInstance charInstances[charCap];
+    //struct CharInstance charInstances[charCap];
     
     // Transformation matrices
     GLKMatrix4 _modelViewProjectionMatrix;
@@ -623,7 +620,7 @@ const int charCap = 100;
 
     int newSize = modelInstanceMemorySize[type] * 2;
     modelInstanceMemorySize[type] = newSize;
-    ModelInstance *newArr = (ModelInstance*)malloc(sizeof(ModelInstance) * newSize);
+    ModelInstance newArr[newSize];
     for(int i = 0; i < oldMemSize;i++){
         ModelInstance mi = modelInstances[type][i];
         newArr[i] = mi;
@@ -673,6 +670,10 @@ const int charCap = 100;
 
 - (GLKVector3) getInstancePos:(int)type instance:(int)instance{
     return  modelInstances[type][instance].position;
+}
+
+- (GLKVector3) getInstanceRot:(int)type instance:(int)instance{
+    return  modelInstances[type][instance].rotation;
 }
 
 - (void) setInstanceMatrix:(int)type instance:(int)instance matrix:(GLKMatrix4)matrix{
@@ -763,20 +764,20 @@ const int charCap = 100;
     [backgroundMusic3 play];
 }
 
-- (void) clearChars{
-    for(int i = 0; i < charCap;i++){
-        charInstances[i].active = false;
-    }
-}
-
-- (void) addNewChar:(CharInstance)c{
-    for(int i = 0; i < charCap;i++){
-        if(charInstances[i].active == false){
-            charInstances[i] = c;
-            charInstances[i].active = true;
-        }
-    }
-}
+//- (void) clearChars{
+//    for(int i = 0; i < charCap;i++){
+//        charInstances[i].active = false;
+//    }
+//}
+//
+//- (void) addNewChar:(CharInstance)c{
+//    for(int i = 0; i < charCap;i++){
+//        if(charInstances[i].active == false){
+//            charInstances[i] = c;
+//            charInstances[i].active = true;
+//        }
+//    }
+//}
 
 @end
 
