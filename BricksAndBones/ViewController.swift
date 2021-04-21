@@ -112,7 +112,6 @@ class ViewController: GLKViewController {
 
         cursorInstanceId = glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3))
         
-
         let id: Int = Int(glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10)))
         glesRenderer.setInstanceColor(Int32(id), instance: Int32(TEST_CUBE_GRAD.rawValue), color: GLKVector4Make(0.3, 1.0, 0.3,1.0))
 
@@ -317,6 +316,16 @@ class ViewController: GLKViewController {
             gameObjects.append(ps)
         } else if(buildingType == 3){
             
+            var rot: GLKVector3 = GLKVector3Make(0.0,0.0,0.0);
+            
+            let id: Int = Int(glesRenderer.createModelInstance(Int32(Int(MILL_BLADE.rawValue)), pos: GLKVector3Add(pos, GLKVector3Make(Float(0.0),Float(0.9),Float(0.2))), rot: rot, scale: GLKVector3Make(Float(0.2),Float(0.2),Float(0.2))))
+            
+            rot = GLKVector3Make(0.0,0.0,1.0);
+            
+            let rotator: Rotator = Rotator(type: Int(Int32(Int(MILL_BLADE.rawValue))), id: id, rotate: rot, speed: Float(0.3))
+            
+            gameObjects.append(rotator);
+        } else if(buildingType == 5){
             var rot: GLKVector3 = GLKVector3Make(0.0,0.0,0.0);
             
             let id: Int = Int(glesRenderer.createModelInstance(Int32(Int(MILL_BLADE.rawValue)), pos: GLKVector3Add(pos, GLKVector3Make(Float(0.0),Float(0.9),Float(0.2))), rot: rot, scale: GLKVector3Make(Float(0.2),Float(0.2),Float(0.2))))
