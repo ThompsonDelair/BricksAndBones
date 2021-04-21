@@ -14,6 +14,8 @@ typedef enum : NSUInteger {
     COPY_CUBE,
     POWDER_KEG,
     WIZARD_TOWER,
+    PLANE,
+    CUBE,
     TEST_CUBE_RED,
     TEST_CUBE_BLUE,
     TEST_CUBE_GREEN,
@@ -21,14 +23,8 @@ typedef enum : NSUInteger {
     TEST_CUBE_PINK,
     TEST_CUBE_YELL,
     TEST_CUBE_GRAD,
-<<<<<<< HEAD
-    CUBE,
-    PLANE,
     BLACKSMITH,
     ROOK,
-=======
-    ROOK,
-    PLANE,
     MOD_CUBE,
     MOD_SPHERE,
     MOD_TEXT_PLUS,    
@@ -43,7 +39,6 @@ typedef enum : NSUInteger {
     MOD_TEXT_7,
     MOD_TEXT_8,
     MOD_TEXT_9,
->>>>>>> main
     NUM_MODEL_TYPES
 } ModelTypes;
 

@@ -171,7 +171,7 @@ const int charCap = 100;
     textureNames2[TEST_CUBE_PINK] = @"tex_5.png";
     textureNames2[TEST_CUBE_YELL] = @"tex_6.png";
     textureNames2[TEST_CUBE_GRAD] = @"gradient.png";
-    textureNames2[CUBE] = @"texRed.png";
+    textureNames2[CUBE] = @"justWhite.png";
     textureNames2[PLANE] = @"texRed.png";
     textureNames2[ROOK] = @"stonewall.png";
     textureNames2[MILL] = @"basic_color_pallate_flipped.png";
@@ -345,11 +345,7 @@ const int charCap = 100;
             m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/hut.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == PLANE){
             m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/plane.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
-        }else{
-            m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
-        }
-        
-        if(i == MOD_TEXT_0 || i == MOD_TEXT_1 || i == MOD_TEXT_2|| i == MOD_TEXT_3|| i == MOD_TEXT_4|| i == MOD_TEXT_5|| i == MOD_TEXT_6|| i == MOD_TEXT_7|| i == MOD_TEXT_8|| i == MOD_TEXT_9|| i == MOD_TEXT_MINUS|| i == MOD_TEXT_PLUS ){
+        }else if(i == MOD_TEXT_0 || i == MOD_TEXT_1 || i == MOD_TEXT_2|| i == MOD_TEXT_3|| i == MOD_TEXT_4|| i == MOD_TEXT_5|| i == MOD_TEXT_6|| i == MOD_TEXT_7|| i == MOD_TEXT_8|| i == MOD_TEXT_9|| i == MOD_TEXT_MINUS|| i == MOD_TEXT_PLUS ){
             m.numIndices = glesRenderer.GenPlane(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         } else if(i == MOD_SPHERE){
             m.numIndices = glesRenderer.GenSphere(8, 0.5, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);

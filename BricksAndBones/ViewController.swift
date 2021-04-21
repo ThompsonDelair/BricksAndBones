@@ -112,7 +112,7 @@ class ViewController: GLKViewController {
 
         cursorInstanceId = glesRenderer.createModelInstance(Int32(cursorType),pos:GLKVector3Make(0, 0, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.3, 0.3, 0.3))
         
-        glesRenderer.createModelInstance(Int32(6),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
+        glesRenderer.createModelInstance(Int32(8),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
 
         scoreThresholdLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         scoreThresholdLabel.textColor = .black
@@ -415,7 +415,7 @@ class ViewController: GLKViewController {
     func nextBuilding(){
         
         glesRenderer.setInstanceColor(previewType, instance: previewID, color: GLKVector4Make(1.0,1.0,1.0,1.0))
-        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(1,1,1))
+        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.25,0.25,0.25))
         
         currBuildType+=1
         currBuildType %= buildTypes
@@ -431,7 +431,7 @@ class ViewController: GLKViewController {
         previewType = currBuildType
         positionBuildPreview()
         glesRenderer.setInstanceColor(previewType, instance: previewID, color: GLKVector4Make(1.0,1.0,1.0,0.35))
-        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.7,0.7,0.7))
+        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.2,0.2,0.2))
     }
     
     func positionBuildPreview(){
