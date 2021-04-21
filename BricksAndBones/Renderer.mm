@@ -160,7 +160,7 @@ const int startingInstanceMemory = 100;
     modelNames2[ROOK] = @"path";
     modelNames2[PLANE] = @"path";
     modelNames2[MOD_CUBE] = @"path";
-        
+    
     textureNames2[TEST_CUBE_RED] = @"texRed.png";
     textureNames2[TEST_CUBE_BLUE] = @"texBlue.png";
     textureNames2[TEST_CUBE_GREEN] = @"texGreen.png";
@@ -220,14 +220,7 @@ const int startingInstanceMemory = 100;
     cameraAngle = 60.0;
     cameraDist = -8.0;
     cameraOffset = GLKVector3Make(0.0, sinf(GLKMathDegreesToRadians(cameraAngle)), cosf(GLKMathDegreesToRadians(cameraAngle)));
-    //cameraOffset = GLKVector3Make(0.0, cosf(cameraAngle), sin(cameraAngle));
-    //printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
     cameraOffset = GLKVector3MultiplyScalar(cameraOffset, cameraDist);
-    //printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
-    
-    //cameraOffset = GLKVector3Make(0.0, -3.0, -3.0);
-    
-    //printf("Number of model types is %d",NUM_MODEL_TYPES);
 }
 
 
@@ -398,11 +391,6 @@ const int startingInstanceMemory = 100;
     
     glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
     glActiveTexture(GL_TEXTURE0);
-//    for(int x = -5; x < 5;x++){
-//        for(int z = -5; z < 5;z++){
-//            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.5, 0.5, 0.5) ];
-//        }
-//    }
     
 }
 
