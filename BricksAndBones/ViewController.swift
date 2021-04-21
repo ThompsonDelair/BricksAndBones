@@ -461,6 +461,7 @@ class ViewController: GLKViewController {
         customView.isHidden = true
     }
     
+    // Loads the view to appear on the screen. Used for Highscore
     @objc func loadViewIntoController() {
         let highScoreFrame = CGRect(x:0,y:0, width: view.frame.width, height: view.frame.height)
         customView = UIView(frame: highScoreFrame)
