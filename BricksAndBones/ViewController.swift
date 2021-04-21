@@ -229,10 +229,6 @@ class ViewController: GLKViewController {
                     buildingName = "Debuff"
                 }
                                 
-                //var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY, modelType: previewType)
-                //score += points;
-                
-                //scoreLabel.text = "Score:" + String(score)
 
                 let buildPos = GLKVector3Make(x, 0, z)
                 let animPos = GLKVector3Add(buildPos, GLKVector3Make(0, 1, 0))
@@ -241,8 +237,6 @@ class ViewController: GLKViewController {
                 gameObjects.append(anim)
               
                 build(buildingName: buildingName, posX: gridPosX, posY: gridPosY);
-                
-                //build(buildingName: buildingName, posX: gridPosX, posY: gridPosY);
 
                 checkLevelState();
                 
@@ -262,8 +256,8 @@ class ViewController: GLKViewController {
         // previewType and previewID identify the model instance for this building
         var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: posX, yPos: posY, modelType: Int(previewType), modelID: Int(previewID))
         if(buildingName == "Demolish"){
-        
-    }
+            //unrender buildings
+        }
         
         score += points;
         scoreLabel.text = "Score:" + String(score)
