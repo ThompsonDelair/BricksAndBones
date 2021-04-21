@@ -217,7 +217,7 @@ const int startingInstanceMemory = 100;
     cameraFocusPos = GLKVector3Make(0.0,0.0,0.0);
     
     cameraAngle = 60.0;
-    cameraDist = -6.0;
+    cameraDist = -8.0;
     cameraOffset = GLKVector3Make(0.0, sinf(GLKMathDegreesToRadians(cameraAngle)), cosf(GLKMathDegreesToRadians(cameraAngle)));
     //cameraOffset = GLKVector3Make(0.0, cosf(cameraAngle), sin(cameraAngle));
     //printf("camera offset: %f, %f\n",cameraOffset.y,cameraOffset.z);
