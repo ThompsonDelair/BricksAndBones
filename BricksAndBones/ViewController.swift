@@ -25,6 +25,11 @@ class ViewController: GLKViewController {
     
     var score: Int = 0;
     
+    var defaults = UserDefaults.standard;
+    var highScore1: Int = 0;
+    var highScore2: Int = 0;
+    var highScore3: Int = 0;
+
     var gameGrid: Grid = Grid(unitSize: 2);
     var testManager = BuildingsManager(buildingSize: 10)
     
@@ -60,6 +65,10 @@ class ViewController: GLKViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad();
+        // grab highscores
+        //defaults.set(0, forKey: "HighScore1");
+        //defaults.set(0, forKey: "HighScore2");
+        //defaults.set(0, forKey: "HighScore3");
         // to do anything with OpenGL, you need to create an EAGLContext
         context = EAGLContext(api: .openGLES3)
         // specify that the rendering context is the one to use in the current thread
@@ -101,12 +110,12 @@ class ViewController: GLKViewController {
         scoreLabel.textAlignment = .center
         self.view.addSubview(scoreLabel)
         
-        //highScoreButton.backgroundColor = .green
-        //highScoreButton.setTitle("High Scores", for: .normal)
-        //highScoreButton.addTarget(self, action: #selector(loadViewIntoController), for: .touchUpInside)
-        //highScoreButton.center = CGPoint(x:220, y:500)
-        //highScoreButton.setTitleColor(.black, for: .normal)
-        //self.view.addSubview(highScoreButton)
+//        highScoreButton.backgroundColor = .green
+//        highScoreButton.setTitle("High Scores", for: .normal)
+//        highScoreButton.addTarget(self, action: #selector(loadViewIntoController), for: .touchUpInside)
+//        highScoreButton.center = CGPoint(x:220, y:500)
+//        highScoreButton.setTitleColor(.black, for: .normal)
+//        self.view.addSubview(highScoreButton)
         
         //cursorType = 1;
 
@@ -376,6 +385,8 @@ class ViewController: GLKViewController {
         
         print("points gained: " + String(points))
         score += points;
+        
+        
         scoreLabel.text = "Score:" + String(score)
         
         print("built " + String(currBuildType) + " at: " + String(posX) + ", " + String(posY))
@@ -406,7 +417,19 @@ class ViewController: GLKViewController {
         if(buildingsLeft < 0){
             //end game
             print("game ended");
+
+            if (score > highScore1){
+                highScore1 = score
+                defaults.set(highScore1, forKey: "HighScore1")
+            }else if (score > highScore2){
+                highScore2 = score
+                defaults.set(highScore2, forKey: "HighScore2")
+            }else if (score > highScore3){
+                highScore3 = score
+                defaults.set(highScore3, forKey: "HighScore3")
+            }
             loadViewIntoController()
+            glesRenderer.playSoundFile("gameover")
         }
         
     }
@@ -671,6 +694,12 @@ class ViewController: GLKViewController {
     
     // Loads the view to appear on the screen. Used for Highscore
     @objc func loadViewIntoController() {
+        // grab all the highscores
+        highScore1 = defaults.integer(forKey: "HighScore1")
+        highScore2 = defaults.integer(forKey: "HighScore2")
+        highScore3 = defaults.integer(forKey: "HighScore3")
+        
+        // loads
         let highScoreFrame = CGRect(x:0,y:0, width: view.frame.width, height: view.frame.height)
         customView = UIView(frame: highScoreFrame)
         customView.backgroundColor = .white
@@ -699,7 +728,7 @@ class ViewController: GLKViewController {
         score1.font = score1.font.withSize(21)
         score1.center = CGPoint(x:160, y:150)
         score1.textAlignment = .center
-        score1.text = "1st Place: Placeholder score"
+        score1.text = "1st Place: " + String(highScore1)
         customView.addSubview(score1)
         
         let score2 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
@@ -707,7 +736,7 @@ class ViewController: GLKViewController {
         score2.font = score2.font.withSize(21)
         score2.center = CGPoint(x:160, y:200)
         score2.textAlignment = .center
-        score2.text = "2nd Place: Placeholder score"
+        score2.text = "2nd Place: " + String(highScore2)
         customView.addSubview(score2)
         
         let score3 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
@@ -715,7 +744,7 @@ class ViewController: GLKViewController {
         score3.font = score3.font.withSize(21)
         score3.center = CGPoint(x:160, y:250)
         score3.textAlignment = .center
-        score3.text = "3rd Place: Placeholder score"
+        score3.text = "3rd Place: " + String(highScore3)
         customView.addSubview(score3)
         
         let personal = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))

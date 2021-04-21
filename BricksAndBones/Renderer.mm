@@ -330,7 +330,7 @@ const int startingInstanceMemory = 100;
         }else if(i == MILL){
             m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"mill.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"mill.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == COPY_CUBE){
-            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"copy_cube.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"copy_cube.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"err_cube.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"err_cube.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == POWDER_KEG){
             m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"powderkeg.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"poederkeg.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == WIZARD_TOWER){
