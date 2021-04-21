@@ -16,6 +16,8 @@ typedef enum : NSUInteger {
     POWDER_KEG,
     PLANE,
     CUBE,
+    GRASS,
+    MILL_BLADE,
     TEST_CUBE_RED,
     TEST_CUBE_BLUE,
     TEST_CUBE_GREEN,
