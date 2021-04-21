@@ -117,11 +117,6 @@ const int startingInstanceMemory = 100;
     float maxDist;
     GLKVector4 fogColor;
     
-    // Model
-    //float *vertices, *normals, *texCoords;
-    //GLuint *indices, numIndices;
-
-    
     // Misc UI variables
     std::chrono::time_point<std::chrono::steady_clock> lastTime;
     
@@ -155,11 +150,7 @@ const int startingInstanceMemory = 100;
         NSLog(@"Failed to create ES context");
     }
 
-    modelNames2[TEST_CUBE_RED] = @"nothingRightNow.wut";
-    
-    modelNames2[ROOK] = @"path";
-    modelNames2[PLANE] = @"path";
-    modelNames2[MOD_CUBE] = @"path";
+    // set texture paths
         
     textureNames2[TEST_CUBE_RED] = @"texRed.png";
     textureNames2[TEST_CUBE_BLUE] = @"texBlue.png";
@@ -353,7 +344,7 @@ const int startingInstanceMemory = 100;
         }else if(i == PLANE){
             m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"plane.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"plane.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == MOD_LAND){
-            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"land.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"land.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            m.numIndices = thisOBJ.loadOBJ([[[NSBundle mainBundle] pathForResource:[[NSString stringWithUTF8String:"mountains.obj"] stringByDeletingPathExtension] ofType:[[NSString stringWithUTF8String:"mountains.obj"] pathExtension]] cStringUsingEncoding:1], 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else if(i == MOD_TEXT_0 || i == MOD_TEXT_1 || i == MOD_TEXT_2|| i == MOD_TEXT_3|| i == MOD_TEXT_4|| i == MOD_TEXT_5|| i == MOD_TEXT_6|| i == MOD_TEXT_7|| i == MOD_TEXT_8|| i == MOD_TEXT_9|| i == MOD_TEXT_MINUS|| i == MOD_TEXT_PLUS ){
             m.numIndices = glesRenderer.GenPlane(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         } else if(i == MOD_SPHERE){

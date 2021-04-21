@@ -329,17 +329,17 @@ class ViewController: GLKViewController {
     
     func scoreParticles(pos: GLKVector3){
         
-        let color: GLKVector4 = GLKVector4Make(1.0,1.0,0.5,0.2)
+        let color: GLKVector4 = GLKVector4Make(1.0,0.1,0.1,0.5)
         
         
         let ps: ParticleSystem = ParticleSystem(rootPos: pos, modelType: Int(MOD_SPHERE.rawValue), color: color, count: 4)
-        ps.dirMin = GLKVector3Make(-0.2, 0.6, -0.2)
-        ps.dirMax = GLKVector3Make(0.2, 1, 0.2)
-        ps.sizeStart = GLKVector3Make(0.8, 0.8, 0.8)
+        ps.dirMin = GLKVector3Make(-0.1, 1, -0.1)
+        ps.dirMax = GLKVector3Make(0.1, 1, 0.1)
+        ps.sizeStart = GLKVector3Make(0.7, 0.7, 0.7)
         ps.sizeEnd = GLKVector3Make(0.1, 0.1, 0.1)
-        ps.colorEnd = GLKVector4Make(1.0,1.0,0.5,1.0)
-        ps.distMoved = 7
-        ps.duration = 2.5
+        ps.colorEnd = GLKVector4Make(1.0,1.0,0.15,1.0)
+        ps.distMoved = 6.5
+        ps.duration = 2.8
         //ps.midPoint = GLKVector3Make(0,3,0)
         gameObjects.append(ps)
     }
@@ -348,12 +348,12 @@ class ViewController: GLKViewController {
         if(buildingType == 1){
             // spawn bubbles
             let ps: ParticleSystem = ParticleSystem(rootPos: pos, modelType: Int(MOD_SPHERE.rawValue), color: GLKVector4Make(1.0, 0.0, 1.0, 1.0), count: 1 )
-            ps.interval = 1.3
-            ps.colorEnd = GLKVector4Make(0.7,0.7,0.7,0.3)
+            ps.interval = 1.2
+            ps.colorEnd = GLKVector4Make(0.7,0.7,0.7,0.45)
             ps.dirMin = GLKVector3Make(-0.1,0.9,-0.1)
             ps.dirMax = GLKVector3Make(0.1,1.0,0.1)
             ps.distMoved = 2.5
-            ps.duration = 4
+            ps.duration = 5
             ps.sizeStart = GLKVector3Make(0.05,0.05,0.05)
             ps.sizeEnd = GLKVector3Make(0.3, 0.3, 0.3)
             gameObjects.append(ps)
@@ -580,7 +580,7 @@ class ViewController: GLKViewController {
         positionBuildPreview()
         glesRenderer.setInstanceColor(previewType, instance: previewID, color: GLKVector4Make(1.0,1.0,1.0,0.35))
 
-        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.15,0.15,0.15))
+        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.18,0.18,0.18))
 
     }
     

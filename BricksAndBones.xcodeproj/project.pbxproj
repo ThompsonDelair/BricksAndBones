@@ -84,6 +84,9 @@
 		FACE0DC726309050000B106F /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = FACE0DC626309050000B106F /* grass.png */; };
 		FADBD5042630A4AF0051A01D /* land.obj in Resources */ = {isa = PBXBuildFile; fileRef = FADBD5032630A4AF0051A01D /* land.obj */; };
 		FAE4C460261FA43E00DA8A40 /* justWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE4C45F261FA43E00DA8A40 /* justWhite.png */; };
+		FAE60FC32630ACEF00E2B93F /* mountains.obj in Resources */ = {isa = PBXBuildFile; fileRef = FAE60FC22630ACEF00E2B93F /* mountains.obj */; };
+		FAE60FC62630AD6200E2B93F /* mountain_basic.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE60FC52630AD6200E2B93F /* mountain_basic.png */; };
+		FAE60FC92630AD9700E2B93F /* mountain_basic_flipped.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE60FC82630AD9700E2B93F /* mountain_basic_flipped.png */; };
 		FAE6B07E261D98A1005DE449 /* tex_6.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE6B07B261D98A1005DE449 /* tex_6.png */; };
 		FAE6B07F261D98A1005DE449 /* tex_4.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE6B07C261D98A1005DE449 /* tex_4.png */; };
 		FAE6B080261D98A1005DE449 /* tex_5.png in Resources */ = {isa = PBXBuildFile; fileRef = FAE6B07D261D98A1005DE449 /* tex_5.png */; };
@@ -177,6 +180,9 @@
 		FACE0DC626309050000B106F /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grass.png; sourceTree = "<group>"; };
 		FADBD5032630A4AF0051A01D /* land.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = land.obj; sourceTree = "<group>"; };
 		FAE4C45F261FA43E00DA8A40 /* justWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = justWhite.png; sourceTree = "<group>"; };
+		FAE60FC22630ACEF00E2B93F /* mountains.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mountains.obj; sourceTree = "<group>"; };
+		FAE60FC52630AD6200E2B93F /* mountain_basic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mountain_basic.png; path = BricksAndBones/mountain_basic.png; sourceTree = SOURCE_ROOT; };
+		FAE60FC82630AD9700E2B93F /* mountain_basic_flipped.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mountain_basic_flipped.png; path = BricksAndBones/mountain_basic_flipped.png; sourceTree = SOURCE_ROOT; };
 		FAE6B07B261D98A1005DE449 /* tex_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tex_6.png; sourceTree = "<group>"; };
 		FAE6B07C261D98A1005DE449 /* tex_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tex_4.png; sourceTree = "<group>"; };
 		FAE6B07D261D98A1005DE449 /* tex_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tex_5.png; sourceTree = "<group>"; };
@@ -270,6 +276,8 @@
 		FA2D78D7262FAF05002591A9 /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				FAE60FC82630AD9700E2B93F /* mountain_basic_flipped.png */,
+				FAE60FC52630AD6200E2B93F /* mountain_basic.png */,
 				FACE0DC0263088A1000B106F /* basic_color_pallate_flipped.png */,
 				FA98D4D9263041F100487DBE /* 2.png */,
 				FA98D4D7263041F100487DBE /* 3.png */,
@@ -308,6 +316,7 @@
 		FAF15AC225E6D25D00AB4F78 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FAE60FC22630ACEF00E2B93F /* mountains.obj */,
 				FADBD5032630A4AF0051A01D /* land.obj */,
 				FACE0DA226308890000B106F /* plane.obj */,
 				FACE0D9C26308890000B106F /* powderkeg.obj */,
@@ -403,8 +412,10 @@
 				FACE0DB426308890000B106F /* wizard tower.obj in Resources */,
 				FACE0DBA26308890000B106F /* hut.obj in Resources */,
 				FA98D4C526301E8C00487DBE /* 5.png in Resources */,
+				FAE60FC92630AD9700E2B93F /* mountain_basic_flipped.png in Resources */,
 				FADBD5042630A4AF0051A01D /* land.obj in Resources */,
 				FACE0DC726309050000B106F /* grass.png in Resources */,
+				FAE60FC32630ACEF00E2B93F /* mountains.obj in Resources */,
 				FA98D4E1263041F100487DBE /* 6.png in Resources */,
 				FAA0E4D6261D8A430087A2DE /* Sounds in Resources */,
 				FA98D4E3263041F100487DBE /* 4.png in Resources */,
@@ -433,6 +444,7 @@
 				FACE0DB126308890000B106F /* number1.obj in Resources */,
 				FACE0DBD26308890000B106F /* err_cube.obj in Resources */,
 				7399693C25E1FF0800AE3215 /* Main.storyboard in Resources */,
+				FAE60FC62630AD6200E2B93F /* mountain_basic.png in Resources */,
 				FACE0DAF26308890000B106F /* powderkeg.obj in Resources */,
 				FAE6B080261D98A1005DE449 /* tex_5.png in Resources */,
 				FACE0DB026308890000B106F /* blacksmith.obj in Resources */,
