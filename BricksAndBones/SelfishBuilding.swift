@@ -7,6 +7,7 @@
 
 import Foundation
 
+//building that earns points for itself
 class SelfishBuilding : Building {
     
     override init(posX:Int, posY:Int, modelBuildType:Int, modelInstanceID:Int){

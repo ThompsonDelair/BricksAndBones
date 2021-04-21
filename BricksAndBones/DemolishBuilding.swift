@@ -7,6 +7,8 @@
 
 import Foundation
 
+//demolishes buildings
+//NOT IMPLEMENTED
 class DemolishBuilding : Building {
     
     override init(posX:Int, posY:Int, modelBuildType:Int, modelInstanceID:Int){

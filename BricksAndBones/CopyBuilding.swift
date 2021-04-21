@@ -7,6 +7,7 @@
 
 import Foundation
 
+//absorbs the influenced values of buildings nearby
 class CopyBuilding : Building {
     
     override init(posX:Int, posY:Int, modelBuildType:Int, modelInstanceID:Int){

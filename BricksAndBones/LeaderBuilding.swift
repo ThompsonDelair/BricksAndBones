@@ -7,6 +7,7 @@
 
 import Foundation
 
+//earns points for nearby buildings
 class LeaderBuilding : Building {
     
     override init(posX:Int, posY:Int, modelBuildType:Int, modelInstanceID:Int){
