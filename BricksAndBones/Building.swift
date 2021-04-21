@@ -20,12 +20,15 @@ class Building{
     var radius:Int; //detection radius
     var influencedValue:Int; // value influenced by empower/debuff buildings
     var active:Bool; // determines if the building is real/to be rendered
+    var modelBuildType:Int;
+    var modelInstanceID:Int;
     
     
-    
-    init(posX:Int, posY:Int){
+    init(posX:Int, posY:Int, modelBuildType:Int, modelInstanceID:Int){
         self.posX = posX;
         self.posY = posY;
+        self.modelBuildType = modelBuildType;
+        self.modelInstanceID = modelInstanceID;
         
         buildingName = "Building";
         selfValue = 1;
@@ -35,6 +38,10 @@ class Building{
         radius = 1
         influencedValue = 0
         active = false;
+    }
+    
+    convenience init(posX:Int, posY:Int){
+        self.init(posX: posX, posY: posY, modelBuildType:1, modelInstanceID:1);
     }
     
   

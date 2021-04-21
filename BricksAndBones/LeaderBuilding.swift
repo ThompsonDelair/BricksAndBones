@@ -9,8 +9,9 @@ import Foundation
 
 class LeaderBuilding : Building {
     
-    override init(posX:Int, posY:Int){
-        super.init(posX: posX, posY: posY)
+    override init(posX:Int, posY:Int, modelBuildType:Int, modelInstanceID:Int){
+        super.init(posX: posX, posY: posY,
+                   modelBuildType: modelBuildType, modelInstanceID: modelInstanceID)
         
         buildingName = "Leader"
         selfValue = 0

@@ -33,7 +33,7 @@ class ViewController: GLKViewController {
     var previewID: Int32 = 0;
     
     private var currBuildType: Int32 = 0
-    private let buildTypes: Int32 = 5
+    private let buildTypes: Int32 = 7
     
     var panStartScreen: CGPoint = CGPoint();
     var panX: CGFloat = 0.0
@@ -223,20 +223,26 @@ class ViewController: GLKViewController {
                     buildingName = "Empower"
                 } else if (currBuildType == 4){
                     buildingName = "Copy"
+                } else if (currBuildType == 5){
+                    buildingName = "Demolish"
+                } else if (currBuildType == 6){
+                    buildingName = "Debuff"
                 }
                                 
-                var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
-                score += points;
+                //var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY, modelType: previewType)
+                //score += points;
                 
-                scoreLabel.text = "Score:" + String(score)
+                //scoreLabel.text = "Score:" + String(score)
 
                 let buildPos = GLKVector3Make(x, 0, z)
                 let animPos = GLKVector3Add(buildPos, GLKVector3Make(0, 1, 0))
                 
                 let anim: MoveAnimation = MoveAnimation(modelType: previewType, instanceID: previewID, startPos: animPos, endPos: buildPos, startTime: glesRenderer.currTime)
                 gameObjects.append(anim)
-                
+              
                 build(buildingName: buildingName, posX: gridPosX, posY: gridPosY);
+                
+                //build(buildingName: buildingName, posX: gridPosX, posY: gridPosY);
 
                 checkLevelState();
                 
@@ -254,7 +260,11 @@ class ViewController: GLKViewController {
         previewPoints(buildingName: buildingName, xPos: posX, yPos: posY)
                 
         // previewType and previewID identify the model instance for this building
-        var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: posX, yPos: posY)
+        var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: posX, yPos: posY, modelType: Int(previewType), modelID: Int(previewID))
+        if(buildingName == "Demolish"){
+        
+    }
+        
         score += points;
         scoreLabel.text = "Score:" + String(score)
         
@@ -348,6 +358,10 @@ class ViewController: GLKViewController {
             typeLabel.text = "Empower";
         } else if (currBuildType == 4){
             typeLabel.text = "Copy";
+        } else if (currBuildType == 5){
+            typeLabel.text = "Demolish"
+        } else if (currBuildType == 6){
+            typeLabel.text = "Debuff"
         }
     }
 

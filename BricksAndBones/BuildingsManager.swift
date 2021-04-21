@@ -41,23 +41,27 @@ class BuildingsManager{
     
     //call to add building to array
     //returns score from placing building down
-    func addBuilding(buildingName:String, xPos:Int, yPos:Int)->Int{
+    func addBuilding(buildingName:String, xPos:Int, yPos:Int, modelType:Int, modelID:Int)->Int{
         if(checkPosition(xPos: xPos, yPos: yPos)){
             
             switch buildingName {
             case "Selfish":
-                buildingArray[yPos][xPos] = SelfishBuilding(posX: xPos, posY: yPos)
+                buildingArray[yPos][xPos] = SelfishBuilding(posX: xPos, posY: yPos, modelBuildType: modelType, modelInstanceID: modelID)
                 return buildingArray[yPos][xPos].selfValue;
             case "Loner":
-                buildingArray[yPos][xPos] = LonerBuilding(posX: xPos, posY: yPos)
+                buildingArray[yPos][xPos] = LonerBuilding(posX: xPos, posY: yPos, modelBuildType: modelType, modelInstanceID: modelID)
                 //iterate over buildings in radius
                 return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
             case "Leader":
-                buildingArray[yPos][xPos] = LeaderBuilding(posX: xPos, posY: yPos)
+                buildingArray[yPos][xPos] = LeaderBuilding(posX: xPos, posY: yPos, modelBuildType: modelType, modelInstanceID: modelID)
                 return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
             case "Empower":
-                buildingArray[yPos][xPos] = EmpowerBuilding(posX: xPos, posY: yPos)
+                buildingArray[yPos][xPos] = EmpowerBuilding(posX: xPos, posY: yPos, modelBuildType: modelType, modelInstanceID: modelID)
                 return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
+            case "Debuff":
+                buildingArray[yPos][xPos] = DebuffBuilding(posX: xPos, posY: yPos, modelBuildType: modelType, modelInstanceID: modelID);
+                return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
+            
             case "Copy":
                 if(buildingArray[yPos][xPos].active){
                     return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
@@ -68,8 +72,8 @@ class BuildingsManager{
                 //return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
             case "Demolish":
                 print("implement removal of rendered object first")
-                //buildingArray[yPos][xPos] = DemolishBuilding(posX: xPos, posY: yPos)
-                //demolishBuildings(xPos:xPos, yPos:yPos)
+                buildingArray[yPos][xPos] = DemolishBuilding(posX: xPos, posY: yPos, modelBuildType: modelType, modelInstanceID: modelID)
+                demolishBuildings(xPos:xPos, yPos:yPos)
             default:
                 print("Building doesn't exist")
                 return 0
@@ -95,9 +99,6 @@ class BuildingsManager{
             for row in stride(from: centerBuilding.radius, through: 0, by: -1){
                 //for column in -columnCounts...columnCounts{
                 for column in stride(from: -columnCounts, through: columnCounts, by: 1){
-                    //print(row != 0)
-                    //print(column != 0)
-                    //print(type(of:column))
                     if( !(row == 0 && column == 0)){
                         let indexRow = centerBuilding.posY-row
                         let indexCol = centerBuilding.posX+column
@@ -155,7 +156,7 @@ class BuildingsManager{
     }
     
     func demolishBuildings(xPos:Int, yPos:Int){
-        //left building
+        //left buildinga
         if(checkPosition(xPos: xPos-1, yPos: yPos)){
             buildingArray[xPos-1][yPos] = Building(posX: xPos, posY: yPos)
         }
