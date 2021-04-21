@@ -319,7 +319,7 @@ class ViewController: GLKViewController {
             //unrender buildings
             //glesRenderer.deactivateModelInstance(<#T##type: Int32##Int32#>, id: <#T##Int32#>)
         }
-        
+        print("points gained: " + String(points))
         score += points;
         scoreLabel.text = "Score:" + String(score)
         
@@ -396,6 +396,8 @@ class ViewController: GLKViewController {
             var zi: Float = Float(Int(glesRenderer.cameraFocusPos.z))
             let gridPosX: Int = Int(xi * -1)
             let gridPosY: Int = Int(zi * -1)
+            //print("grid pos x, y: " + String(gridPosX) + ", " + String(gridPosY));
+           
             
             previewPoints(buildingName: buildingNameFromInt(i: Int(currBuildType)), xPos: gridPosX, yPos: gridPosY)
             

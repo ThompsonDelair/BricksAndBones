@@ -104,7 +104,7 @@ class BuildingsManager{
                         let indexCol = centerBuilding.posX+column
                         if(checkPosition(xPos:indexCol, yPos: indexRow)){
                             if(buildingArray[indexRow][indexCol].active){
-                                totalPoints += calculatePointsBetweenBuildings(thisBuilding: centerBuilding, otherBuilding: buildingArray[indexRow][indexCol])
+                                totalPoints += calculatePointsBetweenBuildings(thisBuilding: centerBuilding, otherBuilding: buildingArray[indexRow][indexCol], isPreview: false)
                             }
                             
                             //print(String(indexRow) + " " + String(indexCol))
@@ -121,7 +121,7 @@ class BuildingsManager{
                     var indexCol = centerBuilding.posX+column
                     if(checkPosition(xPos:indexCol, yPos: indexRow)){
                         if(buildingArray[indexRow][indexCol].active){
-                            totalPoints += calculatePointsBetweenBuildings(thisBuilding: centerBuilding, otherBuilding: buildingArray[indexRow][indexCol])
+                            totalPoints += calculatePointsBetweenBuildings(thisBuilding: centerBuilding, otherBuilding: buildingArray[indexRow][indexCol], isPreview: false)
                         }
                        
                         //print(String(indexRow) + " " + String(indexCol))
@@ -134,7 +134,7 @@ class BuildingsManager{
     }
     
     //calculates points
-    func calculatePointsBetweenBuildings(thisBuilding:Building, otherBuilding:Building)->Int{
+    func calculatePointsBetweenBuildings(thisBuilding:Building, otherBuilding:Building, isPreview:Bool)->Int{
         //assuming both buildings exist
         switch thisBuilding.classification {
         case "Normal":
@@ -142,8 +142,11 @@ class BuildingsManager{
             return thisBuilding.relationValue + otherBuilding.influencedValue;
         case "Influencer":
             //supports both influencers
+            //print("This is an influencer")
             var returnPoints = otherBuilding.influencedValue
-            otherBuilding.influencedValue = otherBuilding.influencedValue + thisBuilding.relationValue;
+            if(!isPreview){
+                otherBuilding.influencedValue = otherBuilding.influencedValue + thisBuilding.relationValue;
+            }
             return returnPoints
         //case "Destroy":
         //destroy adjacent buildings and put thisbuilding down where clicked not here tho
@@ -154,6 +157,8 @@ class BuildingsManager{
         
         return 0;
     }
+    
+    
     
     func demolishBuildings(xPos:Int, yPos:Int){
         //left buildinga
@@ -183,7 +188,7 @@ class BuildingsManager{
     }
     
     func calcPointsFromPreview(otherBuildingXPos:Int, otherBuildingYPos:Int)->Int{
-        return calculatePointsBetweenBuildings(thisBuilding:previewBuilding, otherBuilding: buildingArray[otherBuildingYPos][otherBuildingXPos])
+        return calculatePointsBetweenBuildings(thisBuilding:previewBuilding, otherBuilding: buildingArray[otherBuildingYPos][otherBuildingXPos], isPreview:true)
     }
     
     func calcPointsFromPosition(thisBuildingXPos:Int, thisBuildingYPos:Int)->Int{
