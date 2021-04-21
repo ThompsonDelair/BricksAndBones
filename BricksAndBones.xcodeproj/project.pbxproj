@@ -38,6 +38,7 @@
 		FA8811E92616865E0045B752 /* texBlue.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E62616865E0045B752 /* texBlue.png */; };
 		FA8811EA2616865E0045B752 /* texGreen.png in Resources */ = {isa = PBXBuildFile; fileRef = FA8811E72616865E0045B752 /* texGreen.png */; };
 		FA98D4C526301E8C00487DBE /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = FA98D4C426301E8C00487DBE /* 5.png */; };
+		FA98D4C926301FE700487DBE /* TextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA98D4C826301FE700487DBE /* TextController.swift */; };
 		FA9E6440261D9CA20066C985 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9E643F261D9CA20066C985 /* AudioToolbox.framework */; };
 		FA9E6442261D9CAF0066C985 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9E6441261D9CAF0066C985 /* AVFoundation.framework */; };
 		FAA0E4D6261D8A430087A2DE /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = FAA0E4D5261D8A430087A2DE /* Sounds */; };
@@ -92,6 +93,7 @@
 		FA8811E62616865E0045B752 /* texBlue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texBlue.png; sourceTree = "<group>"; };
 		FA8811E72616865E0045B752 /* texGreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texGreen.png; sourceTree = "<group>"; };
 		FA98D4C426301E8C00487DBE /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
+		FA98D4C826301FE700487DBE /* TextController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextController.swift; sourceTree = "<group>"; };
 		FA9E643F261D9CA20066C985 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FA9E6441261D9CAF0066C985 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FAA0E4D5261D8A430087A2DE /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				FACAF96E262E31B2005BC2B6 /* ParticleSystem.swift */,
 				FACAF972262E41E5005BC2B6 /* Text3D.h */,
 				FA60AF51262FECCA00EB18A3 /* Particle.swift */,
+				FA98D4C826301FE700487DBE /* TextController.swift */,
 			);
 			path = BricksAndBones;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				B91F3A01261BE9000039FCBE /* SelfishBuilding.swift in Sources */,
 				B91F3A13261C04150039FCBE /* DemolishBuilding.swift in Sources */,
 				FA44F3EB26240963009835FF /* Utils.swift in Sources */,
+				FA98D4C926301FE700487DBE /* TextController.swift in Sources */,
 				B91F3A0A261BFFD10039FCBE /* EmpowerBuilding.swift in Sources */,
 				B91F3A0D261C01E60039FCBE /* DebuffBuilding.swift in Sources */,
 				7399694A25E208AA00AE3215 /* Vertex.swift in Sources */,

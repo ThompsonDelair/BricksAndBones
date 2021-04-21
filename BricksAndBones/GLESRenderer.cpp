@@ -533,10 +533,10 @@ int GLESRenderer::GenPlane(float scale, GLfloat **vertices, GLfloat **normals,
     
     GLfloat cubeTex[] =
     {
-        0.0f, 0.0f,
         0.0f, 1.0f,
-        1.0f, 1.0f,
+        0.0f, 0.0f,
         1.0f, 0.0f,
+        1.0f, 1.0f,
     };
     
     // Allocate memory for buffers
