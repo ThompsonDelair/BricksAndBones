@@ -19,9 +19,9 @@ class ViewController: GLKViewController {
     private let buildTypes = 5
     
     private var typeLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-    
     private var scoreLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-    
+    private var buildingsLeftLabel: UILabel = UILabel(frame: CGRect(x:0, y:0, width:200, height: 21))
+    private var scoreThresholdLabel: UILabel = UILabel(frame: CGRect(x:0, y:0, width:200, height: 21))
     private var cameraLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
     var score: Int = 0;
@@ -41,6 +41,11 @@ class ViewController: GLKViewController {
     var panTrack: GLKVector3 = GLKVector3Make(0, 0, 0);
 
     let cameraSpeed: CGFloat = 0.04;
+    
+    var buildingsLeft:Int = 0;
+    let scoreThreshold:[Int] = [100, 250, 500, 1000, 2500];
+    let buildingsEachLevel:[Int]=[5, 5, 6, 10, 10];
+    var currentLevel:Int = 0;
     
     //var buildingArray
 
@@ -74,12 +79,26 @@ class ViewController: GLKViewController {
         typeLabel.textAlignment = .center
         self.view.addSubview(typeLabel)
         
+        buildingsLeftLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        buildingsLeftLabel.textColor = .black
+        buildingsLeftLabel.font = typeLabel.font.withSize(15)
+        buildingsLeftLabel.center = CGPoint(x:60, y:55)
+        buildingsLeftLabel.textAlignment = .center
+        self.view.addSubview(buildingsLeftLabel)
+        
         scoreLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
         scoreLabel.textColor = .black
         scoreLabel.font = scoreLabel.font.withSize(20)
         scoreLabel.center = CGPoint(x:220, y:35)
         scoreLabel.textAlignment = .center
         self.view.addSubview(scoreLabel)
+        
+        scoreThresholdLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        scoreThresholdLabel.textColor = .black
+        scoreThresholdLabel.font = scoreLabel.font.withSize(15)
+        scoreThresholdLabel.center = CGPoint(x:220, y:55)
+        scoreThresholdLabel.textAlignment = .center
+        self.view.addSubview(scoreThresholdLabel)
         
         cursorType = 1;
 
@@ -97,6 +116,13 @@ class ViewController: GLKViewController {
 
         //plays background music on start
         glesRenderer.playBackgroundMusic();
+        
+        buildingsLeft = buildingsEachLevel[currentLevel];
+        buildingsLeftLabel.text = "Left: " + String(buildingsLeft);
+        
+        
+        scoreThresholdLabel.text = "Next: " +  String(scoreThreshold[currentLevel]);
+        
 
     }
     
@@ -216,7 +242,9 @@ class ViewController: GLKViewController {
                                 
                 var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
                 score += points;
+                
                 scoreLabel.text = "Score:" + String(score)
+                checkLevelState()
                 nextBuilding()
 
                 if(testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
@@ -233,6 +261,25 @@ class ViewController: GLKViewController {
                 print("building already active at: " + String(gridPosX) + ", " + String(gridPosY) + "?")
             }
         }
+    }
+    
+    func checkLevelState(){
+        buildingsLeft-=1;
+        buildingsLeftLabel.text = "Left: " + String(buildingsLeft)
+        if(score > scoreThreshold[currentLevel]){
+            
+            currentLevel+=1;
+            buildingsLeft = buildingsEachLevel[currentLevel];
+            buildingsLeftLabel.text = "Left: " + String(buildingsLeft)
+            
+            scoreThresholdLabel.text = "Next: " + String(scoreThreshold[currentLevel])
+            
+        }
+        if(buildingsLeft < 0){
+            //end game
+            print("game ended");
+        }
+        
     }
         
     @objc func handlePan(_ sender: UIPanGestureRecognizer){
@@ -287,6 +334,8 @@ class ViewController: GLKViewController {
         
         glesRenderer.setInstancePos(Int32(buildType), instance: Int32(currID), pos: gridPos)
     }
+    
+    
     
     func UpdateTypeText(){
         if(buildType == 0){
@@ -467,3 +516,4 @@ struct WorldBoundUI{
     var worldPos: GLKVector3
     var label: UILabel
 }
+    
