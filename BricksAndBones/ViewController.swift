@@ -288,12 +288,6 @@ class ViewController: GLKViewController {
 
                 var buildingName: String = buildingNameFromInt(i: Int(currBuildType))
                                 
-                //var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
-                //score += points;
-                
-                
-
-
                 let buildPos = GLKVector3Make(x, 0, z)
                 let animPos = GLKVector3Add(buildPos, GLKVector3Make(0, 1, 0))
                 
@@ -361,6 +355,10 @@ class ViewController: GLKViewController {
             return "Empower"
         } else if (i == 4){
             return "Copy"
+        } else if (i == 5){
+            return "Demolish"
+        } else if (i == 6){
+            return "Debuff"
         }
         return "?"
     }
