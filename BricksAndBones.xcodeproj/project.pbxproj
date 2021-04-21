@@ -156,7 +156,7 @@
 		FACE0D9826308890000B106F /* crystal.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = crystal.obj; sourceTree = "<group>"; };
 		FACE0D9926308890000B106F /* Numbers.blend */ = {isa = PBXFileReference; lastKnownFileType = file; path = Numbers.blend; sourceTree = "<group>"; };
 		FACE0D9A26308890000B106F /* Numbers.blend1 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Numbers.blend1; sourceTree = "<group>"; };
-		FACE0D9B26308890000B106F /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
+		FACE0D9B26308890000B106F /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = rook.obj; path = BricksAndBones/Models/rook.obj; sourceTree = SOURCE_ROOT; };
 		FACE0D9C26308890000B106F /* powderkeg.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = powderkeg.obj; sourceTree = "<group>"; };
 		FACE0D9D26308890000B106F /* blacksmith.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = blacksmith.obj; sourceTree = "<group>"; };
 		FACE0D9E26308890000B106F /* number1.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = number1.obj; sourceTree = "<group>"; };
@@ -326,8 +326,9 @@
 				FACE0D9F26308890000B106F /* rook2.obj */,
 				FACE0DA126308890000B106F /* wizard tower.obj */,
 			);
-			path = Models;
-			sourceTree = "<group>";
+			name = Models;
+			path = BricksAndBones/Models;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
