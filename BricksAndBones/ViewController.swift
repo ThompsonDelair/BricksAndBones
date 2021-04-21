@@ -51,7 +51,7 @@ class ViewController: GLKViewController {
     
     var buildingsLeft:Int = 0;
     let scoreThreshold:[Int] = [20, 100, 200, 500, 1000];
-    let buildingsEachLevel:[Int]=[6, 12, 12, 15, 20];
+    let buildingsEachLevel:[Int]=[5, 10, 10, 15, 15];
     var currentLevel:Int = 0;
 
     //var lastTime: Double = 0.0;
