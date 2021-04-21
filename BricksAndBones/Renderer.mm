@@ -7,6 +7,8 @@
 #import <GLKit/GLKit.h>
 #include <chrono>
 #include "GLESRenderer.hpp"
+#import "ObjLoader.hpp"
+
 #import <AudioToolbox/AudioToolbox.h>
 
 
@@ -45,6 +47,7 @@ enum
     NUM_ATTRIBUTES
 };
 
+//<<<<<<< HEAD
 int startingInstanceMemory = 16;
 const int charCap = 100;
 
@@ -57,6 +60,27 @@ const int charCap = 100;
 
 NSString *textureNames2[NUM_MODEL_TYPES];
 NSString *modelNames2[NUM_MODEL_TYPES];
+//=======
+// Type of models
+enum ModelType{
+    TEST_CUBE_RED,
+    TEST_CUBE_BLUE,
+    ROOK,
+    PLANE,
+    CUBE,
+    TEST_CUBE_GREEN,
+    TEST_CUBE_PURP,
+    TEST_CUBE_PINK,
+    TEST_CUBE_YELL,
+    TEST_CUBE_GRAD,
+    NUM_MODEL_TYPES
+};
+
+#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+
+//NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"texGreen.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"gradient.png"];
+//NSArray *modelNames = @[@"nothingRightNow.wut"];
+//>>>>>>> main
 
 //===========================================================================
 //  Class interface
@@ -289,7 +313,23 @@ NSString *modelNames2[NUM_MODEL_TYPES];
 
         // Generate vertex attribute values from model
         //int numVerts;
-        m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        if(i == ROOK){
+            ObjLoader rook;
+            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/rook.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+            //NSLog(@"VertCount: %d\n IndicesCount: %d", m.numVerts, m.numIndices);
+            /*
+            NSLog(@"\nPost load:");
+            for(int i=0; i<m.numVerts; i+=3){
+                NSLog(@"\n%d: (%f %f %f)", i, m.vertices[i], m.vertices[i+1], m.vertices[i+2]);
+            }
+            NSLog(@"\n\nIndices\n\n");
+            for(int i=0; i<m.numIndices; i+=3){
+                NSLog(@"\n(%d %d %d)", m.indices[i], m.indices[i+1], m.indices[i+2]);
+            }*/
+        }else{
+            m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }
+        
 
         // Set up VBOs...
         
@@ -327,13 +367,13 @@ NSString *modelNames2[NUM_MODEL_TYPES];
     
     glUniform1i(uniforms[UNIFORM_TEXTURE], 0);
     glActiveTexture(GL_TEXTURE0);
-   
-   // for testing
-//    for(int x = -5; x < 5;x++){
-//        for(int z = -5; z < 5;z++){
-//            [self createModelInstance:0 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
-//        }
-//    }
+    /*
+    for(int x = -5; x < 5;x++){
+        for(int z = -5; z < 5;z++){
+            [self createModelInstance:2 pos:GLKVector3Make(x, 0, z) rot:GLKVector3Make(0, 0, 0) scale:GLKVector3Make(0.3, 0.3, 0.3) ];
+        }
+    }
+     */
 }
 
 
