@@ -561,22 +561,22 @@ class ViewController: GLKViewController {
     func UpdateTypeText(){
         if(currBuildType == 0){
             // HOUSE
-            typeLabel.text = "Selfish";
+            typeLabel.text = "House";
         } else if (currBuildType == 1){
             // HUT
-            typeLabel.text = "Loner";
+            typeLabel.text = "Hut";
         } else if (currBuildType == 2){
             // CHURCH
-            typeLabel.text = "Leader";
+            typeLabel.text = "Church";
         } else if (currBuildType == 3){
             // MILL
-            typeLabel.text = "Empower";
+            typeLabel.text = "Mill";
         } else if (currBuildType == 4){
             // COPY
-            typeLabel.text = "Copy";
+            typeLabel.text = "Copy Cube";
         } else if (currBuildType == 5){
             // WHIZ
-            typeLabel.text = "Debuff"
+            typeLabel.text = "Wizard Tower"
         }
     }
 
