@@ -92,6 +92,7 @@
 		FAC70C0925ECC386005B6A38 /* rook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rook.obj; sourceTree = "<group>"; };
 		FACAF96B262E3135005BC2B6 /* BuildAnimation2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildAnimation2.swift; sourceTree = "<group>"; };
 		FACAF96E262E31B2005BC2B6 /* ParticleSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleSystem.swift; sourceTree = "<group>"; };
+		FACAF972262E41E5005BC2B6 /* Text3D.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Text3D.h; sourceTree = "<group>"; };
 		FAE2B12F25E618F2008E38F3 /* stonewall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonewall.png; sourceTree = "<group>"; };
 		FAE4C45F261FA43E00DA8A40 /* justWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = justWhite.png; sourceTree = "<group>"; };
 		FAE4C462261FAC0100DA8A40 /* ParticleGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleGroup.swift; sourceTree = "<group>"; };
@@ -177,6 +178,7 @@
 				FA44F3EA26240963009835FF /* Utils.swift */,
 				FACAF96B262E3135005BC2B6 /* BuildAnimation2.swift */,
 				FACAF96E262E31B2005BC2B6 /* ParticleSystem.swift */,
+				FACAF972262E41E5005BC2B6 /* Text3D.h */,
 			);
 			path = BricksAndBones;
 			sourceTree = "<group>";

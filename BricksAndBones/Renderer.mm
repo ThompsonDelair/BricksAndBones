@@ -45,24 +45,18 @@ enum
     NUM_ATTRIBUTES
 };
 
-// Type of models
-enum ModelType{
-    TEST_CUBE_RED,
-    TEST_CUBE_BLUE,
-    TEST_CUBE_GREEN,
-    TEST_CUBE_PURP,
-    TEST_CUBE_PINK,
-    TEST_CUBE_YELL,
-    TEST_CUBE_GRAD,
-    NUM_MODEL_TYPES
-};
-
 int startingInstanceMemory = 16;
+const int charCap = 100;
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
-NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"texGreen.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"gradient.png"];
-NSArray *modelNames = @[@"nothingRightNow.wut"];
+//NSArray *textureNames = @[@"texRed.png",@"texBlue.png",@"texGreen.png",@"tex_4.png",@"tex_5.png",@"tex_6.png",@"gradient.png"];
+//NSArray *modelNames = @[@"nothingRightNow.wut"];
+
+//NSArray *textureNames2 = [NSArray init];
+
+NSString *textureNames2[NUM_MODEL_TYPES];
+NSString *modelNames2[NUM_MODEL_TYPES];
 
 //===========================================================================
 //  Class interface
@@ -87,6 +81,10 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     //int modelInstanceCount[NUM_MODEL_TYPES];
     int inactiveIndex[NUM_MODEL_TYPES];
 
+    
+    
+    struct CharInstance charInstances[charCap];
+    
     // Transformation matrices
     GLKMatrix4 _modelViewProjectionMatrix;
     GLKMatrix3 _normalMatrix;
@@ -131,6 +129,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     
     AVAudioPlayer *backgroundMusic;
     
+    
 }
 
 @end
@@ -156,6 +155,16 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
         NSLog(@"Failed to create ES context");
     }
 
+    modelNames2[TEST_CUBE_RED] = @"nothingRightNow.wut";
+    
+    textureNames2[TEST_CUBE_RED] = @"texRed.png";
+    textureNames2[TEST_CUBE_BLUE] = @"texBlue.png";
+    textureNames2[TEST_CUBE_GREEN] = @"texGreen.png";
+    textureNames2[TEST_CUBE_PURP] = @"tex_4.png";
+    textureNames2[TEST_CUBE_PINK] = @"tex_5.png";
+    textureNames2[TEST_CUBE_YELL] = @"tex_6.png";
+    textureNames2[TEST_CUBE_GRAD] = @"gradient.png";
+    
     // Set up context
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     theView = view;
@@ -306,7 +315,7 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m.ebo);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(int)*m.numIndices, m.indices, GL_STATIC_DRAW);
         
-        NSString *texName = textureNames[i];
+        NSString *texName = textureNames2[i];
         //NSLog(texName);
         m.texture = [self setupTexture:texName];
         
@@ -441,6 +450,8 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     glUniform1i(uniforms[UNIFORM_FOG_TYPE], fogType);
     glUniform4fv(uniforms[UNIFORM_FOG_COLOR], 1, fogColor.v);
     
+    
+    // draw from draw from model instances
     for(int i = 0; i < NUM_MODEL_TYPES;i++){
         
         // select VAO
@@ -467,6 +478,48 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
             
             glDrawElements(GL_TRIANGLES, modelTypes[i].numIndices, GL_UNSIGNED_INT, 0);
         }
+    }
+    
+    // draw from char list
+    for(int i = 0; i < charCap;i++){
+        
+        CharInstance c = charInstances[i];
+        
+        if(c.active == false)
+            continue;
+        
+        int t = c.modelType;
+        // select VAO
+        glBindVertexArray(modelTypes[t].vao);
+        // select EBO
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelTypes[t].ebo);
+        // select texture
+        glBindTexture(GL_TEXTURE_2D, modelTypes[t].texture);
+                
+        // calculate model matrix
+        GLKMatrix4 xRotationMatrix = GLKMatrix4MakeXRotation(c.rotation.x);
+        GLKMatrix4 yRotationMatrix = GLKMatrix4MakeYRotation(c.rotation.y);
+        GLKMatrix4 zRotationMatrix = GLKMatrix4MakeZRotation(c.rotation.z);
+        GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(c.scale.x, c.scale.y, c.scale.z);
+        GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(c.position.x, c.position.y, c.position.z);
+        
+        GLKMatrix4 modelMatrix =
+                     GLKMatrix4Multiply(translateMatrix,
+                     GLKMatrix4Multiply(scaleMatrix,
+                     GLKMatrix4Multiply(zRotationMatrix,
+                     GLKMatrix4Multiply(yRotationMatrix,
+                                        xRotationMatrix))));
+        
+        _modelViewMatrix = GLKMatrix4Multiply(_viewMatrix, modelMatrix);
+        _modelViewProjectionMatrix = GLKMatrix4Multiply(_projectionMatrix, _modelViewMatrix);
+        _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_modelViewMatrix), NULL);
+        
+        // instance shader stuff
+        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
+        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEW_MATRIX], 1, 0, _modelViewMatrix.m);
+        glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
+        
+        glDrawElements(GL_TRIANGLES, modelTypes[t].numIndices, GL_UNSIGNED_INT, 0);
     }
 }
 
@@ -601,6 +654,21 @@ NSArray *modelNames = @[@"nothingRightNow.wut"];
     backgroundMusic.numberOfLoops = -1;
     backgroundMusic.volume = 0.8;
     [backgroundMusic play];
+}
+
+- (void) clearChars{
+    for(int i = 0; i < charCap;i++){
+        charInstances[i].active = false;
+    }
+}
+
+- (void) addNewChar:(CharInstance)c{
+    for(int i = 0; i < charCap;i++){
+        if(charInstances[i].active == false){
+            charInstances[i] = c;
+            charInstances[i].active = true;
+        }
+    }
 }
 
 @end

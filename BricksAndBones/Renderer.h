@@ -8,6 +8,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import "BricksAndBones-Bridging-Header.h"
+
 typedef struct ModelData{
     // model
     float *vertices, *normals, *texCoords;
@@ -27,6 +29,15 @@ typedef struct ModelInstance{
     GLKVector3 rotation;
     GLKVector3 scale;
     GLKVector4 color;
+    bool active;
+};
+
+typedef struct CharInstance{
+    GLKVector3 position;
+    GLKVector3 rotation;
+    GLKVector3 scale;
+    GLKVector4 color;
+    int modelType;
     bool active;
 };
 
@@ -59,10 +70,9 @@ typedef struct ModelInstance{
 - (void) playSoundFile:(NSString*)fileName;
 - (void) playBackgroundMusic;
 - (void) deactivateModelInstance:(int)type ID:(int)instanceID;
-
+- (void) clearChars;
+- (void) addNewChar:(struct CharInstance)c;
 
 @end
-
-
 
 #endif /* Renderer_h */

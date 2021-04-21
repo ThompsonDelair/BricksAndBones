@@ -64,6 +64,8 @@ class ViewController: GLKViewController {
             glesRenderer.loadModels()
         }
         
+        
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         view.addGestureRecognizer(tap)
         
@@ -84,6 +86,8 @@ class ViewController: GLKViewController {
         scoreLabel.center = CGPoint(x:220, y:35)
         scoreLabel.textAlignment = .center
         self.view.addSubview(scoreLabel)
+        
+        
         
         //cursorType = 1;
 
