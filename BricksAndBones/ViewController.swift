@@ -22,8 +22,13 @@ class ViewController: GLKViewController {
     private var cameraLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
     
     private var highScoreButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 25))
+    private var playGameButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 130, height: 40))
+    private var restartButton: UIButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 25))
     
+    //private var isGameStart: Bool = false;
+
     var score: Int = 0;
+    
     
     var defaults = UserDefaults.standard;
     var highScore1: Int = 0;
@@ -74,6 +79,8 @@ class ViewController: GLKViewController {
         // specify that the rendering context is the one to use in the current thread
         EAGLContext.setCurrent(context);
         
+        
+        
         if let view = self.view as? GLKView, let context = context {
             view.context = context
             delegate = self as! GLKViewControllerDelegate
@@ -81,6 +88,8 @@ class ViewController: GLKViewController {
             glesRenderer.setup(view)
             glesRenderer.loadModels()
         }
+        //isGameStart = false;
+        loadViewControllerGameMenu()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
         view.addGestureRecognizer(tap)
@@ -89,26 +98,6 @@ class ViewController: GLKViewController {
         view.addGestureRecognizer(pan)
         UpdateTypeText()
 
-        typeLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        typeLabel.textColor = .black
-        typeLabel.font = typeLabel.font.withSize(20)
-        typeLabel.center = CGPoint(x:60, y:35)
-        typeLabel.textAlignment = .center
-        self.view.addSubview(typeLabel)
-        
-        buildingsLeftLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        buildingsLeftLabel.textColor = .black
-        buildingsLeftLabel.font = typeLabel.font.withSize(15)
-        buildingsLeftLabel.center = CGPoint(x:60, y:55)
-        buildingsLeftLabel.textAlignment = .center
-        self.view.addSubview(buildingsLeftLabel)
-        
-        scoreLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        scoreLabel.textColor = .black
-        scoreLabel.font = scoreLabel.font.withSize(20)
-        scoreLabel.center = CGPoint(x:220, y:35)
-        scoreLabel.textAlignment = .center
-        self.view.addSubview(scoreLabel)
         
 //        highScoreButton.backgroundColor = .green
 //        highScoreButton.setTitle("High Scores", for: .normal)
@@ -125,12 +114,6 @@ class ViewController: GLKViewController {
         let id: Int = Int(glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10)))
         glesRenderer.setInstanceColor(Int32(id), instance: Int32(TEST_CUBE_GRAD.rawValue), color: GLKVector4Make(0.3, 1.0, 0.3,1.0))
 
-        scoreThresholdLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
-        scoreThresholdLabel.textColor = .black
-        scoreThresholdLabel.font = scoreLabel.font.withSize(15)
-        scoreThresholdLabel.center = CGPoint(x:220, y:55)
-        scoreThresholdLabel.textAlignment = .center
-        self.view.addSubview(scoreThresholdLabel)
         
         cursorType = 1;
       
@@ -154,6 +137,64 @@ class ViewController: GLKViewController {
         
         gameObjects.append(textController)
     }
+    
+    @objc func loadViewControllerGameMenu() {
+        let highScoreFrame = CGRect(x:0,y:0, width: view.frame.width, height: view.frame.height)
+        customView = UIView(frame: highScoreFrame)
+        customView.backgroundColor = .white
+        customView.isHidden = false
+        view.addSubview(customView)
+                
+        //let playGameButtonFrame = CGRect(x: 0, y: 0, width: 130, height: 40)
+        //let resetButton = UIButton(frame: resetButtonFrame)
+        
+        playGameButton.center = CGPoint(x: 160, y:350)
+        playGameButton.backgroundColor = .red
+        playGameButton.setTitle("Play Game", for: .normal)
+        customView.addSubview(playGameButton)
+
+        playGameButton.addTarget(self, action: #selector(self.dismissView), for: .touchUpInside)
+        playGameButton.addTarget(self, action: #selector(self.turnOnGameUI), for: .touchUpInside)
+
+        let title = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 30))
+        title.font = UIFont.preferredFont(forTextStyle: .footnote)
+        title.font = title.font.withSize(30)
+        title.center = CGPoint(x:150, y:50)
+        title.textAlignment = .center
+        title.text = "Bricks and Bones"
+        customView.addSubview(title)
+    }
+    
+    @objc func turnOnGameUI(){
+        typeLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        typeLabel.textColor = .black
+        typeLabel.font = typeLabel.font.withSize(20)
+        typeLabel.center = CGPoint(x:60, y:35)
+        typeLabel.textAlignment = .center
+        self.view.addSubview(typeLabel)
+        
+        buildingsLeftLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        buildingsLeftLabel.textColor = .black
+        buildingsLeftLabel.font = typeLabel.font.withSize(15)
+        buildingsLeftLabel.center = CGPoint(x:60, y:55)
+        buildingsLeftLabel.textAlignment = .center
+        self.view.addSubview(buildingsLeftLabel)
+        
+        scoreLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        scoreLabel.textColor = .black
+        scoreLabel.font = scoreLabel.font.withSize(20)
+        scoreLabel.center = CGPoint(x:220, y:35)
+        scoreLabel.textAlignment = .center
+        self.view.addSubview(scoreLabel)
+        
+        
+        scoreThresholdLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+        scoreThresholdLabel.textColor = .black
+        scoreThresholdLabel.font = scoreLabel.font.withSize(15)
+        scoreThresholdLabel.center = CGPoint(x:220, y:55)
+        scoreThresholdLabel.textAlignment = .center
+        self.view.addSubview(scoreThresholdLabel)
+            }
     
     func previewPoints(buildingName:String, xPos:Int, yPos:Int, actuallyScoring: Bool){
         
@@ -414,7 +455,7 @@ class ViewController: GLKViewController {
             scoreThresholdLabel.text = "Next: " + String(scoreThreshold[currentLevel])
             
         }
-        if(buildingsLeft < 0){
+        if(buildingsLeft < 1){
             //end game
             print("game ended");
 
@@ -692,6 +733,7 @@ class ViewController: GLKViewController {
         customView.isHidden = true
     }
     
+    
     // Loads the view to appear on the screen. Used for Highscore
     @objc func loadViewIntoController() {
         // grab all the highscores
@@ -706,14 +748,14 @@ class ViewController: GLKViewController {
         customView.isHidden = false
         view.addSubview(customView)
                 
-//        let closeButtonFrame = CGRect(x: 0, y: 0, width: 80, height: 30)
-//        let closeButton = UIButton(frame: closeButtonFrame)
-//        closeButton.center = CGPoint(x: 220, y:500)
-//        closeButton.backgroundColor = .blue
-//        closeButton.setTitle("Close", for: .normal)
-//        customView.addSubview(closeButton)
+//        let resetButtonFrame = CGRect(x: 0, y: 0, width: 80, height: 30)
+//        let resetButton = UIButton(frame: resetButtonFrame)
+//        resetButton.center = CGPoint(x: 220, y:500)
+//        resetButton.backgroundColor = .blue
+//        resetButton.setTitle("Restart", for: .normal)
+//        customView.addSubview(resetButton)
 //
-//        closeButton.addTarget(self, action: #selector(self.dismissView), for: .touchUpInside)
+//        resetButton.addTarget(self, action: #selector(self.dismissView), for: .touchUpInside)
         
         let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
         title.font = UIFont.preferredFont(forTextStyle: .footnote)
