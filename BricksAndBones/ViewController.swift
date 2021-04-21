@@ -66,9 +66,9 @@ class ViewController: GLKViewController {
     override func viewDidLoad() {
         super.viewDidLoad();
         // grab highscores
-        //defaults.set(100, forKey: "HighScore1");
-        //defaults.set(100, forKey: "HighScore2");
-        //defaults.set(100, forKey: "HighScore3");
+        //defaults.set(1, forKey: "HighScore1");
+        //defaults.set(1, forKey: "HighScore2");
+        //defaults.set(1, forKey: "HighScore3");
         // to do anything with OpenGL, you need to create an EAGLContext
         context = EAGLContext(api: .openGLES3)
         // specify that the rendering context is the one to use in the current thread
