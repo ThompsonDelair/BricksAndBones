@@ -8,7 +8,10 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import "InstanceClass.h"
+
 #import "BricksAndBones-Bridging-Header.h"
+
 
 typedef struct ModelData{
     // model
@@ -47,6 +50,8 @@ typedef struct TypeInstance{
     int instanceID;
 };
 
+
+
 @interface Renderer : NSObject
 
 // Properties to interface with iOS UI code
@@ -68,7 +73,7 @@ typedef struct TypeInstance{
 - (int) createModelInstance:(int)type pos:(GLKVector3)position rot:(GLKVector3)rotation scale:(GLKVector3)scale;
 //- (GLKVector3) screenPosToWorldPlane:(GLKVector2)screenPos;
 //- (GLKVector2) worldPosToScreenPos:(GLKVector3)worldPos;
-- (struct ModelInstance) getModelInstanceData:(int)type instance:(int)instance;
+//- (struct ModelInstance) getModelInstanceData:(int)type instance:(int)instance;
 - (GLKVector3) getInstancePos:(int)type instance:(int)instance;
 - (void) setInstanceMatrix:(int)type instance:(int)instance matrix:(GLKMatrix4)matrix;
 - (void) setInstancePos:(int)type instance:(int)instance pos:(GLKVector3)pos;

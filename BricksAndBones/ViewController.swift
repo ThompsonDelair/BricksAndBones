@@ -123,7 +123,7 @@ class ViewController: GLKViewController {
         
         cursorType = 1;
       
-        glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
+//        glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10))
       
         initBuildingSelection()
 
@@ -142,6 +142,16 @@ class ViewController: GLKViewController {
         scoreThresholdLabel.text = "Next: " +  String(scoreThreshold[currentLevel]);
         
         gameObjects.append(textController)
+        
+        
+        let ps: ParticleSystem = ParticleSystem(rootPos: GLKVector3Make(0, 0, 0), modelType: Int(MOD_SPHERE.rawValue), color: GLKVector4Make(1.0, 0.66, 0, 1.0), count: 1 )
+        ps.interval = 0.5
+        ps.colorEnd = GLKVector4Make(1.0,1.0,1.0,0.2)
+        ps.dirMin = GLKVector3Make(-0.2,0.9,-0.2)
+        ps.dirMax = GLKVector3Make(0.2,1.0,0.2)
+        ps.distMoved = 2.5
+        ps.duration = 4
+        gameObjects.append(ps)
         
     }
     
@@ -167,15 +177,25 @@ class ViewController: GLKViewController {
                         if(testManager.getActive(thisBuildingXPos: indexRow, thisBuildingYPos: indexCol)){
                             var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
                             //add display code here
-                            
-                            let lx: Float = Float(indexRow) + 0.5
-                            let lz: Float = Float(indexCol) + 0.5
-                            
-                            var txt: MyText = MyText(
-                                text: String(pointsToDisplay), pos: GLKVector3Make(Float(lx),1.25,Float(lz)), spacing: 0.5, scale: GLKVector3Make(0.5, 1, 1)
-                            )
-                           
-                            textController.addNewText(text: txt, glesRenderer: glesRenderer)
+                         
+                            if(pointsToDisplay != 0){
+                                let lx: Float = Float(indexRow) + 0.5
+                                let lz: Float = Float(indexCol) + 0.5
+                                let color: GLKVector4;
+                                
+                                if(pointsToDisplay > 0){
+                                    color = GLKVector4Make(0.8, 1.0, 0.8, 1.0)
+                                } else {
+                                    color = GLKVector4Make(1.0, 0.8, 0.8, 1.0)
+                                }
+                                
+                                var txt: MyText = MyText(
+                                    text: String(pointsToDisplay), pos: GLKVector3Make(Float(lx),1.25,Float(lz)), spacing: 0.5, scale: GLKVector3Make(0.5, 1, 1), color: color
+                                )
+                               
+                                textController.addNewText(text: txt, glesRenderer: glesRenderer)
+                            }
+
     
                             //let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
                             
@@ -198,14 +218,25 @@ class ViewController: GLKViewController {
                         var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
                         //add display code here
                         
-                        let lx: Float = Float(indexRow) + 0.5
-                        let lz: Float = Float(indexCol) + 0.5
-                        
-                        var txt: MyText = MyText(
-                            text: String(pointsToDisplay), pos: GLKVector3Make(Float(lx),1.25,Float(lz)), spacing: 0.5, scale: GLKVector3Make(0.5, 1, 1)
-                        )
-                       
-                        textController.addNewText(text: txt, glesRenderer: glesRenderer)
+                        if(pointsToDisplay != 0){
+                            let lx: Float = Float(indexRow) + 0.5
+                            let lz: Float = Float(indexCol) + 0.5
+                            let color: GLKVector4;
+                            
+                            if(pointsToDisplay > 0){
+                                color = GLKVector4Make(0.8, 1.0, 0.8, 1.0)
+                            } else {
+                                color = GLKVector4Make(1.0, 0.8, 0.8, 1.0)
+                            }
+                            
+                            var txt: MyText = MyText(
+                                text: String(pointsToDisplay), pos: GLKVector3Make(Float(lx),1.25,Float(lz)), spacing: 0.5, scale: GLKVector3Make(0.5, 1, 1), color: color
+                            )
+                            
+
+                           
+                            textController.addNewText(text: txt, glesRenderer: glesRenderer)
+                        }
                         
                         
                         //let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
@@ -220,15 +251,22 @@ class ViewController: GLKViewController {
         
         var pointsToDisplaySelf = testManager.calcPointsFromPosition(thisBuildingXPos:xPos, thisBuildingYPos:yPos)
         //add display code here
-        
-        let lx: Float = Float(xPos) + 0.5
-        let lz: Float = Float(yPos) + 0.5
-        
-        var txt: MyText = MyText(
-            text: String(pointsToDisplaySelf), pos: GLKVector3Make(Float(lx),1.25,Float(lz)), spacing: 0.5, scale: GLKVector3Make(0.5, 1, 1)
-        )
-        textController.addNewText(text: txt, glesRenderer: glesRenderer)
-        
+        if(pointsToDisplaySelf != 0){
+            let lx: Float = Float(xPos) + 0.5
+            let lz: Float = Float(yPos) + 0.5
+            let color: GLKVector4;
+            
+            if(pointsToDisplaySelf > 0){
+                color = GLKVector4Make(0.8, 1.0, 0.8, 1.0)
+            } else {
+                color = GLKVector4Make(1.0, 0.8, 0.8, 1.0)
+            }
+            
+            var txt: MyText = MyText(
+                text: String(pointsToDisplaySelf), pos: GLKVector3Make(Float(lx),1.25,Float(lz)), spacing: 0.5, scale: GLKVector3Make(0.5, 1, 1), color: color
+            )
+            textController.addNewText(text: txt, glesRenderer: glesRenderer)
+        }
         //let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
         
         //displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplaySelf), color: UIColor.cyan)
@@ -359,24 +397,35 @@ class ViewController: GLKViewController {
     
     func nextBuilding(){
         
+        glesRenderer.setInstanceColor(previewType, instance: previewID, color: GLKVector4Make(1.0,1.0,1.0,1.0))
+        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(1,1,1))
+        
         currBuildType+=1
         currBuildType %= buildTypes
                 
         initBuildingSelection()
-
-        positionBuildPreview()
+        
         UpdateTypeText()
+        
     }
     
     func initBuildingSelection(){
         previewID = glesRenderer.createModelInstance(Int32(currBuildType),pos:GLKVector3Make(0,0,0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(0.6, 0.6, 0.6))
         previewType = currBuildType
+        positionBuildPreview()
+        glesRenderer.setInstanceColor(previewType, instance: previewID, color: GLKVector4Make(1.0,1.0,1.0,0.35))
+        glesRenderer.setInstanceScale(previewType, instance: previewID, scale: GLKVector3Make(0.7,0.7,0.7))
     }
     
     func positionBuildPreview(){
-        let gridX:Float = Float(Int(glesRenderer.cameraFocusPos.x)) * -1.0 + 0.5
-        let gridZ:Float = Float(Int(glesRenderer.cameraFocusPos.z)) * -1.0 + 0.5
-        let gridPos = GLKVector3Make(gridX,0,gridZ)
+        var x: Float = Float(Int(glesRenderer.cameraFocusPos.x))
+        var z: Float = Float(Int(glesRenderer.cameraFocusPos.z))
+        let gridPosX: Int = Int(x * -1)
+        let gridPosY: Int = Int(z * -1)
+        x = x * -1 + 0.5
+        z = z * -1 + 0.5
+        
+        let gridPos: GLKVector3 = GLKVector3Make(x, 0, z)
         
         glesRenderer.setInstancePos(Int32(previewType), instance: Int32(previewID), pos: gridPos)
     }

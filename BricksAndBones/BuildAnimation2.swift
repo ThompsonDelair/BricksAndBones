@@ -28,12 +28,13 @@ class BuildAnimation2: MoveAnimation{
             let color = GLKVector4Make(1.0,1.0,1.0,1.0)
             
             let ps: ParticleSystem = ParticleSystem(rootPos: endPos, modelType: Int(MOD_SPHERE.rawValue), color: color, count: 10)
-            ps.velocityStartMin = GLKVector3Make(-1.0, 0.1, -1.0)
-            ps.velocityStartMax = GLKVector3Make(1.0, 0.3, 1.0)
+            ps.dirMin = GLKVector3Make(-1.0, 0.1, -1.0)
+            ps.dirMax = GLKVector3Make(1.0, 0.3, 1.0)
             ps.sizeStart = GLKVector3Make(0.2, 0.2, 0.2)
-            ps.sizeEnd = GLKVector3Make(0.7, 0.7, 0.7)
+            ps.sizeEnd = GLKVector3Make(0.8, 0.8, 0.8)
             ps.color = GLKVector4Make(1.0, 1.0, 1.0, 1.0)
             ps.colorEnd = GLKVector4Make(1.0,1.0,1.0,0.0)
+            ps.distMoved = 1.25
             viewController.gameObjects.append(ps)
             
             return 0

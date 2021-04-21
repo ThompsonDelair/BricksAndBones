@@ -163,8 +163,7 @@ const int charCap = 100;
     modelNames2[ROOK] = @"path";
     modelNames2[PLANE] = @"path";
     modelNames2[MOD_CUBE] = @"path";
-      
-    
+        
     textureNames2[TEST_CUBE_RED] = @"texRed.png";
     textureNames2[TEST_CUBE_BLUE] = @"texBlue.png";
     textureNames2[TEST_CUBE_GREEN] = @"texGreen.png";
@@ -176,8 +175,19 @@ const int charCap = 100;
     textureNames2[PLANE] = @"texRed.png";
     textureNames2[MOD_CUBE] = @"justWhite.png";
     textureNames2[MOD_SPHERE] = @"justWhite.png";
+    textureNames2[MOD_TEXT_1] = @"1.png";
+    textureNames2[MOD_TEXT_2] = @"2.png";
+    textureNames2[MOD_TEXT_3] = @"3.png";
+    textureNames2[MOD_TEXT_4] = @"4.png";
     textureNames2[MOD_TEXT_5] = @"5.png";
-    
+    textureNames2[MOD_TEXT_6] = @"6.png";
+    textureNames2[MOD_TEXT_7] = @"7.png";
+    textureNames2[MOD_TEXT_8] = @"8.png";
+    textureNames2[MOD_TEXT_9] = @"9.png";
+    textureNames2[MOD_TEXT_0] = @"0.png";
+    textureNames2[MOD_TEXT_PLUS] = @"+.png";
+    textureNames2[MOD_TEXT_MINUS] = @"minus.png";
+        
     // Set up context
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
     theView = view;
@@ -196,7 +206,7 @@ const int charCap = 100;
     
     cameraFocusPos = GLKVector3Make(0.0,0.0,0.0);
     
-    cameraAngle = 75.0;
+    cameraAngle = 60.0;
     cameraDist = -8.0;
     cameraOffset = GLKVector3Make(0.0, sinf(GLKMathDegreesToRadians(cameraAngle)), cosf(GLKMathDegreesToRadians(cameraAngle)));
     //cameraOffset = GLKVector3Make(0.0, cosf(cameraAngle), sin(cameraAngle));
@@ -319,7 +329,7 @@ const int charCap = 100;
 //            m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
 //        }
         
-        if(i == MOD_TEXT_5){
+        if(i == MOD_TEXT_0 || i == MOD_TEXT_1 || i == MOD_TEXT_2|| i == MOD_TEXT_3|| i == MOD_TEXT_4|| i == MOD_TEXT_5|| i == MOD_TEXT_6|| i == MOD_TEXT_7|| i == MOD_TEXT_8|| i == MOD_TEXT_9|| i == MOD_TEXT_MINUS|| i == MOD_TEXT_PLUS ){
             m.numIndices = glesRenderer.GenPlane(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         } else if(i == MOD_SPHERE){
             m.numIndices = glesRenderer.GenSphere(8, 0.5, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
@@ -525,46 +535,46 @@ const int charCap = 100;
     }
     
     // draw from char list
-    for(int i = 0; i < charCap;i++){
-        
-        CharInstance c = charInstances[i];
-        
-        if(c.active == false)
-            continue;
-        
-        int t = c.modelType;
-        // select VAO
-        glBindVertexArray(modelTypes[t].vao);
-        // select EBO
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelTypes[t].ebo);
-        // select texture
-        glBindTexture(GL_TEXTURE_2D, modelTypes[t].texture);
-                
-        // calculate model matrix
-        GLKMatrix4 xRotationMatrix = GLKMatrix4MakeXRotation(c.rotation.x);
-        GLKMatrix4 yRotationMatrix = GLKMatrix4MakeYRotation(c.rotation.y);
-        GLKMatrix4 zRotationMatrix = GLKMatrix4MakeZRotation(c.rotation.z);
-        GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(c.scale.x, c.scale.y, c.scale.z);
-        GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(c.position.x, c.position.y, c.position.z);
-        
-        GLKMatrix4 modelMatrix =
-                     GLKMatrix4Multiply(translateMatrix,
-                     GLKMatrix4Multiply(scaleMatrix,
-                     GLKMatrix4Multiply(zRotationMatrix,
-                     GLKMatrix4Multiply(yRotationMatrix,
-                                        xRotationMatrix))));
-        
-        _modelViewMatrix = GLKMatrix4Multiply(_viewMatrix, modelMatrix);
-        _modelViewProjectionMatrix = GLKMatrix4Multiply(_projectionMatrix, _modelViewMatrix);
-        _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_modelViewMatrix), NULL);
-        
-        // instance shader stuff
-        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
-        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEW_MATRIX], 1, 0, _modelViewMatrix.m);
-        glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
-        
-        glDrawElements(GL_TRIANGLES, modelTypes[t].numIndices, GL_UNSIGNED_INT, 0);
-    }
+//    for(int i = 0; i < charCap;i++){
+//
+//        CharInstance c = charInstances[i];
+//
+//        if(c.active == false)
+//            continue;
+//
+//        int t = c.modelType;
+//        // select VAO
+//        glBindVertexArray(modelTypes[t].vao);
+//        // select EBO
+//        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, modelTypes[t].ebo);
+//        // select texture
+//        glBindTexture(GL_TEXTURE_2D, modelTypes[t].texture);
+//
+//        // calculate model matrix
+//        GLKMatrix4 xRotationMatrix = GLKMatrix4MakeXRotation(c.rotation.x);
+//        GLKMatrix4 yRotationMatrix = GLKMatrix4MakeYRotation(c.rotation.y);
+//        GLKMatrix4 zRotationMatrix = GLKMatrix4MakeZRotation(c.rotation.z);
+//        GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(c.scale.x, c.scale.y, c.scale.z);
+//        GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(c.position.x, c.position.y, c.position.z);
+//
+//        GLKMatrix4 modelMatrix =
+//                     GLKMatrix4Multiply(translateMatrix,
+//                     GLKMatrix4Multiply(scaleMatrix,
+//                     GLKMatrix4Multiply(zRotationMatrix,
+//                     GLKMatrix4Multiply(yRotationMatrix,
+//                                        xRotationMatrix))));
+//
+//        _modelViewMatrix = GLKMatrix4Multiply(_viewMatrix, modelMatrix);
+//        _modelViewProjectionMatrix = GLKMatrix4Multiply(_projectionMatrix, _modelViewMatrix);
+//        _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_modelViewMatrix), NULL);
+//
+//        // instance shader stuff
+//        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
+//        glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEW_MATRIX], 1, 0, _modelViewMatrix.m);
+//        glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
+//
+//        glDrawElements(GL_TRIANGLES, modelTypes[t].numIndices, GL_UNSIGNED_INT, 0);
+//    }
 }
 
 - (GLKMatrix4) calculateModelMatrix:(struct ModelInstance)inst{
@@ -598,16 +608,16 @@ const int charCap = 100;
 //}
 
 - (int) getNewInstanceIndex:(int)type{
-    for(int i = inactiveIndex[type]; i < modelInstanceMemorySize[type];i++){
+    for(int i = 0; i < modelInstanceMemorySize[type];i++){
         if(modelInstances[type][i].active == false){
-            inactiveIndex[type] = i + 1;
+            //inactiveIndex[type] = i + 1;
             return i;
         }
     }
     
-    if(inactiveIndex[type] < modelInstanceMemorySize[type]){
-        [NSException raise:@"inactiveIndex incorrect" format:@"for type %d",type];
-    }
+//    if(inactiveIndex[type] < modelInstanceMemorySize[type]){
+//        [NSException raise:@"inactiveIndex incorrect" format:@"for type %d",type];
+//    }
     
     int oldMemSize = modelInstanceMemorySize[type];
 
@@ -625,9 +635,9 @@ const int charCap = 100;
     //free(oldArr);
     modelInstances[type] = newArr;
 
-    int index = inactiveIndex[type];
-    inactiveIndex[type] += 1;
-    return index;
+    //int index = inactiveIndex[type];
+    //inactiveIndex[type] += 1;
+    return oldMemSize;
 }
 
 - (void) deactivateModelInstance:(int)type ID:(int)instanceID{
