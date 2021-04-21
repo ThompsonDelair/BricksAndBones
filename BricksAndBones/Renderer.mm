@@ -182,6 +182,8 @@ const int charCap = 100;
     textureNames2[BLACKSMITH] = @"basic_color_pallate_flipped.png";
     textureNames2[HOUSE] = @"basic_color_pallate_flipped.png";
     textureNames2[HUT] = @"basic_color_pallate_flipped.png";
+    textureNames2[MILL_BLADE] = @"basic_color_pallate_flipped.png";
+    textureNames2[GRASS] = @"grass.png";
     
     textureNames2[MOD_CUBE] = @"justWhite.png";
     textureNames2[MOD_SPHERE] = @"justWhite.png";
