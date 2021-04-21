@@ -509,7 +509,8 @@ const int charCap = 100;
                 continue;
             }
             
-            _modelViewMatrix = GLKMatrix4Multiply(_viewMatrix, [self calculateModelMatrix:modelInstances[i][j]]);
+            //_modelViewMatrix = GLKMatrix4Multiply(_viewMatrix, [self calculateModelMatrix:modelInstances[i][j]]);
+            _modelViewMatrix = GLKMatrix4Multiply(_viewMatrix, modelInstances[i][j].matrix);
             _modelViewProjectionMatrix = GLKMatrix4Multiply(_projectionMatrix, _modelViewMatrix);
             _normalMatrix = GLKMatrix3InvertAndTranspose(GLKMatrix4GetMatrix3(_modelViewMatrix), NULL);
             
@@ -581,6 +582,20 @@ const int charCap = 100;
                             xRotationMatrix))));
 }
 
+//- (void) updateModelMatrix:(struct ModelInstance*)inst{
+//    GLKMatrix4 xRotationMatrix = GLKMatrix4MakeXRotation(inst->rotation.x);
+//    GLKMatrix4 yRotationMatrix = GLKMatrix4MakeYRotation(inst->rotation.y);
+//    GLKMatrix4 zRotationMatrix = GLKMatrix4MakeZRotation(inst->rotation.z);
+//    GLKMatrix4 scaleMatrix = GLKMatrix4MakeScale(inst->scale.x, inst->scale.y, inst->scale.z);
+//    GLKMatrix4 translateMatrix = GLKMatrix4MakeTranslation(inst->position.x, inst->position.y, inst->position.z);
+//
+//    inst->matrix =
+//         GLKMatrix4Multiply(translateMatrix,
+//         GLKMatrix4Multiply(scaleMatrix,
+//         GLKMatrix4Multiply(zRotationMatrix,
+//         GLKMatrix4Multiply(yRotationMatrix,
+//                            xRotationMatrix))));
+//}
 
 - (int) getNewInstanceIndex:(int)type{
     for(int i = inactiveIndex[type]; i < modelInstanceMemorySize[type];i++){
@@ -632,8 +647,9 @@ const int charCap = 100;
     inst.scale = scale;
     inst.active = true;
     inst.color = GLKVector4Make(1.0,1.0,1.0,1.0);
+    inst.matrix = [self calculateModelMatrix:inst];
     //GLKMatrix4 matrix = [self calculateModelMatrix:inst];
-    //inst.modelMatrix = [self calculateModelMatrix:inst];
+    //inst.matrix = [self calculateModelMatrix:inst];
     modelInstances[type][index] = inst;
     
     //modelInstanceCount[type] = count + 1;
@@ -645,20 +661,35 @@ const int charCap = 100;
     return modelInstances[type][instance];
 }
 
+- (GLKVector3) getInstancePos:(int)type instance:(int)instance{
+    return  modelInstances[type][instance].position;
+}
+
+- (void) setInstanceMatrix:(int)type instance:(int)instance matrix:(GLKMatrix4)matrix{
+    modelInstances[type][instance].matrix = matrix;
+}
+
 - (void) setInstancePos:(int)type instance:(int)instance pos:(GLKVector3)pos{
     modelInstances[type][instance].position = pos;
+    modelInstances[type][instance].matrix = [self calculateModelMatrix:modelInstances[type][instance]];
 }
 
 - (void) setInstanceScale:(int)type instance:(int)instance scale:(GLKVector3)scale{
     modelInstances[type][instance].scale = scale;
+    modelInstances[type][instance].matrix = [self calculateModelMatrix:modelInstances[type][instance]];
 }
 
 - (void) setInstanceRotation:(int)type instance:(int)instance rotation:(GLKVector3)rotation{
     modelInstances[type][instance].rotation = rotation;
+    modelInstances[type][instance].matrix = [self calculateModelMatrix:modelInstances[type][instance]];
 }
 
 - (void) setInstanceColor:(int)type instance:(int)instance color:(GLKVector4)color{
     modelInstances[type][instance].color = color;
+}
+
+- (GLKVector3) getCameraPos{
+    return GLKVector3Add(cameraFocusPos, cameraOffset);
 }
 
 - (void) updateViewMatrix{

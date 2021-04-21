@@ -55,6 +55,7 @@ class ViewController: GLKViewController {
         
     private var customView: UIView!
    
+    let textController: TextController = TextController();
     //var buildingArray
 
     override func viewDidLoad() {
@@ -138,13 +139,16 @@ class ViewController: GLKViewController {
         buildingsLeft = buildingsEachLevel[currentLevel];
         buildingsLeftLabel.text = "Left: " + String(buildingsLeft);
         
-        
         scoreThresholdLabel.text = "Next: " +  String(scoreThreshold[currentLevel]);
         
-
+        gameObjects.append(textController)
+        
     }
     
     func previewPoints(buildingName:String, xPos:Int, yPos:Int){
+        
+        textController.clearText(glesRenderer: glesRenderer)
+        
         var columnCounts = 0;
         //top half including middle
         testManager.setPreviewBuilding(buildingName: buildingName, xPos: xPos, yPos: yPos)
@@ -167,9 +171,15 @@ class ViewController: GLKViewController {
                             let lx: Float = Float(indexRow) + 0.5
                             let lz: Float = Float(indexCol) + 0.5
                             
-                            let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
+                            var txt: MyText = MyText(
+                                text: String(pointsToDisplay), pos: GLKVector3Make(Float(lx),1.25,Float(lz)), spacing: 0.5, scale: GLKVector3Make(0.5, 1, 1)
+                            )
+                           
+                            textController.addNewText(text: txt, glesRenderer: glesRenderer)
+    
+                            //let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
                             
-                            displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplay), color: UIColor.cyan)
+                            //displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplay), color: UIColor.cyan)
 
                         }
                     }
@@ -191,9 +201,16 @@ class ViewController: GLKViewController {
                         let lx: Float = Float(indexRow) + 0.5
                         let lz: Float = Float(indexCol) + 0.5
                         
-                        let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
+                        var txt: MyText = MyText(
+                            text: String(pointsToDisplay), pos: GLKVector3Make(Float(lx),1.25,Float(lz)), spacing: 0.5, scale: GLKVector3Make(0.5, 1, 1)
+                        )
+                       
+                        textController.addNewText(text: txt, glesRenderer: glesRenderer)
                         
-                        displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplay), color: UIColor.cyan)
+                        
+                        //let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
+                        
+                        //displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplay), color: UIColor.cyan)
                     }
                     //print(String(indexRow) + " " + String(indexCol))
                 }
@@ -207,9 +224,14 @@ class ViewController: GLKViewController {
         let lx: Float = Float(xPos) + 0.5
         let lz: Float = Float(yPos) + 0.5
         
-        let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
+        var txt: MyText = MyText(
+            text: String(pointsToDisplaySelf), pos: GLKVector3Make(Float(lx),1.25,Float(lz)), spacing: 0.5, scale: GLKVector3Make(0.5, 1, 1)
+        )
+        textController.addNewText(text: txt, glesRenderer: glesRenderer)
         
-        displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplaySelf), color: UIColor.cyan)
+        //let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
+        
+        //displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplaySelf), color: UIColor.cyan)
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer){
@@ -225,18 +247,7 @@ class ViewController: GLKViewController {
             
             if(!testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
 
-                var buildingName: String = ""
-                if(currBuildType == 0){
-                    buildingName = "Selfish"
-                } else if (currBuildType == 1){
-                    buildingName = "Loner"
-                } else if (currBuildType == 2){
-                    buildingName = "Leader"
-                } else if (currBuildType == 3){
-                    buildingName = "Empower"
-                } else if (currBuildType == 4){
-                    buildingName = "Copy"
-                }
+                var buildingName: String = buildingNameFromInt(i: Int(currBuildType))
                                 
                 //var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
                 //score += points;
@@ -271,8 +282,6 @@ class ViewController: GLKViewController {
         score += points;
         scoreLabel.text = "Score:" + String(score)
         
-               
-        
         print("built " + String(currBuildType) + " at: " + String(posX) + ", " + String(posY))
         nextBuilding()
         initBuildingSelection()
@@ -296,6 +305,21 @@ class ViewController: GLKViewController {
         }
         
     }
+    
+    func buildingNameFromInt( i: Int)->String{
+        if(i == 0){
+            return "Selfish"
+        } else if (i == 1){
+            return "Loner"
+        } else if (i == 2){
+            return "Leader"
+        } else if (i == 3){
+            return "Empower"
+        } else if (i == 4){
+            return "Copy"
+        }
+        return "?"
+    }
         
     @objc func handlePan(_ sender: UIPanGestureRecognizer){
         let translation = sender.translation(in: self.view)
@@ -314,6 +338,13 @@ class ViewController: GLKViewController {
             let z = (panStartScreen.y - translation.y) * cameraSpeed * -1.0
             
             positionBuildPreview()
+            
+            var xi: Float = Float(Int(glesRenderer.cameraFocusPos.x))
+            var zi: Float = Float(Int(glesRenderer.cameraFocusPos.z))
+            let gridPosX: Int = Int(xi * -1)
+            let gridPosY: Int = Int(zi * -1)
+            
+            previewPoints(buildingName: buildingNameFromInt(i: Int(currBuildType)), xPos: gridPosX, yPos: gridPosY)
             
             panStartScreen = translation
             glesRenderer.moveCamera(GLKVector3Make(Float(x), Float(0.0), Float(z)))
