@@ -766,6 +766,8 @@ const int startingInstanceMemory = 100;
 
 // Plays the background music and loops it.
 - (void) playBackgroundMusic {
+    // Storing the resource path in a NSString
+    // Plays the background music
     NSString *musicFile = [[NSBundle mainBundle] pathForResource:@"skyBG" ofType:@"mp3" inDirectory:@"Sounds"];
     NSURL *url = [NSURL URLWithString:musicFile];
     backgroundMusic = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:nil];
@@ -774,6 +776,7 @@ const int startingInstanceMemory = 100;
     backgroundMusic.volume = 0.7;
     [backgroundMusic play];
     
+    // Plays the ambient waterfall sounds in the background on loop
     NSString *musicFile2 = [[NSBundle mainBundle] pathForResource:@"waterfall" ofType:@"mp3" inDirectory:@"Sounds"];
     NSURL *url2 = [NSURL URLWithString:musicFile2];
     backgroundMusic2 = [[AVAudioPlayer alloc]initWithContentsOfURL:url2 error:nil];
@@ -782,7 +785,7 @@ const int startingInstanceMemory = 100;
     backgroundMusic2.volume = 0.1;
     [backgroundMusic2 play];
     
-    
+    // Plays the bird whistling in the background on loop
     NSString *musicFile3 = [[NSBundle mainBundle] pathForResource:@"bird" ofType:@"mp3" inDirectory:@"Sounds"];
     NSURL *url3 = [NSURL URLWithString:musicFile3];
     backgroundMusic3 = [[AVAudioPlayer alloc]initWithContentsOfURL:url3 error:nil];

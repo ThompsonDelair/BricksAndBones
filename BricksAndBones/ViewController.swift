@@ -248,7 +248,6 @@ class ViewController: GLKViewController {
                         }
                         
                     }
-                    //print(String(indexRow) + " " + String(indexCol))
                 }
             }
             columnCounts+=1;
@@ -441,6 +440,7 @@ class ViewController: GLKViewController {
         return "?"
     }
     
+    // Returns a string of the sound name depending on the int
     func soundNameFromInt( i: Int)->String{
         if(i == 0){
             return "hammer"
