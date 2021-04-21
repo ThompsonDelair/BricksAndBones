@@ -314,7 +314,10 @@ class ViewController: GLKViewController {
         // previewType and previewID identify the model instance for this building
         var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: posX, yPos: posY, modelType: Int(previewType), modelID: Int(previewID))
         if(buildingName == "Demolish"){
+            //check if buildings are active and on the grid
+            removeNearbyBuildings(posX: posX, posY: posY)
             //unrender buildings
+            //glesRenderer.deactivateModelInstance(<#T##type: Int32##Int32#>, id: <#T##Int32#>)
         }
         
         score += points;
@@ -323,6 +326,14 @@ class ViewController: GLKViewController {
         print("built " + String(currBuildType) + " at: " + String(posX) + ", " + String(posY))
         nextBuilding()
         initBuildingSelection()
+    }
+    
+    func removeNearbyBuildings(posX: Int, posY:Int){
+        //check left
+        if(testManager.checkPosition(xPos: posX-1, yPos: posY) && testManager.checkActive(xPos: posX-1, yPos: posY)){
+            glesRenderer.deactivateModelInstance(testManager.getModelType(posX: posX-1, posY: posY),
+                                                 id: testManager.getModelID(posX: posX-1, posY: posY))
+        }
     }
     
     func checkLevelState(){

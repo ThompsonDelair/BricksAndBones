@@ -174,6 +174,14 @@ class BuildingsManager{
         }
     }
     
+    func getModelID(posX:Int, posY:Int)->Int32{
+        return Int32(buildingArray[posY][posX].modelInstanceID);
+    }
+    
+    func getModelType(posX:Int, posY:Int)->Int32{
+        return Int32(buildingArray[posY][posX].modelBuildType);
+    }
+    
     func calcPointsFromPreview(otherBuildingXPos:Int, otherBuildingYPos:Int)->Int{
         return calculatePointsBetweenBuildings(thisBuilding:previewBuilding, otherBuilding: buildingArray[otherBuildingYPos][otherBuildingXPos])
     }
