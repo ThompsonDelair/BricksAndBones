@@ -440,7 +440,7 @@ class ViewController: GLKViewController {
         } else if (i == 4){
             return "space"
         } else if (i == 5){
-            return "bleep"
+            return "magic"
         }
         return "?"
     }
