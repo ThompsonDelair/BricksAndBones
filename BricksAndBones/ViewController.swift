@@ -328,11 +328,11 @@ class ViewController: GLKViewController {
         } else if(buildingType == 5){
             var rot: GLKVector3 = GLKVector3Make(0.0,0.0,0.0);
             
-            let id: Int = Int(glesRenderer.createModelInstance(Int32(Int(MILL_BLADE.rawValue)), pos: GLKVector3Add(pos, GLKVector3Make(Float(0.0),Float(0.9),Float(0.2))), rot: rot, scale: GLKVector3Make(Float(0.2),Float(0.2),Float(0.2))))
+            let id: Int = Int(glesRenderer.createModelInstance(Int32(Int(CRYSTAL.rawValue)), pos: GLKVector3Add(pos, GLKVector3Make(Float(0.0),Float(0.9),Float(0.2))), rot: rot, scale: GLKVector3Make(Float(0.2),Float(0.2),Float(0.2))))
             
-            rot = GLKVector3Make(0.0,0.0,1.0);
+            rot = GLKVector3Make(0.0,1.0,0.0);
             
-            let rotator: Rotator = Rotator(type: Int(Int32(Int(MILL_BLADE.rawValue))), id: id, rotate: rot, speed: Float(0.3))
+            let rotator: Rotator = Rotator(type: Int(Int32(Int(CRYSTAL.rawValue))), id: id, rotate: rot, speed: Float(0.3))
             
             gameObjects.append(rotator);
         }
