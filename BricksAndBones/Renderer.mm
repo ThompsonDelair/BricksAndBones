@@ -160,7 +160,7 @@ const int charCap = 100;
     
     modelNames2[ROOK] = @"path";
     modelNames2[PLANE] = @"path";
-    modelNames2[CUBE] = @"path";
+    modelNames2[MOD_CUBE] = @"path";
       
     
     textureNames2[TEST_CUBE_RED] = @"texRed.png";
@@ -172,7 +172,9 @@ const int charCap = 100;
     textureNames2[TEST_CUBE_GRAD] = @"gradient.png";
     textureNames2[ROOK] = @"texRed.png";
     textureNames2[PLANE] = @"texRed.png";
-    textureNames2[CUBE] = @"texRed.png";
+    textureNames2[MOD_CUBE] = @"justWhite.png";
+    textureNames2[MOD_SPHERE] = @"justWhite.png";
+    textureNames2[MOD_TEXT_5] = @"5.png";
     
     // Set up context
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
@@ -315,9 +317,14 @@ const int charCap = 100;
 //            m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
 //        }
         
+        if(i == MOD_TEXT_5){
+            m.numIndices = glesRenderer.GenPlane(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        } else if(i == MOD_SPHERE){
+            m.numIndices = glesRenderer.GenSphere(8, 0.5, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        } else {
+            m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }
         
-        m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
-
         // Set up VBOs...
         
         // Position

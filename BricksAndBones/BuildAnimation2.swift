@@ -27,7 +27,7 @@ class BuildAnimation2: MoveAnimation{
             
             let color = GLKVector4Make(1.0,1.0,1.0,1.0)
             
-            let ps: ParticleSystem = ParticleSystem(rootPos: endPos, modelType: Int(CUBE.rawValue), color: color, count: 10)
+            let ps: ParticleSystem = ParticleSystem(rootPos: endPos, modelType: Int(MOD_SPHERE.rawValue), color: color, count: 10)
             ps.velocityStartMin = GLKVector3Make(-1.0, 0.1, -1.0)
             ps.velocityStartMax = GLKVector3Make(1.0, 0.3, 1.0)
             ps.sizeStart = GLKVector3Make(0.1, 0.1, 0.1)

@@ -54,9 +54,7 @@ class ViewController: GLKViewController {
     var gameObjects: [GameObject] = []
         
     private var customView: UIView!
-
-
-    
+   
     //var buildingArray
 
     override func viewDidLoad() {

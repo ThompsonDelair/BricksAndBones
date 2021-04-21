@@ -60,7 +60,7 @@ class ParticleSystem: GameObject{
             
             let instanceID = glesRenderer.createModelInstance(Int32(modelType), pos: pos, rot: vectorOne, scale: GLKVector3Make(0.3, 0.3, 0.3))
             
-            let p: Particle = Particle(pos: pos, moveSpeed: 1.25, moveDir: dir, type: Int32(Int(CUBE.rawValue)), instanceID: Int32(instanceID), startTime: glesRenderer.currTime);
+            let p: Particle = Particle(pos: pos, moveSpeed: 1.25, moveDir: dir, type: Int32(Int(MOD_SPHERE.rawValue)), instanceID: Int32(instanceID), startTime: glesRenderer.currTime);
             
             p.startColor = color
             p.endColor = colorEnd

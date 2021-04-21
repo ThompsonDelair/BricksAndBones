@@ -504,3 +504,80 @@ int GLESRenderer::GenSphere(int numSlices, float radius, GLfloat **vertices,
         *numVerts = numVertices;
     return numIndices;
 }
+
+// Generate vertices, normals, texture coordinates and indices for cube
+//      Adapted from Dan Ginsburg, Budirijanto Purnomo from the book
+//      OpenGL(R) ES 2.0 Programming Guide
+int GLESRenderer::GenPlane(float scale, GLfloat **vertices, GLfloat **normals,
+                          GLfloat **texCoords, GLuint **indices, GLuint *numVerts)
+{
+    int i;
+    int numVertices = 4;
+    int numIndices = 6;
+    
+    GLfloat cubeVerts[] =
+    {
+        -0.5f, -0.5f, 0.0f,
+        -0.5f,  0.5f, 0.0f,
+        0.5f,  0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+    };
+    
+    GLfloat cubeNormals[] =
+    {
+        0.0f, 0.0f, 1.0f,
+        0.0f, 0.0f, 1.0f,
+        0.0f, 0.0f, 1.0f,
+        0.0f, 0.0f, 1.0f,
+    };
+    
+    GLfloat cubeTex[] =
+    {
+        0.0f, 0.0f,
+        0.0f, 1.0f,
+        1.0f, 1.0f,
+        1.0f, 0.0f,
+    };
+    
+    // Allocate memory for buffers
+    if ( vertices != NULL )
+    {
+        *vertices = (GLfloat *)malloc ( sizeof ( GLfloat ) * 3 * numVertices );
+        memcpy ( *vertices, cubeVerts, sizeof ( cubeVerts ) );
+        
+        for ( i = 0; i < numVertices * 3; i++ )
+        {
+            ( *vertices ) [i] *= scale;
+        }
+    }
+    
+    if ( normals != NULL )
+    {
+        *normals = (GLfloat *)malloc ( sizeof ( GLfloat ) * 3 * numVertices );
+        memcpy ( *normals, cubeNormals, sizeof ( cubeNormals ) );
+    }
+    
+    if ( texCoords != NULL )
+    {
+        *texCoords = (GLfloat *)malloc ( sizeof ( GLfloat ) * 2 * numVertices );
+        memcpy ( *texCoords, cubeTex, sizeof ( cubeTex ) ) ;
+    }
+    
+    
+    // Generate the indices
+    if ( indices != NULL )
+    {
+        GLuint cubeIndices[] =
+        {
+            0, 1, 2,
+            0, 2, 3,
+        };
+        
+        *indices = (GLuint *)malloc ( sizeof ( GLuint ) * numIndices );
+        memcpy ( *indices, cubeIndices, sizeof ( cubeIndices ) );
+    }
+    
+    if (numVerts != NULL)
+        *numVerts = numVertices;
+    return numIndices;
+}
