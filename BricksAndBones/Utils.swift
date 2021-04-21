@@ -16,6 +16,13 @@ class Utils{
         return result;
     }
     
+    public static func Vector4Lerp(a: GLKVector4, b: GLKVector4, t: Float)->GLKVector4{
+        let diff: GLKVector4 = GLKVector4Subtract(b, a)
+        let change: GLKVector4 = GLKVector4MultiplyScalar(diff, t)
+        let result = GLKVector4Add(a, change)
+        return result;
+    }
+    
     public static func EaseInQuart(t: Float)->Float{
         return t * t * t * t;
     }
@@ -25,5 +32,12 @@ class Utils{
             return 0;
         }
         return powf(2, 10 * t - 10);
+    }
+    
+    public static func EaseOutExpo(t: Float)->Float{
+        if(t == 1){
+            return 1;
+        }
+        return 1 - powf(2, -10 * t);        
     }
 }

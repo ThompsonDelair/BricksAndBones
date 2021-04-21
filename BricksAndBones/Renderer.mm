@@ -48,11 +48,10 @@ enum
 };
 
 
-int startingInstanceMemory = 16;
+const int startingInstanceMemory = 16;
 const int charCap = 100;
 
-NSString *textureNames2[NUM_MODEL_TYPES];
-NSString *modelNames2[NUM_MODEL_TYPES];
+
 
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
@@ -72,6 +71,9 @@ NSString *modelNames2[NUM_MODEL_TYPES];
 //    GLuint _vertexArray;
 //    GLuint _vertexBuffers[3];
 //    GLuint _indexBuffer;
+    
+    NSString *textureNames2[NUM_MODEL_TYPES];
+    NSString *modelNames2[NUM_MODEL_TYPES];
     
     // Model data
     struct ModelData modelTypes[NUM_MODEL_TYPES];
@@ -155,6 +157,11 @@ NSString *modelNames2[NUM_MODEL_TYPES];
     }
 
     modelNames2[TEST_CUBE_RED] = @"nothingRightNow.wut";
+    
+    modelNames2[ROOK] = @"path";
+    modelNames2[PLANE] = @"path";
+    modelNames2[CUBE] = @"path";
+      
     
     textureNames2[TEST_CUBE_RED] = @"texRed.png";
     textureNames2[TEST_CUBE_BLUE] = @"texBlue.png";
@@ -291,23 +298,25 @@ NSString *modelNames2[NUM_MODEL_TYPES];
 
         // Generate vertex attribute values from model
         //int numVerts;
-        if(i == ROOK){
-            ObjLoader rook;
-            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/wizard tower.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
-            //NSLog(@"VertCount: %d\n IndicesCount: %d", m.numVerts, m.numIndices);
-            /*
-            NSLog(@"\nPost load:");
-            for(int i=0; i<m.numVerts; i+=3){
-                NSLog(@"\n%d: (%f %f %f)", i, m.vertices[i], m.vertices[i+1], m.vertices[i+2]);
-            }
-            NSLog(@"\n\nIndices\n\n");
-            for(int i=0; i<m.numIndices; i+=3){
-                NSLog(@"\n(%d %d %d)", m.indices[i], m.indices[i+1], m.indices[i+2]);
-            }*/
-        }else{
-            m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
-        }
+//        if(i == ROOK){
+//            ObjLoader rook;
+//            m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/wizard tower.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+//            //NSLog(@"VertCount: %d\n IndicesCount: %d", m.numVerts, m.numIndices);
+//            /*
+//            NSLog(@"\nPost load:");
+//            for(int i=0; i<m.numVerts; i+=3){
+//                NSLog(@"\n%d: (%f %f %f)", i, m.vertices[i], m.vertices[i+1], m.vertices[i+2]);
+//            }
+//            NSLog(@"\n\nIndices\n\n");
+//            for(int i=0; i<m.numIndices; i+=3){
+//                NSLog(@"\n(%d %d %d)", m.indices[i], m.indices[i+1], m.indices[i+2]);
+//            }*/
+//        }else{
+//            m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+//        }
         
+        
+        m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
 
         // Set up VBOs...
         
@@ -451,6 +460,10 @@ NSString *modelNames2[NUM_MODEL_TYPES];
     // select shader
     glUseProgram(_program);
     
+    // transparency for shader
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     // non-instanced shader stuff
     
     glUniform4fv(uniforms[UNIFORM_COLOR_MOD],1,baseColorMod.v);
@@ -495,6 +508,7 @@ NSString *modelNames2[NUM_MODEL_TYPES];
             glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEWPROJECTION_MATRIX], 1, 0, _modelViewProjectionMatrix.m);
             glUniformMatrix4fv(uniforms[UNIFORM_MODELVIEW_MATRIX], 1, 0, _modelViewMatrix.m);
             glUniformMatrix3fv(uniforms[UNIFORM_NORMAL_MATRIX], 1, 0, _normalMatrix.m);
+            glUniform4fv(uniforms[UNIFORM_COLOR_MOD],1,modelInstances[i][j].color.v);
             
             glDrawElements(GL_TRIANGLES, modelTypes[i].numIndices, GL_UNSIGNED_INT, 0);
         }
@@ -583,8 +597,8 @@ NSString *modelNames2[NUM_MODEL_TYPES];
     for(int i = oldMemSize; i < newSize;i++){
         modelInstances[type][i].active = false;
     }
-    ModelInstance *oldArr = modelInstances[type];
-    free(oldArr);
+    //ModelInstance *oldArr = modelInstances[type];
+    //free(oldArr);
     modelInstances[type] = newArr;
 
     int index = inactiveIndex[type];
@@ -632,6 +646,10 @@ NSString *modelNames2[NUM_MODEL_TYPES];
 
 - (void) setInstanceRotation:(int)type instance:(int)instance rotation:(GLKVector3)rotation{
     modelInstances[type][instance].rotation = rotation;
+}
+
+- (void) setInstanceColor:(int)type instance:(int)instance color:(GLKVector4)color{
+    modelInstances[type][instance].color = color;
 }
 
 - (void) updateViewMatrix{

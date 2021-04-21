@@ -66,6 +66,7 @@ typedef struct CharInstance{
 - (void) setInstancePos:(int)type instance:(int)instance pos:(GLKVector3)pos;
 - (void) setInstanceScale:(int)type instance:(int)instance scale:(GLKVector3)scale;
 - (void) setInstanceRotation:(int)type instance:(int)instance rotation:(GLKVector3)rotation;
+- (void) setInstanceColor:(int)type instance:(int)instance color:(GLKVector4)color;
 - (void) moveCamera:(GLKVector3)move;
 - (void) playSoundFile:(NSString*)fileName;
 - (void) playBackgroundMusic;

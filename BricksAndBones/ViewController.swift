@@ -144,23 +144,21 @@ class ViewController: GLKViewController {
                 if(!(row == 0 && column == 0)){//dont check current buildings
                 let indexRow = xPos-row
                 let indexCol = yPos+column
-                if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
-                    if(testManager.getActive(thisBuildingXPos: indexRow, thisBuildingYPos: indexCol)){
-                        var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
-                        //add display code here
-                        
-                        let lx: Float = Float(indexRow) + 0.5
-                        let lz: Float = Float(indexCol) + 0.5
-                        
-                        let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
-                        
-                        displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplay), color: UIColor.cyan)
+                    if(testManager.checkPosition(xPos:indexCol, yPos: indexRow)){
+                        if(testManager.getActive(thisBuildingXPos: indexRow, thisBuildingYPos: indexCol)){
+                            var pointsToDisplay = testManager.calcPointsFromPreview(otherBuildingXPos:indexRow, otherBuildingYPos:indexCol)
+                            //add display code here
+                            
+                            let lx: Float = Float(indexRow) + 0.5
+                            let lz: Float = Float(indexCol) + 0.5
+                            
+                            let screenPos: GLKVector2 = WorldPosToScreenPos(worldPos: GLKVector3Make(Float(lx),0,Float(lz)))
+                            
+                            displayLabel(locX: CGFloat(screenPos.x), locY: CGFloat(screenPos.y * -1), text: "+" + String(pointsToDisplay), color: UIColor.cyan)
 
+                        }
                     }
                 }
-                
-                }
-            
             }
             columnCounts+=1;
         }
@@ -225,15 +223,15 @@ class ViewController: GLKViewController {
                     buildingName = "Copy"
                 }
                                 
-                var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
-                score += points;
+                //var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: gridPosX, yPos: gridPosY)
+                //score += points;
                 
                 scoreLabel.text = "Score:" + String(score)
 
                 let buildPos = GLKVector3Make(x, 0, z)
                 let animPos = GLKVector3Add(buildPos, GLKVector3Make(0, 1, 0))
                 
-                let anim: MoveAnimation = MoveAnimation(modelType: previewType, instanceID: previewID, startPos: animPos, endPos: buildPos, startTime: glesRenderer.currTime)
+                let anim: BuildAnimation2 = BuildAnimation2(modelType: previewType, instanceID: previewID, startPos: animPos, endPos: buildPos, startTime: glesRenderer.currTime)
                 gameObjects.append(anim)
                 
                 build(buildingName: buildingName, posX: gridPosX, posY: gridPosY);
@@ -257,6 +255,8 @@ class ViewController: GLKViewController {
         var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: posX, yPos: posY)
         score += points;
         scoreLabel.text = "Score:" + String(score)
+        
+               
         
         print("built " + String(currBuildType) + " at: " + String(posX) + ", " + String(posY))
         nextBuilding()

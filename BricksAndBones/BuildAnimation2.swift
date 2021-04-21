@@ -24,6 +24,18 @@ class BuildAnimation2: MoveAnimation{
         glesRenderer.setInstancePos(modelType, instance: instanceID, pos: pos)
         
         if(t >= 1.0){
+            
+            let color = GLKVector4Make(1.0,1.0,1.0,1.0)
+            
+            let ps: ParticleSystem = ParticleSystem(rootPos: endPos, modelType: Int(CUBE.rawValue), color: color, count: 10)
+            ps.velocityStartMin = GLKVector3Make(-1.0, 0.1, -1.0)
+            ps.velocityStartMax = GLKVector3Make(1.0, 0.3, 1.0)
+            ps.sizeStart = GLKVector3Make(0.1, 0.1, 0.1)
+            ps.sizeEnd = GLKVector3Make(0.4, 0.4, 0.4)
+            ps.color = GLKVector4Make(1.0, 1.0, 1.0, 1.0)
+            ps.colorEnd = GLKVector4Make(1.0,1.0,1.0,0.0)
+            viewController.gameObjects.append(ps)
+            
             return 0
         } else {
             return 1;
