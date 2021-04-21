@@ -127,8 +127,8 @@ class ViewController: GLKViewController {
         let id: Int = Int(glesRenderer.createModelInstance(Int32(TEST_CUBE_GRAD.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10)))
         glesRenderer.setInstanceColor(Int32(TEST_CUBE_GRAD.rawValue), instance: Int32(id), color: GLKVector4Make(0.5, 1.0, 0.5,1.0))
         
-        let landID: Int = Int(glesRenderer.createModelInstance(Int32(MOD_LAND.rawValue),pos:GLKVector3Make(5, -1, 5),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(10, 1, 10)))
-        glesRenderer.setInstanceColor(Int32(MOD_LAND.rawValue), instance: Int32(landID), color: GLKVector4Make(0.5, 1.0, 0.5,1.0))
+        let landID: Int = Int(glesRenderer.createModelInstance(Int32(MOD_LAND.rawValue),pos:GLKVector3Make(0, -0.5, 0),rot:GLKVector3Make(0, 0, 0),scale:GLKVector3Make(5, 5, 5)))
+        glesRenderer.setInstanceColor(Int32(MOD_LAND.rawValue), instance: Int32(landID), color: GLKVector4Make(0.3, 0.6, 0.3,1.0))
         
         
 
