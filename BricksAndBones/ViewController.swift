@@ -35,7 +35,7 @@ class ViewController: GLKViewController {
     var previewID: Int32 = 0;
     
     private var currBuildType: Int32 = 0
-    private let buildTypes: Int32 = 7
+    private let buildTypes: Int32 = 6
     
     var panStartScreen: CGPoint = CGPoint();
     var panX: CGFloat = 0.0
@@ -283,7 +283,8 @@ class ViewController: GLKViewController {
             x = x * -1 + 0.5
             z = z * -1 + 0.5
             
-            if(!testManager.checkActive(xPos: gridPosX, yPos: gridPosY)){
+            if(!testManager.checkActive(xPos: gridPosX, yPos: gridPosY)
+            || currBuildType == 4){
 
 
                 var buildingName: String = buildingNameFromInt(i: Int(currBuildType))
@@ -309,16 +310,11 @@ class ViewController: GLKViewController {
 
         glesRenderer.playSoundFile("boop");
         
-        previewPoints(buildingName: buildingName, xPos: posX, yPos: posY)
+        //previewPoints(buildingName: buildingName, xPos: posX, yPos: posY)
                 
         // previewType and previewID identify the model instance for this building
         var points: Int = testManager.addBuilding(buildingName: buildingName, xPos: posX, yPos: posY, modelType: Int(previewType), modelID: Int(previewID))
-        if(buildingName == "Demolish"){
-            //check if buildings are active and on the grid
-            removeNearbyBuildings(posX: posX, posY: posY)
-            //unrender buildings
-            //glesRenderer.deactivateModelInstance(<#T##type: Int32##Int32#>, id: <#T##Int32#>)
-        }
+        
         print("points gained: " + String(points))
         score += points;
         scoreLabel.text = "Score:" + String(score)
@@ -367,8 +363,6 @@ class ViewController: GLKViewController {
         } else if (i == 4){
             return "Copy"
         } else if (i == 5){
-            return "Demolish"
-        } else if (i == 6){
             return "Debuff"
         }
         return "?"
@@ -461,8 +455,6 @@ class ViewController: GLKViewController {
         } else if (currBuildType == 4){
             typeLabel.text = "Copy";
         } else if (currBuildType == 5){
-            typeLabel.text = "Demolish"
-        } else if (currBuildType == 6){
             typeLabel.text = "Debuff"
         }
     }

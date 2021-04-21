@@ -70,12 +70,12 @@ class BuildingsManager{
                     return 0;
                 }
                 //return calcAllBuildingsWithinRadius(centerBuilding: buildingArray[yPos][xPos])
-            case "Demolish":
-                print("implement removal of rendered object first")
-                buildingArray[yPos][xPos] = DemolishBuilding(posX: xPos, posY: yPos, modelBuildType: modelType, modelInstanceID: modelID)
-                demolishBuildings(xPos:xPos, yPos:yPos)
+//            case "Demolish":
+//                print("implement removal of rendered object first")
+//                buildingArray[yPos][xPos] = DemolishBuilding(posX: xPos, posY: yPos, modelBuildType: modelType, modelInstanceID: modelID)
+//                demolishBuildings(xPos:xPos, yPos:yPos)
             default:
-                print("Building doesn't exist")
+                print(String(buildingName) + " Building doesn't exist")
                 return 0
             }
         }
