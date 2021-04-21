@@ -163,9 +163,15 @@ NSString *modelNames2[NUM_MODEL_TYPES];
     textureNames2[TEST_CUBE_PINK] = @"tex_5.png";
     textureNames2[TEST_CUBE_YELL] = @"tex_6.png";
     textureNames2[TEST_CUBE_GRAD] = @"gradient.png";
-    textureNames2[ROOK] = @"texRed.png";
-    textureNames2[PLANE] = @"texRed.png";
-    textureNames2[CUBE] = @"texRed.png";
+    textureNames2[ROOK] = @"stonewall.png";
+    textureNames2[MILL] = @"basic_color_pallate_flipped.png";
+    textureNames2[COPY_CUBE] = @"basic_color_pallate_flipped.png";
+    textureNames2[POWDER_KEG] = @"basic_color_pallate_flipped.png";
+    textureNames2[WIZARD_TOWER] = @"basic_color_pallate_flipped.png";
+    textureNames2[CHURCH] = @"basic_color_pallate_flipped.png";
+    textureNames2[BLACKSMITH] = @"basic_color_pallate_flipped.png";
+    textureNames2[HOUSE] = @"basic_color_pallate_flipped.png";
+    textureNames2[HUT] = @"basic_color_pallate_flipped.png";
     
     // Set up context
     view.drawableDepthFormat = GLKViewDrawableDepthFormat24;
@@ -294,16 +300,30 @@ NSString *modelNames2[NUM_MODEL_TYPES];
         if(i == ROOK){
             ObjLoader rook;
             m.numIndices = rook.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/wizard tower.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
-            //NSLog(@"VertCount: %d\n IndicesCount: %d", m.numVerts, m.numIndices);
-            /*
-            NSLog(@"\nPost load:");
-            for(int i=0; i<m.numVerts; i+=3){
-                NSLog(@"\n%d: (%f %f %f)", i, m.vertices[i], m.vertices[i+1], m.vertices[i+2]);
-            }
-            NSLog(@"\n\nIndices\n\n");
-            for(int i=0; i<m.numIndices; i+=3){
-                NSLog(@"\n(%d %d %d)", m.indices[i], m.indices[i+1], m.indices[i+2]);
-            }*/
+        }else if(i == MILL){
+            ObjLoader thisOBJ;
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/mill.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == COPY_CUBE){
+            ObjLoader thisOBJ;
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/err_cube.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == POWDER_KEG){
+            ObjLoader thisOBJ;
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/powderkeg.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == WIZARD_TOWER){
+            ObjLoader thisOBJ;
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/wizard tower.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == CHURCH){
+            ObjLoader thisOBJ;
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/church.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == BLACKSMITH){
+            ObjLoader thisOBJ;
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/blacksmith.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == HOUSE){
+            ObjLoader thisOBJ;
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/house.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
+        }else if(i == HUT){
+            ObjLoader thisOBJ;
+            m.numIndices = thisOBJ.loadOBJ("/Users/socas/Documents/GitHub/BricksAndBones/BricksAndBones/Models/hut.obj", 1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }else{
             m.numIndices = glesRenderer.GenCube(1.0f, &m.vertices, &m.normals, &m.texCoords, &m.indices, &m.numVerts);
         }
