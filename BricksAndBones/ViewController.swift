@@ -344,6 +344,7 @@ class ViewController: GLKViewController {
 
 
                 var buildingName: String = buildingNameFromInt(i: Int(currBuildType))
+                var soundName: String = soundNameFromInt(i: Int(currBuildType))
                                 
                 let buildPos = GLKVector3Make(x, 0, z)
                 let animPos = GLKVector3Add(buildPos, GLKVector3Make(0, 1, 0))
@@ -351,7 +352,7 @@ class ViewController: GLKViewController {
                 let anim: BuildAnimation2 = BuildAnimation2(modelType: previewType, instanceID: previewID, startPos: animPos, endPos: buildPos, startTime: glesRenderer.currTime)
                 gameObjects.append(anim)
               
-                build(buildingName: buildingName, posX: gridPosX, posY: gridPosY);
+                build(buildingName: buildingName, posX: gridPosX, posY: gridPosY, soundName: soundName);
 
                 checkLevelState();
                 
@@ -362,9 +363,9 @@ class ViewController: GLKViewController {
     }
     
 
-    func build(buildingName: String, posX: Int, posY: Int){
+    func build(buildingName: String, posX: Int, posY: Int, soundName: String){
 
-        glesRenderer.playSoundFile("boop");
+        glesRenderer.playSoundFile(soundName);
 
         spawnBuildingParticles(pos: GLKVector3Make(Float(posX) + 0.5, 0.0, Float(posY) + 0.5), buildingType: Int(currBuildType));
  
@@ -423,6 +424,23 @@ class ViewController: GLKViewController {
             return "Copy"
         } else if (i == 5){
             return "Debuff"
+        }
+        return "?"
+    }
+    
+    func soundNameFromInt( i: Int)->String{
+        if(i == 0){
+            return "hammer"
+        } else if (i == 1){
+            return "boop"
+        } else if (i == 2){
+            return "church"
+        } else if (i == 3){
+            return "whoosh2"
+        } else if (i == 4){
+            return "space"
+        } else if (i == 5){
+            return "bleep"
         }
         return "?"
     }
