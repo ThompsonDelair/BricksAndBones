@@ -93,7 +93,7 @@ void main()
 
     vec4 texColor = texture(texSampler, texCoordOut);
     vec4 baseColor = texColor * colorMod;
-    baseColor.a = colorMod.a;
+    //baseColor.a = colorMod.a;
     
     // ### Modify this next line to modulate texture with calculated phong shader values
     fragColor = (ambient + diffuse + specular) * baseColor;
@@ -101,5 +101,6 @@ void main()
     // lerp between color with no fog, and total fog color using f
     fragColor = mix(fragColor,fogColor,f);
         
-    fragColor.a = 1.0;
+    fragColor.a = baseColor.a;
+    //fragColor.a = 0.1;
 }
