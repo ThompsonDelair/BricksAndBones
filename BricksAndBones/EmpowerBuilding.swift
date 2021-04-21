@@ -17,7 +17,7 @@ class EmpowerBuilding : Building {
         selfValue = 0
         type = "Normal"
         classification = "Influencer"
-        relationValue = 2
+        relationValue = 4
         radius = 2
         influencedValue = 0
         active = true;

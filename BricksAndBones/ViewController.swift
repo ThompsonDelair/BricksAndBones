@@ -45,8 +45,8 @@ class ViewController: GLKViewController {
     let cameraSpeed: CGFloat = 0.04;
     
     var buildingsLeft:Int = 0;
-    let scoreThreshold:[Int] = [100, 250, 500, 1000, 2500];
-    let buildingsEachLevel:[Int]=[5, 5, 6, 10, 10];
+    let scoreThreshold:[Int] = [20, 100, 200, 500, 1000];
+    let buildingsEachLevel:[Int]=[5, 10, 10, 15, 15];
     var currentLevel:Int = 0;
 
     //var lastTime: Double = 0.0;
@@ -396,7 +396,7 @@ class ViewController: GLKViewController {
         if(score > scoreThreshold[currentLevel]){
             
             currentLevel+=1;
-            buildingsLeft = buildingsEachLevel[currentLevel];
+            buildingsLeft += buildingsEachLevel[currentLevel];
             buildingsLeftLabel.text = "Left: " + String(buildingsLeft)
             
             scoreThresholdLabel.text = "Next: " + String(scoreThreshold[currentLevel])
