@@ -40,4 +40,11 @@ class Utils{
         }
         return 1 - powf(2, -10 * t);        
     }
+    
+    public static func inOutQuart(t: Float)->Float{
+        if(t < 0.5){
+            return 8 * t * t * t * t
+        }
+        return 1 - powf(-2 * t + 2, 4) / 2
+    }
 }

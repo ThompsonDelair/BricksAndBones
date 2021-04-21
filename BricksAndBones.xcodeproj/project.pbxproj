@@ -51,6 +51,9 @@
 		FA98D4E2263041F100487DBE /* 8.png in Resources */ = {isa = PBXBuildFile; fileRef = FA98D4DB263041F100487DBE /* 8.png */; };
 		FA98D4E3263041F100487DBE /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = FA98D4DC263041F100487DBE /* 4.png */; };
 		FA98D4E82630646200487DBE /* InstanceClass.m in Sources */ = {isa = PBXBuildFile; fileRef = FA98D4E72630646200487DBE /* InstanceClass.m */; };
+		FA9C289826307A7300B14838 /* StarburstSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9C289726307A7300B14838 /* StarburstSystem.swift */; };
+		FA9C289C26307B4300B14838 /* StarburstParticle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9C289B26307B4300B14838 /* StarburstParticle.swift */; };
+		FA9C28A026308DF200B14838 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9C289F26308DF200B14838 /* File.swift */; };
 		FA9E6440261D9CA20066C985 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9E643F261D9CA20066C985 /* AudioToolbox.framework */; };
 		FA9E6442261D9CAF0066C985 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA9E6441261D9CAF0066C985 /* AVFoundation.framework */; };
 		FAA0E4D6261D8A430087A2DE /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = FAA0E4D5261D8A430087A2DE /* Sounds */; };
@@ -139,6 +142,9 @@
 		FA98D4DC263041F100487DBE /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
 		FA98D4E72630646200487DBE /* InstanceClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InstanceClass.m; sourceTree = "<group>"; };
 		FA98D4EA2630657100487DBE /* InstanceClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InstanceClass.h; sourceTree = "<group>"; };
+		FA9C289726307A7300B14838 /* StarburstSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarburstSystem.swift; sourceTree = "<group>"; };
+		FA9C289B26307B4300B14838 /* StarburstParticle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarburstParticle.swift; sourceTree = "<group>"; };
+		FA9C289F26308DF200B14838 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		FA9E643F261D9CA20066C985 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FA9E6441261D9CAF0066C985 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		FAA0E4D5261D8A430087A2DE /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
@@ -252,6 +258,9 @@
 				FA98D4C826301FE700487DBE /* TextController.swift */,
 				FA98D4E72630646200487DBE /* InstanceClass.m */,
 				FA98D4EA2630657100487DBE /* InstanceClass.h */,
+				FA9C289726307A7300B14838 /* StarburstSystem.swift */,
+				FA9C289B26307B4300B14838 /* StarburstParticle.swift */,
+				FA9C289F26308DF200B14838 /* File.swift */,
 			);
 			path = BricksAndBones;
 			sourceTree = "<group>";
@@ -447,8 +456,10 @@
 				B91F3A13261C04150039FCBE /* DemolishBuilding.swift in Sources */,
 				FA44F3EB26240963009835FF /* Utils.swift in Sources */,
 				FA98D4C926301FE700487DBE /* TextController.swift in Sources */,
+				FA9C289826307A7300B14838 /* StarburstSystem.swift in Sources */,
 				B91F3A0A261BFFD10039FCBE /* EmpowerBuilding.swift in Sources */,
 				B91F3A0D261C01E60039FCBE /* DebuffBuilding.swift in Sources */,
+				FA9C289C26307B4300B14838 /* StarburstParticle.swift in Sources */,
 				7399694A25E208AA00AE3215 /* Vertex.swift in Sources */,
 				B91F3A10261C03C70039FCBE /* CopyBuilding.swift in Sources */,
 				7399693525E1FF0800AE3215 /* AppDelegate.swift in Sources */,
@@ -459,6 +470,7 @@
 				FA98D4E82630646200487DBE /* InstanceClass.m in Sources */,
 				B9E81C4625EF2E8C00176E20 /* Grid.swift in Sources */,
 				B946C0A1261D499C002A33BB /* BuildingsManager.swift in Sources */,
+				FA9C28A026308DF200B14838 /* File.swift in Sources */,
 				FABC69F72614EC370021BB95 /* SRenderer.swift in Sources */,
 				FA2DEC3B26159CBD003138BA /* Renderer.mm in Sources */,
 				7399693725E1FF0800AE3215 /* SceneDelegate.swift in Sources */,

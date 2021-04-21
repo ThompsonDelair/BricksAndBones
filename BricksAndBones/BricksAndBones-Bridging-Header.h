@@ -18,6 +18,7 @@ typedef enum : NSUInteger {
     CUBE,
     GRASS,
     MILL_BLADE,
+    CRYSTAL,
     TEST_CUBE_RED,
     TEST_CUBE_BLUE,
     TEST_CUBE_GREEN,
